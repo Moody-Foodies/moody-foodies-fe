@@ -53,5 +53,5 @@ jobs:
           command: |
             curl -X POST -d '{}' -H 'Content-Type: application/json' -H 'Authorization: Bearer $NETLIFY_AUTH_TOKEN' https://api.netlify.com/build_hooks/$NETLIFY_BUILD_HOOK_ID
           environment:
-            NETLIFY_AUTH_TOKEN: NETLIFY_AUTH_TOKEN
-            NETLIFY_BUILD_HOOK_ID: YOUR_NETLIFY_BUILD_HOOK_ID
+            NETLIFY_AUTH_TOKEN: nfp_p91FnL1XgEQ3g5MecqCbuEwz5sGr7vnhd033
+            NETLIFY_BUILD_HOOK_ID: 663e984ea80f925c3879b538

@@ -5,9 +5,10 @@ import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import './Recipes.css';
+import ReactCardFlip from 'react-card-flip';
 
 function Recipes() {
-  const [flip, setFlip] = useState(false)
+  const [isFlipped, setIsFlipped] = useState(false)
   let test = [{name: 1, 
     details: "YAY EDUCATION"},{ 
     name: 2, 
@@ -31,17 +32,27 @@ function Recipes() {
     // )
   }
 
-  console.log(flip)
+  console.log(isFlipped)
   return (
     <main className='recipe-container'>
           <h2>Food for your Mood</h2>
-      <Slider {...settings}>
+    <Slider {...settings}>
     {test.map(t => {
       return (
-        <section className='recipe-carousel'>
-        {!flip ? <h2>{t.name}</h2> : <h2>{t.details}</h2>}
-        <button onClick={() => setFlip(!flip)}>Educational Details</button>
+        <ReactCardFlip
+        isFlipped={isFlipped}
+        flipDirection="vertical"
+        >
+        <section className="front">
+        <h2>{t.name}</h2>
+        <button onClick={() => setIsFlipped(!isFlipped)}>Educational Details</button>
       </section>
+      <section className="back">
+        <h2>{t.details}</h2>
+        <button onClick={() => setIsFlipped(!isFlipped)}>Educational Details</button>
+      </section>
+      
+      </ReactCardFlip>
       )
     })}
       

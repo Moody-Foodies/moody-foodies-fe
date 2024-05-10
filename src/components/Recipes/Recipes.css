@@ -1,16 +1,20 @@
 .next-arrow,
 .prev-arrow {
-  color: #000000;
+  /* color: #000000; */
   font-size: 20px;
+    color: transparent;
 }
 
 .front {
-    background-color: red; 
+    background-color: #D8CD94; 
     height: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .back {
-    background-color: blue; 
+    background-color: #D8CD94; 
     height: 500px;
 }
 
@@ -23,15 +27,19 @@
 .slick-slider {
     width: 70%;
     height: 500px;
-    /* background-color: red; */
     text-align: center; 
 }
 
-.slick-arrow.slick-prev, 
+/* .slick-arrow.slick-prev, 
 .slick-arrow.slick-next {
     background-color: blue;
-}
+} */
 
 h2 {
     margin-bottom: 2%; 
+}
+
+img {
+    height: 400px;
+    width: 400px;
 }

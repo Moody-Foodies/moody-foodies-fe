@@ -6,10 +6,13 @@ import './Recipes.css';
 import ReactCardFlip from 'react-card-flip';
 
 export default function Recipes() {
-  const [isFlipped, setIsFlipped] = useState(false)
+  const [isFlipped, setIsFlipped] = useState<boolean>(false)
+
   let test = [{name: 1, 
+    image: "https://handletheheat.com/wp-content/uploads/2015/03/Best-Birthday-Cake-with-milk-chocolate-buttercream-SQUARE.jpg",
     details: "YAY EDUCATION"},{ 
     name: 2, 
+    image: "https://food.fnr.sndimg.com/content/dam/images/food/fullset/2009/4/5/1/IG1C17_30946_s4x3.jpg.rend.hgtvcom.1280.1280.suffix/1433541424559.jpeg",
     details: "YAY THIS IS WORKING"}]
 
   let settings = {
@@ -23,14 +26,13 @@ export default function Recipes() {
         <div onClick={() => setIsFlipped(false)} className="next-arrow">{'>'}</div>
       </div>
     ),
-//     prevArrow: (
-//       // <div>
-//         <div className="prev-arrow">{'<'}</div>
-// /
-//     )
+    prevArrow: (
+      <div>
+        <div className="prev-arrow">{'<'}</div>
+      </div>
+    )
   }
 
-console.log(isFlipped)
   return (
     <main className='recipe-container'>
           <h2>Food for your Mood</h2>
@@ -39,11 +41,12 @@ console.log(isFlipped)
       return (
         <ReactCardFlip
         isFlipped={isFlipped}
-        flipDirection="vertical"
+        flipDirection="horizontal"
         >
         
         <section className="front">
         <h3>{t.name}</h3>
+        <img src={t.image}/>
         <button onClick={() => setIsFlipped(!isFlipped)}>Educational Details</button>
       </section> 
       <section className="back">

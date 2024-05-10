@@ -1,13 +1,11 @@
-import { useState } from 'react'
-// import Carousel from '../Carousel/Carousel'
-
+import { useState } from 'react';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import './Recipes.css';
 import ReactCardFlip from 'react-card-flip';
 
-function Recipes() {
+export default function Recipes() {
   const [isFlipped, setIsFlipped] = useState(false)
   let test = [{name: 1, 
     details: "YAY EDUCATION"},{ 
@@ -20,19 +18,19 @@ function Recipes() {
     speed: 500, 
     slidesToShow: 1, 
     slidesToScroll: 1,
-    // nextArrow: (
-    //   <div>
-    //     <div className="next-arrow">{'>'}</div>
-    //   </div>
-    // ),
-    // prevArrow: (
-    //   <div>
-    //     <div className="prev-arrow">{'<'}</div>
-    //   </div>
-    // )
+    nextArrow: (
+      <div>
+        <div onClick={() => setIsFlipped(false)} className="next-arrow">{'>'}</div>
+      </div>
+    ),
+//     prevArrow: (
+//       // <div>
+//         <div className="prev-arrow">{'<'}</div>
+// /
+//     )
   }
 
-  console.log(isFlipped)
+console.log(isFlipped)
   return (
     <main className='recipe-container'>
           <h2>Food for your Mood</h2>
@@ -43,13 +41,14 @@ function Recipes() {
         isFlipped={isFlipped}
         flipDirection="vertical"
         >
+        
         <section className="front">
-        <h2>{t.name}</h2>
+        <h3>{t.name}</h3>
         <button onClick={() => setIsFlipped(!isFlipped)}>Educational Details</button>
-      </section>
+      </section> 
       <section className="back">
-        <h2>{t.details}</h2>
-        <button onClick={() => setIsFlipped(!isFlipped)}>Educational Details</button>
+        <h3>{t.details}</h3>
+        <button onClick={() => setIsFlipped(!isFlipped)}>Recipe</button>
       </section>
       
       </ReactCardFlip>
@@ -66,4 +65,3 @@ function Recipes() {
 
 }
 
-export default Recipes

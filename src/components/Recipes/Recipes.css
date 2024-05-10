@@ -1,8 +1,18 @@
-/* .next-arrow,
+.next-arrow,
 .prev-arrow {
   color: #000000;
   font-size: 20px;
-} */
+}
+
+.front {
+    background-color: red; 
+    height: 500px;
+}
+
+.back {
+    background-color: blue; 
+    height: 500px;
+}
 
 .recipe-container {
     display: flex; 
@@ -20,4 +30,8 @@
 .slick-arrow.slick-prev, 
 .slick-arrow.slick-next {
     background-color: blue;
+}
+
+h2 {
+    margin-bottom: 2%; 
 }

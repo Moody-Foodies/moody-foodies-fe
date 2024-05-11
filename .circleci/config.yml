@@ -88,16 +88,15 @@ jobs:
 
   build_and_test:
     docker:
-      - image: circleci/node:latest
+      - image: cypress/base:latest
     steps:
       - checkout
       - run:
           name: Install Dependencies
           command: npm install 
-      - cypress/run:
-          docker:
-            - image: cypress/base:latest
-          command: --headless --browser chrome # Run Cypress tests in headless mode
+      - run:
+          name: Run Cypress Tests
+          command: npm run cypress:run -- --headless --browser chrome # Run Cypress tests in headless mode
 
   deploy_to_netlify:
     docker:
@@ -106,4 +105,4 @@ jobs:
       - run:
           name: Deploy to Netlify
           command: |
-            curl -X POST -d '{}' -H 'Content-Type: application/json' -H 'Authorization: Bearer $NETLIFY_AUTH_TOKEN' https://api.netlify.com/build_hooks/$NETLIFY_BUILD_HOOK_ID
+            curl -X POST -d '{}' -H 'Content-

@@ -6,19 +6,12 @@ orbs:
 
 workflows:
   use-my-orb:
+  build:
     jobs:
       - cypress/run:
           cypress-command: npx cypress run --browser chrome
           install-browsers: true
           start-command: npm run start:dev
-
-workflows:
-  build:
-    jobs:
-      - cypress/run:
-          install-browsers: true
-          start-command: 'npm run start'
-          cypress-command: 'npx cypress run --browser chrome'
       - start_server:
           context: netlify
       - build_and_test:

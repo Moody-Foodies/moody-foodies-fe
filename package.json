@@ -8,8 +8,7 @@
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "cypress:run": "cypress run",
-    "cypress:open": "cypress open"
+    "cypress:run": "cypress run"
   },
   "dependencies": {
     "cypress": "^13.9.0",
@@ -19,6 +18,10 @@
     "react-router-dom": "^6.23.0",
     "react-slick": "^0.30.2",
     "slick-carousel": "^1.8.1"
+  },
+  "optionalDependencies": {
+    "@esbuild/linux-riscv64": "0", 
+    "@esbuild/linux-ppc64": "0"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",

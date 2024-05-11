@@ -31,6 +31,8 @@ jobs:
           name: Start Development Server
           command: npm start
           background: true # Run the server in the background
+      - cypress/run: # "run" job comes from "Cypress" orb
+          start-command: "npm run start"
 
   build_and_test:
     docker:
@@ -40,6 +42,7 @@ jobs:
       - run:
           name: Install Dependencies
           command: npm install
+    
       # - run:
       #     name: Run Cypress Tests
       #     command: npm run cypress:run -- --headless --browser chrome # Run Cypress tests in headless mode
@@ -53,5 +56,5 @@ jobs:
           command: |
             curl -X POST -d '{}' -H 'Content-Type: application/json' -H 'Authorization: Bearer $NETLIFY_AUTH_TOKEN' https://api.netlify.com/build_hooks/$NETLIFY_BUILD_HOOK_ID
           environment:
-            NETLIFY_AUTH_TOKEN: $NETLIFY_AUTH_TOKEN
-            NETLIFY_BUILD_HOOK_ID: $NETLIFY_BUILD_HOOK_ID
+            NETLIFY_AUTH_TOKEN: nfp_p91FnL1XgEQ3g5MecqCbuEwz5sGr7vnhd033
+            NETLIFY_BUILD_HOOK_ID: 663e984ea80f925c3879b538

@@ -17,6 +17,9 @@ workflows:
           context: netlify
           requires:
             - build_and_test
+      - cypress/run: # Run the cypress/run job from the cypress orb
+          cypress-command: npx cypress run --headless # Run the cypress run command in headless mode
+          start-command: npm start
 
 jobs:
   start_server:
@@ -40,9 +43,9 @@ jobs:
       - run:
           name: Install Dependencies
           command: npm install 
-      - run:
-          name: Run Cypress Tests
-          command: npm run cypress:run -- --headless --browser chrome # Run Cypress tests in headless mode
+      # - run:
+      #     name: Run Cypress Tests
+      #     command: npm run cypress:run -- --headless --browser chrome # Run Cypress tests in headless mode
 
   deploy_to_netlify:
     docker:

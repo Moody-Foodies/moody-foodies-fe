@@ -35,7 +35,8 @@
 } */
 
 h2 {
-    margin-bottom: 2%; 
+    color: #198D55;
+    font-size: 3.5em;
 }
 
 img {
@@ -67,4 +68,5 @@ img {
     &:hover {
         transform: scale(1.1)
     }
+    color: #198D55;
 }

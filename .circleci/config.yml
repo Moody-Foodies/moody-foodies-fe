@@ -1,3 +1,62 @@
+# version: 2.1
+
+# orbs:
+#   cypress: cypress-io/cypress@3.3.1
+#   node: circleci/node@5.0.3
+
+# workflows:
+#   build:
+#   use-my-orb:
+#     jobs:
+#       - cypress/run:
+#           cypress-command: npx cypress run --browser chrome
+#           install-browsers: true
+#           start-command: npm run start:dev
+#       - start_server:
+#           context: netlify
+#       - build_and_test:
+#           context: netlify
+#           requires:
+#             - start_server
+#       - deploy_to_netlify:
+#           context: netlify
+#           requires:
+#             - build_and_test
+
+# jobs:
+#   start_server:
+#     docker:
+#       - image: circleci/node:latest
+#     steps:
+#       - checkout
+#       - run:
+#           name: Install Dependencies
+#           command: npm install
+#       - run:
+#           name: Start Development Server
+#           command: npm start
+#           background: true # Run the server in the background
+
+#   build_and_test:
+#     docker:
+#       - image: circleci/node:latest
+#     steps:
+#       - checkout
+#       - run:
+#           name: Install Dependencies
+#           command: npm install 
+#       - run:
+#           name: Run Cypress Tests
+#           command: npm run cypress:run -- --headless --browser chrome # Run Cypress tests in headless mode
+
+#   deploy_to_netlify:
+#     docker:
+#       - image: circleci/node:latest
+#     steps:
+#       - run:
+#           name: Deploy to Netlify
+#           command: |
+#             curl -X POST -d '{}' -H 'Content-Type: application/json' -H 'Authorization: Bearer $NETLIFY_AUTH_TOKEN' https://api.netlify.com/build_hooks/$NETLIFY_BUILD_HOOK_ID
 version: 2.1
 
 orbs:
@@ -6,12 +65,7 @@ orbs:
 
 workflows:
   build:
-  use-my-orb:
     jobs:
-      - cypress/run:
-          cypress-command: npx cypress run --browser chrome
-          install-browsers: true
-          start-command: npm run start:dev
       - start_server:
           context: netlify
       - build_and_test:
@@ -22,6 +76,13 @@ workflows:
           context: netlify
           requires:
             - build_and_test
+
+  use-my-orb:
+    jobs:
+      - cypress/run:
+          cypress-command: npx cypress run --browser chrome
+          install-browsers: true
+          start-command: npm run start:dev
 
 jobs:
   start_server:
@@ -57,4 +118,3 @@ jobs:
           name: Deploy to Netlify
           command: |
             curl -X POST -d '{}' -H 'Content-Type: application/json' -H 'Authorization: Bearer $NETLIFY_AUTH_TOKEN' https://api.netlify.com/build_hooks/$NETLIFY_BUILD_HOOK_ID
-  

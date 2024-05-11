@@ -4,6 +4,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import './Recipes.css';
 import ReactCardFlip from 'react-card-flip';
+import Favorite from '../../assets/favorite.png';
 
 export default function Recipes() {
   const [isFlipped, setIsFlipped] = useState<boolean>(false)
@@ -46,11 +47,13 @@ export default function Recipes() {
         
         <section className="front">
         <h3>{t.name}</h3>
+        <img className='favorite' src={Favorite} onClick={() => console.log("yes!!")}/>
         <img src={t.image}/>
         <button onClick={() => setIsFlipped(!isFlipped)}>Educational Details</button>
       </section> 
       <section className="back">
         <h3>{t.details}</h3>
+        <img className='favorite' src={Favorite} onClick={() => console.log("yes!!")}/>
         <button onClick={() => setIsFlipped(!isFlipped)}>Recipe</button>
       </section>
       

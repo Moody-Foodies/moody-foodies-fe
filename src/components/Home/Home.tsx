@@ -3,6 +3,9 @@ import './Home.css'
 import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
+import Sad from '../../assets/sad.svg';
+import Happy from '../../assets/happy.svg';
+import Logo from '../../assets/logo.png';
 
 function Home() {
   const [moodValue, setMoodValue] = useState(0)
@@ -10,9 +13,18 @@ function Home() {
 const navigate = useNavigate()
 console.log(moodValue)
 console.log(timeValue)
+
   return (
     <main className='landing-page'>
-    <h1>Brain Food</h1>
+      <header>
+        <div className='logo-container'>
+          <h1 className='brain'>Brain</h1>
+         <img src={Logo} />
+         <h1 className='food'>Food</h1>
+        </div>
+      
+      </header>
+    
     <h2>How are you feeling today?</h2>
       <section className='slider-container'>
       <Box sx={{ width: 500 }}>

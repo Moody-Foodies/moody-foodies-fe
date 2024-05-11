@@ -69,6 +69,10 @@ workflows:
       - use-my-orb
       - start_server:
           context: netlify
+      - build_and_test:
+          context: netlify
+          requires:
+            - start_server
       - deploy_to_netlify:
           context: netlify
           requires:
@@ -99,6 +103,18 @@ jobs:
           name: Start Development Server
           command: npm start
           background: true # Run the server in the background
+
+  build_and_test:
+    docker:
+      - image: circleci/node:latest
+    steps:
+      - checkout
+      - run:
+          name: Install Dependencies
+          command: npm install 
+      - run:
+          name: Run Cypress Tests
+          command: npm run cypress:run -- --headless --browser chrome # Run Cypress tests in headless mode
 
   deploy_to_netlify:
     docker:

@@ -1,20 +1,16 @@
 version: 2.1
 
 orbs:
-  cypress: cypress-io/cypress@3.3.1
+  cypress: cypress-io/cypress@3
   node: circleci/node@5.0.3
 
 workflows:
-  test:
+  build:
     jobs:
       - cypress/run:
           install-browsers: true
           start-command: 'npm run start'
           cypress-command: 'npx cypress run --browser chrome'
-
-workflows:
-  build:
-    jobs:
       - start_server:
           context: netlify
       - build_and_test:

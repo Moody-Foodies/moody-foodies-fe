@@ -66,25 +66,27 @@ orbs:
 workflows:
   build:
     jobs:
+      - use-my-orb
       - start_server:
           context: netlify
-      - build_and_test:
-          context: netlify
-          requires:
-            - start_server
       - deploy_to_netlify:
           context: netlify
           requires:
             - build_and_test
 
-  use-my-orb:
-    jobs:
-      - cypress/run:
-          cypress-command: npx cypress run --browser chrome
-          install-browsers: true
-          start-command: npm run start:dev
-
 jobs:
+  use-my-orb:
+    docker:
+      - image: cypress/base:14.17.0
+    steps:
+      - checkout
+      - run:
+          name: Install Dependencies
+          command: npm install
+      - run:
+          name: Run Cypress Tests
+          command: npx cypress run --browser chrome
+
   start_server:
     docker:
       - image: circleci/node:latest
@@ -97,18 +99,6 @@ jobs:
           name: Start Development Server
           command: npm start
           background: true # Run the server in the background
-
-  build_and_test:
-    docker:
-      - image: circleci/node:latest
-    steps:
-      - checkout
-      - run:
-          name: Install Dependencies
-          command: npm install 
-      - run:
-          name: Run Cypress Tests
-          command: npm run cypress:run -- --headless --browser chrome # Run Cypress tests in headless mode
 
   deploy_to_netlify:
     docker:

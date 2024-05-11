@@ -1,94 +1,58 @@
-# version: 2.1
-
-# orbs:
-#   cypress: cypress-io/cypress@3.1.1
-#   node: circleci/node@5.0.3
-
-# workflows:
-#   build:
-#     jobs:
-#       - start_server:
-#           context: netlify
-#       - build_and_test:
-#           context: netlify
-#           requires:
-#             - start_server
-#       - deploy_to_netlify:
-#           context: netlify
-#           requires:
-#             - build_and_test
-
-# jobs:
-#   start_server:
-#     docker:
-#       - image: circleci/node:latest
-#     steps:
-#       - checkout
-#       - run:
-#           name: Install Dependencies
-#           command: npm install
-#       - run:
-#           name: Start Development Server
-#           command: npm start
-#           background: true # Run the server in the background
-
-#   build_and_test:
-#     docker:
-#       - image: circleci/node:latest
-#     steps:
-#       - checkout
-#       - run:
-#           name: Install Dependencies
-#           command: npm install
-    
-#       # - run:
-#       #     name: Run Cypress Tests
-#       #     command: npm run cypress:run -- --headless --browser chrome # Run Cypress tests in headless mode
-
-#   deploy_to_netlify:
-#     docker:
-#       - image: circleci/node:latest
-#     steps:
-#       - run:
-#           name: Deploy to Netlify
-#           command: |
-#             curl -X POST -d '{}' -H 'Content-Type: application/json' -H 'Authorization: Bearer $NETLIFY_AUTH_TOKEN' https://api.netlify.com/build_hooks/$NETLIFY_BUILD_HOOK_ID
-#           environment:
-#             NETLIFY_AUTH_TOKEN: nfp_p91FnL1XgEQ3g5MecqCbuEwz5sGr7vnhd033
-#             NETLIFY_BUILD_HOOK_ID: 663e984ea80f925c3879b538
 version: 2.1
-jobs:
+
+orbs:
+  cypress: cypress-io/cypress@3.1.1
+  node: circleci/node@5.0.3
+
+workflows:
   build:
-    working_directory: ~/repo
+    jobs:
+      - start_server:
+          context: netlify
+      - build_and_test:
+          context: netlify
+          requires:
+            - start_server
+      - deploy_to_netlify:
+          context: netlify
+          requires:
+            - build_and_test
+
+jobs:
+  start_server:
     docker:
-      - image: cimg/node:18.16.0
+      - image: circleci/node:latest
     steps:
       - checkout
-      - restore_cache:
-          key: dependency-cache-{{ checksum "package-lock.json" }}
       - run:
           name: Install Dependencies
           command: npm install
-      - save_cache:
-          key: dependency-cache-{{ checksum "package-lock.json" }}
-          paths:
-            - ./node_modules
       - run:
-          name: Build React App
-          command: npm run build
-      - save_cache:
-          key: app-build-cache-{{ .Branch }}
-          paths:
-            - ./build
+          name: Start Development Server
+          command: npm start
+          background: true # Run the server in the background
+
+  build_and_test:
+    docker:
+      - image: circleci/node:latest
+    steps:
+      - checkout
+      - run:
+          name: Install Dependencies
+          command: npm install
+    
+      # - run:
+      #     name: Run Cypress Tests
+      #     command: npm run cypress:run -- --headless --browser chrome # Run Cypress tests in headless mode
+
+  deploy_to_netlify:
+    docker:
+      - image: circleci/node:latest
+    steps:
       - run:
           name: Deploy to Netlify
-          command: ./node_modules/.bin/netlify deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_ACCESS_TOKEN --prod --dir=build
-workflows:
-  version: 2
-  build-deploy:
-    jobs:
-      - build:
-          filters:
-            branches:
-              only:
-                - main
+          command: |
+            curl -X POST -d '{}' -H 'Content-Type: application/json' -H 'Authorization: Bearer $NETLIFY_AUTH_TOKEN' https://api.netlify.com/build_hooks/$NETLIFY_BUILD_HOOK_ID
+          # environment:
+          #   NETLIFY_AUTH_TOKEN: nfp_p91FnL1XgEQ3g5MecqCbuEwz5sGr7vnhd033
+          #   NETLIFY_BUILD_HOOK_ID: 663e984ea80f925c3879b538

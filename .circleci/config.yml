@@ -39,11 +39,10 @@ jobs:
       - checkout
       - run:
           name: Install Dependencies
-          command: npm install
-    
-      # - run:
-      #     name: Run Cypress Tests
-      #     command: npm run cypress:run -- --headless --browser chrome # Run Cypress tests in headless mode
+          command: npm install 
+      - run:
+          name: Run Cypress Tests
+          command: npm run cypress:run -- --headless --browser chrome # Run Cypress tests in headless mode
 
   deploy_to_netlify:
     docker:

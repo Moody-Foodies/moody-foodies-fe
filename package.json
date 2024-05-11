@@ -19,6 +19,10 @@
     "react-slick": "^0.30.2",
     "slick-carousel": "^1.8.1"
   },
+  "optionalDependencies": {
+    "@esbuild/linux-riscv64": "0", 
+    "@esbuild/linux-ppc64": "0"
+  },
   "devDependencies": {
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
@@ -29,6 +33,7 @@
     "eslint": "^8.57.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.6",
+    "netlify-cli": "^17.23.2",
     "typescript": "^5.2.2",
     "vite": "^5.2.0"
   }

@@ -101,18 +101,4 @@ jobs:
           name: Run Cypress Tests
           command: npm run cypress:run -- --headless --browser chrome # Run Cypress tests in headless mode
       - cypress/run:
-          cypress-command: npx cypress run --browser chrome
-          install-browsers: true
-          start-command: npm run start:dev
-
-  deploy_to_netlify:
-    docker:
-      - image: circleci/node:latest
-    steps:
-      - run:
-          name: Deploy to Netlify
-          command: |
-            curl -X POST -d '{}' -H 'Content-Type: application/json' -H 'Authorization: Bearer $NETLIFY_AUTH_TOKEN' https://api.netlify.com/build_hooks/$NETLIFY_BUILD_HOOK_ID
-          # environment:
-          #   NETLIFY_AUTH_TOKEN: nfp_p91FnL1XgEQ3g5MecqCbuEwz5sGr7vnhd033
-          #   NETLIFY_BUILD_HOOK_ID: 663e984ea80f925c3879b538
+          cypress-command: npx cypress run 

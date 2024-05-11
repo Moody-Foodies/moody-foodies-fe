@@ -38,16 +38,10 @@ console.log(timeValue)
         
       
       </section>
-      <h2>I have {<input type='number' value={timeValue} onChange={(event) => setTimeValue(event.target.value)}/>} minutes to cook.</h2>
-      <button onClick={() => navigate('/recipes')}>Let's cook!</button>
+      <h2 className='time'>I have {<input type='number' value={timeValue} onChange={(event) => setTimeValue(event.target.value)}/>} minutes to cook.</h2>
+      <button className='cook' onClick={() => navigate('/recipes')}>Let's cook!</button>
      </main> 
     )
-    // <>
-    //   <p>Home Component</p>
-      
-      
-    // </>
-
 }
 
 export default Home

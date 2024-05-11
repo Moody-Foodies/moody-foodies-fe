@@ -1,6 +1,7 @@
 .slider-container {
     display: flex; 
     align-items: center; 
+    margin-bottom: 30px;
 }
 
 .landing-page {
@@ -27,6 +28,7 @@ h1 {
 header {
     display: flex;
     height: 200px;
+    margin-bottom: 30px;
 }
 
 .logo-container {
@@ -53,4 +55,24 @@ header {
     height: 70px;
     width: 70px;
     margin-left: 30px;
+}
+
+.cook {
+    background-color: #01C2AF;
+    border: none; 
+    width: 250px;
+    height: 40px;
+    font-size: 2em;
+    border-radius: 50px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &:hover {
+        transform: scale(1.1)
+    }
+}
+
+.time {
+    margin-bottom: 60px;
 }

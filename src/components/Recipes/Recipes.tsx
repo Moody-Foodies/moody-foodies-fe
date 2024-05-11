@@ -5,10 +5,11 @@ import "slick-carousel/slick/slick-theme.css";
 import './Recipes.css';
 import ReactCardFlip from 'react-card-flip';
 import Favorite from '../../assets/favorite.png';
+import { useNavigate } from 'react-router-dom';
 
 export default function Recipes() {
   const [isFlipped, setIsFlipped] = useState<boolean>(false)
-
+  const navigate = useNavigate()
   let test = [{name: 1, 
     image: "https://handletheheat.com/wp-content/uploads/2015/03/Best-Birthday-Cake-with-milk-chocolate-buttercream-SQUARE.jpg",
     details: "YAY EDUCATION"},{ 
@@ -36,7 +37,11 @@ export default function Recipes() {
 
   return (
     <main className='recipe-container'>
-          <h2>Food for your Mood</h2>
+      <header className='carousel' >
+        <h2 className='previous' onClick={() => navigate('/')}>⬅</h2>
+        <h2>Food for Your Mood</h2>
+      </header>
+        
     <Slider {...settings}>
     {test.map(t => {
       return (

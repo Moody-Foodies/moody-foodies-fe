@@ -3,8 +3,8 @@ import './Home.css'
 import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
-import Sad from '../../assets/sad.svg';
-import Happy from '../../assets/happy.svg';
+import Sad from '../../assets/sad.png';
+import Happy from '../../assets/happy.png';
 import Logo from '../../assets/logo.png';
 
 function Home() {
@@ -27,9 +27,16 @@ console.log(timeValue)
     
     <h2>How are you feeling today?</h2>
       <section className='slider-container'>
-      <Box sx={{ width: 500 }}>
+      
+        <div className='slider-container'>
+          <img className='sad' src={Sad} />
+         <Box sx={{ width: 500 }}> 
         <Slider step={1} marks min={0} max={5} aria-label="Default" valueLabelDisplay="auto" onChange={(event) => setMoodValue(event.target.value)}/>
-      </Box>
+        </Box>
+        <img className='happy' src={Happy} />
+        </div>
+        
+      
       </section>
       <h2>I have {<input type='number' value={timeValue} onChange={(event) => setTimeValue(event.target.value)}/>} minutes to cook.</h2>
       <button onClick={() => navigate('/recipes')}>Let's cook!</button>

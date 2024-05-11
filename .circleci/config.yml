@@ -100,7 +100,7 @@ jobs:
 
   deploy_to_netlify:
     docker:
-      - image: circleci/node:latest
+      - image: cypress/browsers:chrome67
     steps:
       - run:
           name: Deploy to Netlify

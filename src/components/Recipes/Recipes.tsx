@@ -39,9 +39,8 @@ export default function Recipes() {
     <main className='recipe-container'>
       <header className='carousel' >
         <h2 className='previous' onClick={() => navigate('/')}>⬅</h2>
-        <h2>Food for Your Mood</h2>
+        <h2 className='title'>Food for Your Mood</h2>
       </header>
-        
     <Slider {...settings}>
     {test.map(t => {
       return (
@@ -49,7 +48,6 @@ export default function Recipes() {
         isFlipped={isFlipped}
         flipDirection="horizontal"
         >
-        
         <section className="front">
         <h3>{t.name}</h3>
         <img className='favorite' src={Favorite} onClick={() => console.log("yes!!")}/>
@@ -61,18 +59,11 @@ export default function Recipes() {
         <img className='favorite' src={Favorite} onClick={() => console.log("yes!!")}/>
         <button onClick={() => setIsFlipped(!isFlipped)}>Recipe</button>
       </section>
-      
       </ReactCardFlip>
       )
-    })}
-      
- 
+  })}
       </Slider> 
- 
    </main>
   )
-
- 
-
 }
 

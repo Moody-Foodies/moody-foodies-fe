@@ -34,7 +34,7 @@
     background-color: blue;
 } */
 
-h2 {
+.title {
     color: #198D55;
     font-size: 3.5em;
 }
@@ -46,10 +46,14 @@ img {
 
 .favorite {
     position: absolute;
-    bottom: 0;
-    right: 0;
-    height: 75px;
+    bottom: 2px;
+    right: 2px;
+    height: 70px;
     width: 75px;
+    &:hover {
+        transform: scale(1.1)
+    }
+    cursor: pointer;
 }
 
 .carousel {

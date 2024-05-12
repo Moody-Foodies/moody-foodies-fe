@@ -25,14 +25,13 @@ export default function Home() {
       })
   })
 .then(res => res.json())
-.then(data => console.log(data))
-navigate('/recipes')
+.then(data => {
+  navigate('/recipes', { state: data.data })
+})
+
+
 
   }
-  // when click let's cook buttton, will send a POST request with 
-  // user id, moodValue, and timeValue. 
-  // check if these values should be sent as a number or string
-  // both are currently numbers 
 
   return (
     <main className='landing-page'>

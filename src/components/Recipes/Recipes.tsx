@@ -10,13 +10,18 @@ import { useNavigate, useLocation } from 'react-router-dom';
 export default function Recipes() {
   const [isFlipped, setIsFlipped] = useState<boolean>(false)
   const [recipes, setRecipes] = useState([])
+  
+ 
   const navigate = useNavigate()
   const location = useLocation()
-
+let mood = location.state.mood;
+  let time = location.state.time;
+   console.log('MOOD:', mood)
+  console.log('TIME:', time)
   useEffect(() => {
-    setRecipes(location.state)
+    setRecipes(location.state.data)
   }, [])
-  console.log('RECIPE:', recipes)
+
 
   let settings = {
     dots: true, 

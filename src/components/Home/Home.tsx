@@ -26,7 +26,8 @@ export default function Home() {
   })
 .then(res => res.json())
 .then(data => {
-  navigate('/recipes', { state: data.data })
+  navigate('/recipes', { state: {data: data.data, mood: moodValue, time: timeValue } })
+  console.log('mood:', moodValue)
 })
 
 

@@ -7,21 +7,24 @@ import ReactCardFlip from 'react-card-flip';
 import Favorite from '../../assets/favorite.png';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Brain from '../../assets/brain.png'
+import Unfavorite from '../../assets/unfavorite.png'
 
 export default function Recipes() {
   const [isFlipped, setIsFlipped] = useState<boolean>(false)
   const [recipes, setRecipes] = useState([])
+  const [favorite, setFavorite] = useState<boolean>(false)
   const navigate = useNavigate()
   const location = useLocation()
   let mood = location.state.mood;
   let time = location.state.time;
    console.log('MOOD:', mood)
   console.log('TIME:', time)
+ 
   useEffect(() => {
     setRecipes(location.state.data)
   }, [])
 
-
+ console.log(recipes)
   let settings = {
     dots: true, 
     infinite: true, 
@@ -39,7 +42,7 @@ export default function Recipes() {
       </div>
     )
   }
-
+console.log(favorite)
   return (
     <main className='recipe-container'>
       <header className='carousel' >
@@ -56,14 +59,31 @@ export default function Recipes() {
         >
         <section className="front">
         <h3>{recipe.attributes.name}</h3>
-        <img className='favorite' src={Favorite} onClick={() => console.log("yes!!")}/>
+        <p>{recipe.attributes.description}.</p>
+        <p>Time to Cook: {recipe.attributes.time_to_cook} minutes</p>
+        {favorite ? <img className='favorite' src={Favorite} onClick={() => setFavorite(!favorite)}/> : <img className='favorite' src={Unfavorite} onClick={() => setFavorite(!favorite)}/>}
         <img className='recipe-image' src={recipe.attributes.image}/>
-        <button onClick={() => setIsFlipped(!isFlipped)}>Educational Details</button>
+        <p className='nutrient'>This recipe contains ✨{recipe.attributes.nutrient}✨</p>
+        {/* {recipe.attributes.ingredients.map(ingredient => {
+          return (
+            <p>{ingredient}</p>
+          )
+        })} */}
+        <button onClick={() => setIsFlipped(!isFlipped)} className='ingredient-button'>Ingredients & Directions</button>
       </section> 
       <section className="back">
         {/* <h3>{t.details}</h3> */}
-        <img className='favorite' src={Favorite} onClick={() => console.log("yes!!")}/>
-        <button onClick={() => setIsFlipped(!isFlipped)}>Recipe</button>
+        {favorite ? <img className='favorite' src={Favorite} onClick={() => setFavorite(!favorite)}/> : <img className='favorite' src={Unfavorite} onClick={() => setFavorite(!favorite)}/>}
+         <section className='ingredient-container'>
+            <h4>Ingredients</h4>
+        {recipe.attributes.ingredients.map(ingredient => {
+          return (
+           
+            <li>{ingredient}</li>
+          )
+        })}
+        </section>
+        <button className='recipe-button'onClick={() => setIsFlipped(!isFlipped)}>Recipe</button> 
       </section>
       </ReactCardFlip>
       )

@@ -1,21 +1,26 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import './Recipes.css';
 import ReactCardFlip from 'react-card-flip';
 import Favorite from '../../assets/favorite.png';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import Brain from '../../assets/brain.png'
 
 export default function Recipes() {
   const [isFlipped, setIsFlipped] = useState<boolean>(false)
+  const [recipes, setRecipes] = useState([])
   const navigate = useNavigate()
-  let test = [{name: 1, 
-    image: "https://handletheheat.com/wp-content/uploads/2015/03/Best-Birthday-Cake-with-milk-chocolate-buttercream-SQUARE.jpg",
-    details: "YAY EDUCATION"},{ 
-    name: 2, 
-    image: "https://food.fnr.sndimg.com/content/dam/images/food/fullset/2009/4/5/1/IG1C17_30946_s4x3.jpg.rend.hgtvcom.1280.1280.suffix/1433541424559.jpeg",
-    details: "YAY THIS IS WORKING"}]
+  const location = useLocation()
+  let mood = location.state.mood;
+  let time = location.state.time;
+   console.log('MOOD:', mood)
+  console.log('TIME:', time)
+  useEffect(() => {
+    setRecipes(location.state.data)
+  }, [])
+
 
   let settings = {
     dots: true, 
@@ -40,22 +45,23 @@ export default function Recipes() {
       <header className='carousel' >
         <h2 className='previous' onClick={() => navigate('/')}>⬅</h2>
         <h2 className='title'>Food for Your Mood</h2>
+        <img className='dashboard-icon' src={Brain} onClick={() => navigate('/dashboard')}/>
       </header>
     <Slider {...settings}>
-    {test.map(t => {
+    {recipes.map(recipe => {
       return (
         <ReactCardFlip
         isFlipped={isFlipped}
         flipDirection="horizontal"
         >
         <section className="front">
-        <h3>{t.name}</h3>
+        <h3>{recipe.attributes.name}</h3>
         <img className='favorite' src={Favorite} onClick={() => console.log("yes!!")}/>
-        <img src={t.image}/>
+        <img className='recipe-image' src={recipe.attributes.image}/>
         <button onClick={() => setIsFlipped(!isFlipped)}>Educational Details</button>
       </section> 
       <section className="back">
-        <h3>{t.details}</h3>
+        {/* <h3>{t.details}</h3> */}
         <img className='favorite' src={Favorite} onClick={() => console.log("yes!!")}/>
         <button onClick={() => setIsFlipped(!isFlipped)}>Recipe</button>
       </section>

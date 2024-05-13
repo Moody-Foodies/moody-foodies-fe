@@ -1,0 +1,32 @@
+.dashboard-container {
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    height: 110px;
+    margin-bottom: 0; 
+}
+
+.dashboard {
+    color: #198D55;
+    font-size: 3.5em;
+}
+
+.back-arrow {
+    position: absolute;
+    left: 25px;
+    cursor: pointer;
+    &:hover {
+        transform: scale(1.1)
+    }
+    color: #198D55;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.affirmation {
+    font-style: italic;
+}

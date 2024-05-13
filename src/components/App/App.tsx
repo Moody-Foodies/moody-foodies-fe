@@ -1,24 +1,23 @@
-// import { useState } from 'react'
+
 import './App.css'
 import Home from '../Home/Home'
 import Dashboard from '../Dashboard/Dashboard'
 import Recipes from '../Recipes/Recipes'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import NotFound from '../NotFound/NotFound'
 
-function App() {
-
+export default function App() {
+  
   return (
     <div className="App">
       <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/recipes" element={<Recipes />} />
-        <Route path="*" element={<h1>Not Found</h1>} />
+        <Route path="/recipes" element={<Recipes  />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
       </BrowserRouter>
     </div>
   )
 }
-
-export default App

@@ -45,7 +45,7 @@ export default function Recipes() {
       <header className='carousel' >
         <h2 className='previous' onClick={() => navigate('/')}>⬅</h2>
         <h2 className='title'>Food for Your Mood</h2>
-        <img className='brain' src={Brain} />
+        <img className='dashboard-icon' src={Brain} onClick={() => navigate('/dashboard')}/>
       </header>
     <Slider {...settings}>
     {recipes.map(recipe => {

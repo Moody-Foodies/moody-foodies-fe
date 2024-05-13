@@ -53,8 +53,8 @@
 
 .favorite {
     position: absolute;
-    bottom: 5px;
-    left: 10px;
+    bottom: 10px;
+    left: 15px;
     height: 70px;
     width: 75px;
     &:hover {

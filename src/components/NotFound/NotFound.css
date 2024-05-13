@@ -1,0 +1,12 @@
+.notfound-container {
+    display: flex; 
+}
+
+.sad-brain {
+    height: 400px; 
+}
+
+.error-message {
+    font-size: 5em;
+    color: #198D55;
+}

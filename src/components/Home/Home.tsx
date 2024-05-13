@@ -39,7 +39,7 @@ export default function Home() {
       <header>
         <section className='logo-container'>
           <h1 className='brain'>Brain</h1>
-          <img src={Logo} />
+          <img className='logo' src={Logo} />
           <h1 className='food'>Food</h1>
         </section>
       </header>

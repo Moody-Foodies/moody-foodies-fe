@@ -6,15 +6,14 @@ import './Recipes.css';
 import ReactCardFlip from 'react-card-flip';
 import Favorite from '../../assets/favorite.png';
 import { useNavigate, useLocation } from 'react-router-dom';
+import Brain from '../../assets/brain.png'
 
 export default function Recipes() {
   const [isFlipped, setIsFlipped] = useState<boolean>(false)
   const [recipes, setRecipes] = useState([])
-  
- 
   const navigate = useNavigate()
   const location = useLocation()
-let mood = location.state.mood;
+  let mood = location.state.mood;
   let time = location.state.time;
    console.log('MOOD:', mood)
   console.log('TIME:', time)
@@ -46,6 +45,7 @@ let mood = location.state.mood;
       <header className='carousel' >
         <h2 className='previous' onClick={() => navigate('/')}>⬅</h2>
         <h2 className='title'>Food for Your Mood</h2>
+        <img className='brain' src={Brain} />
       </header>
     <Slider {...settings}>
     {recipes.map(recipe => {
@@ -57,7 +57,7 @@ let mood = location.state.mood;
         <section className="front">
         <h3>{recipe.attributes.name}</h3>
         <img className='favorite' src={Favorite} onClick={() => console.log("yes!!")}/>
-        <img src={recipe.attributes.image}/>
+        <img className='recipe-image' src={recipe.attributes.image}/>
         <button onClick={() => setIsFlipped(!isFlipped)}>Educational Details</button>
       </section> 
       <section className="back">

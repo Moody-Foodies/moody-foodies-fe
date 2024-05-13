@@ -39,9 +39,9 @@
     font-size: 3.5em;
 }
 
-img {
-    height: 400px;
-    width: 400px;
+.recipe-image {
+    height: 200px;
+    width: 300px;
 }
 
 .favorite {
@@ -73,4 +73,14 @@ img {
         transform: scale(1.1)
     }
     color: #198D55;
+}
+
+.brain {
+    height: 80px; 
+    position: absolute; 
+    right: 110px; 
+    cursor: pointer; 
+    &:hover {
+        transform: scale(1.1)
+    }
 }

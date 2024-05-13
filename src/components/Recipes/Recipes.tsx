@@ -4,15 +4,14 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import './Recipes.css';
 import ReactCardFlip from 'react-card-flip';
-import Favorite from '../../assets/favorite.png';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Brain from '../../assets/brain.png'
-import Unfavorite from '../../assets/unfavorite.png'
+import RecipeCard from '../RecipeCard/RecipeCard'
 
 export default function Recipes() {
   const [isFlipped, setIsFlipped] = useState<boolean>(false)
   const [recipes, setRecipes] = useState([])
-  const [favorite, setFavorite] = useState<boolean>(false)
+
   const navigate = useNavigate()
   const location = useLocation()
   let mood = location.state.mood;
@@ -42,7 +41,7 @@ export default function Recipes() {
       </div>
     )
   }
-console.log(favorite)
+
   return (
     <main className='recipe-container'>
       <header className='carousel' >
@@ -53,32 +52,30 @@ console.log(favorite)
     <Slider {...settings}>
     {recipes.map(recipe => {
       return (
+
         <ReactCardFlip
         isFlipped={isFlipped}
         flipDirection="horizontal"
         >
+          
         <section className="front">
-        <h3>{recipe.attributes.name}</h3>
-        <p>{recipe.attributes.description}.</p>
-        <p>Time to Cook: {recipe.attributes.time_to_cook} minutes</p>
-        {favorite ? <img className='favorite' src={Favorite} onClick={() => setFavorite(!favorite)}/> : <img className='favorite' src={Unfavorite} onClick={() => setFavorite(!favorite)}/>}
-        <img className='recipe-image' src={recipe.attributes.image}/>
-        <p className='nutrient'>This recipe contains ✨{recipe.attributes.nutrient}✨</p>
-        {/* {recipe.attributes.ingredients.map(ingredient => {
-          return (
-            <p>{ingredient}</p>
-          )
-        })} */}
+          <RecipeCard
+          key={recipe.id} 
+          id={recipe.id}
+          image={recipe.attributes.image}
+          name={recipe.attributes.name}
+          description={recipe.attributes.description}
+          cookTime={recipe.attributes.time_to_cook}
+          nutrient={recipe.attributes.nutrient}
+          />
+  
         <button onClick={() => setIsFlipped(!isFlipped)} className='ingredient-button'>Ingredients & Directions</button>
       </section> 
       <section className="back">
-        {/* <h3>{t.details}</h3> */}
-        {favorite ? <img className='favorite' src={Favorite} onClick={() => setFavorite(!favorite)}/> : <img className='favorite' src={Unfavorite} onClick={() => setFavorite(!favorite)}/>}
          <section className='ingredient-container'>
             <h4>Ingredients</h4>
-        {recipe.attributes.ingredients.map(ingredient => {
+          {recipe.attributes.ingredients.map(ingredient => {
           return (
-           
             <li>{ingredient}</li>
           )
         })}

@@ -43,14 +43,6 @@
     font-size: 3.5em;
 }
 
-.recipe-image {
-    height: 230px;
-    width: 350px;
-    border-radius: 20px;
-    margin-top: 15px; 
-    margin-bottom: 15px; 
-}
-
 .favorite {
     position: absolute;
     bottom: 10px;

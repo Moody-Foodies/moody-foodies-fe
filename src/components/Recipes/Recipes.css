@@ -17,6 +17,8 @@
 .back {
     background-color: #D8CD94; 
     height: 500px;
+    overflow-y: scroll;
+    scrollbar-color: #198D55 #FAFAFA ;
 }
 
 .recipe-container {

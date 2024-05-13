@@ -69,7 +69,7 @@ export default function Recipes() {
           nutrient={recipe.attributes.nutrient}
           />
   
-        <button onClick={() => setIsFlipped(!isFlipped)} className='ingredient-button'>Ingredients & Directions</button>
+        <button onClick={() => setIsFlipped(!isFlipped)} className='ingredient-button'>Ingredients & Instructions</button>
       </section> 
       <section className="back">
          <section className='ingredient-container'>
@@ -77,6 +77,12 @@ export default function Recipes() {
           {recipe.attributes.ingredients.map(ingredient => {
           return (
             <li>{ingredient}</li>
+          )
+        })}
+        <h4>Instructions</h4>
+        {recipe.attributes.instructions.map(instruction => {
+          return (
+            <ol>{instruction}</ol>
           )
         })}
         </section>

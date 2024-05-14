@@ -39,14 +39,21 @@ export default function Home() {
   return (
     <main className="landing-page">
       <header>
+        <nav className="nav-bar">
+          <ul className="nav-links">
+            <li className="nav-link">
+              <a href="/dashboard">Moodboard</a>
+            </li>
+            <li>
+              <button>Logout</button>
+            </li>
+          </ul>
+        </nav>
         <section className="logo-container">
           <h1 className="brain">Brain</h1>
           <img className="logo" src={Logo} />
           <h1 className="food">Food</h1>
         </section>
-        <button className="dashboard" onClick={() => navigate('/dashboard')}>
-          Dashboard
-        </button>
       </header>
       <h2>How are you feeling today?</h2>
       <section className="slider-container">

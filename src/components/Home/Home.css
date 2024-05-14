@@ -1,73 +1,104 @@
-.slider-container {
-    display: flex; 
-    align-items: center; 
-    margin-bottom: 30px;
-}
-
 .landing-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #198d55;
+
+  header {
     display: flex;
     flex-direction: column;
     align-items: center;
-    color: #198D55;
-}
+    height: 200px;
+    margin-bottom: 30px;
 
-input {
-    width: 10%;
-    text-align: center;
-    background-color: #FACD57;
-    border: none; 
-}
+    .nav-bar {
+      display: flex;
+      justify-content: flex-end;
+      width: 100%;
 
-.logo {
-    height: 400px; 
-    width: 400px;
-}
+      .nav-links {
+        display: flex;
+        list-style: none;
+        padding: 0;
 
-h2 {
+        nav-link {
+          margin: 0 15px;
+        }
+        a {
+          text-decoration: none;
+          color: red;
+          font-size: 1.5em;
+          cursor: pointer;
+          &:hover {
+            transform: scale(1.1);
+          }
+        }
+      }
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      height: 200px;
+
+      .brain {
+        margin-right: -80px;
+      }
+
+      .food {
+        margin-left: -80px;
+      }
+
+      .logo {
+        height: 400px;
+        width: 400px;
+      }
+    }
+  }
+
+  h2 {
     text-align: center;
     font-size: 3em;
     margin-bottom: 25px;
-}
 
-h1 {
+    &.time {
+      margin-bottom: 60px;
+    }
+  }
+
+  h1 {
     font-size: 7em;
-}
+  }
 
-header {
-    display: flex;
-    height: 200px;
-    margin-bottom: 30px;
-}
-
-.logo-container {
+  .slider-container {
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
-}
+    margin-bottom: 30px;
 
-.brain {
-    margin-right: -80px;
-}
+    .sad {
+      height: 70px;
+      width: 70px;
+      margin-right: 30px;
+    }
 
-.food {
-    margin-left: -80px;
-}
+    .happy {
+      height: 70px;
+      width: 70px;
+      margin-left: 30px;
+    }
+  }
 
-.sad {
-    height: 70px;
-    width: 70px;
-    margin-right: 30px;
-}
+  input {
+    width: 10%;
+    text-align: center;
+    background-color: #facd57;
+    border: none;
+  }
 
-.happy {
-    height: 70px;
-    width: 70px;
-    margin-left: 30px;
-}
-
-.cook {
-    background-color: #01C2AF;
-    border: none; 
+  .cook {
+    background-color: #01c2af;
+    border: none;
     width: 250px;
     height: 45px;
     font-size: 2em;
@@ -76,11 +107,26 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
+
     &:hover {
-        transform: scale(1.1)
+      transform: scale(1.1);
     }
+  }
 }
 
-.time {
-    margin-bottom: 60px;
+.dashboard-btn {
+  background-color: #01c2af;
+  border: none;
+  width: 250px;
+  height: 45px;
+  font-size: 2em;
+  border-radius: 50px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    transform: scale(1.1);
+  }
 }

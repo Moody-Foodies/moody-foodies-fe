@@ -4,7 +4,6 @@
     align-items: center;
     height: 110px;
     margin-bottom: 0; 
-    width: 100%;
 }
 
 .dashboard {
@@ -14,8 +13,7 @@
 
 .back-arrow {
     position: absolute;
-    left: 15px;
-    font-size: 1.8em;
+    left: 25px;
     cursor: pointer;
     &:hover {
         transform: scale(1.1)

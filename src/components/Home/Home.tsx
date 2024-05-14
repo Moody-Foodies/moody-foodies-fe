@@ -81,7 +81,6 @@ export default function Home() {
             type="number"
             step="5"
             min="15"
-            placeholder="#"
             value={timeValue}
             onChange={(event) => setTimeValue(Number(event.target.value))}
           />

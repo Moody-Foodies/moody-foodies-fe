@@ -141,3 +141,8 @@
     transform: scale(1.1);
   }
 }
+
+input {
+  width: 85px;
+  background-color: #F6CB5C;
+}

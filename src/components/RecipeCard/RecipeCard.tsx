@@ -8,12 +8,20 @@ type RecipeProps = {
     description: string, 
     cookTime: number, 
     image: string, 
-    nutrient: string
+    nutrient: string,
+    id: number
 }
 
-export default function RecipeCard({ name, description, cookTime, image, nutrient } : RecipeProps){
+export default function RecipeCard({ id, name, description, cookTime, image, nutrient } : RecipeProps){
     const [favorite, setFavorite] = useState<boolean>(false)
 
+    function postFavoriteRecipe(){
+        if(favorite === true){
+            console.log(id)
+        } else {
+            console.log('not a favorite recipe')
+        }
+    }
     return (
         <>
             <h3>{name}</h3>
@@ -22,6 +30,7 @@ export default function RecipeCard({ name, description, cookTime, image, nutrien
             <img className='recipe-image' src={image}/>
             <p className='nutrient'>This recipe contains ✨{nutrient}✨</p>
             {favorite ? <img className='favorite' src={Favorite} onClick={() => setFavorite(!favorite)}/> : <img className='favorite' src={Unfavorite} onClick={() => setFavorite(!favorite)}/>}
+            <button onClick={() => postFavoriteRecipe()}>TEST</button>
         </>
     )
 }

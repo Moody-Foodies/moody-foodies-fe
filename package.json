@@ -27,6 +27,8 @@
     "@esbuild/linux-riscv64": "0"
   },
   "devDependencies": {
+    "@cypress/vite-dev-server": "^5.0.7",
+    "@cypress/webpack-dev-server": "^3.8.0",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
     "@types/react-slick": "^0.23.13",

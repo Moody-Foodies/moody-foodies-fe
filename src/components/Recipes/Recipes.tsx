@@ -5,11 +5,10 @@ import "slick-carousel/slick/slick-theme.css";
 import './Recipes.css';
 import ReactCardFlip from 'react-card-flip';
 import { useNavigate, useLocation } from 'react-router-dom';
-import Brain from '../../assets/brain.png'
+import Brain from '../../assets/brain.png'; 
 import RecipeCard from '../RecipeCard/RecipeCard'
 
-  type Attributes = {
-    id: string, 
+  type Attributes = { 
     name: string, 
     time_to_cook: number, 
     nutrient: string, 
@@ -35,7 +34,7 @@ export default function Recipes() {
   useEffect(() => {
     setRecipes(location.state.data)
   }, [])
-
+console.log(recipes)
   let settings = {
     dots: true, 
     infinite: true, 
@@ -71,6 +70,7 @@ export default function Recipes() {
         <section className="front">
           <RecipeCard
           key={recipe.id} 
+          id={recipe.id}
           image={recipe.attributes.image}
           name={recipe.attributes.name}
           description={recipe.attributes.description}

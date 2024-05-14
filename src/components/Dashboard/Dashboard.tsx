@@ -1,4 +1,4 @@
-// import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './Dashboard.css'
 import { useNavigate } from 'react-router-dom'
 import affirmations from '../../Quotes/quotes'

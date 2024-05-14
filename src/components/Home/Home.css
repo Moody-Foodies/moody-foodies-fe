@@ -51,6 +51,7 @@
         }
       }
     }
+}
 
     .logo-container {
       display: flex;
@@ -87,6 +88,7 @@
     display: flex;
     align-items: center;
     margin-bottom: 30px;
+  }
 
 .sad {
     height: 70px;
@@ -119,12 +121,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
-
     &:hover {
       transform: scale(1.1);
     }
   }
-}
 
 .dashboard-btn {
   background-color: #01c2af;
@@ -137,7 +137,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
   &:hover {
     transform: scale(1.1);
   }

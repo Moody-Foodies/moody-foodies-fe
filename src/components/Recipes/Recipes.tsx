@@ -8,26 +8,34 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import Brain from '../../assets/brain.png'
 import RecipeCard from '../RecipeCard/RecipeCard'
 
-export default function Recipes() {
-  const [isFlipped, setIsFlipped] = useState<boolean>(false)
-  const [recipes, setRecipes] = useState([])
-
-  type Affirmations = {
-    
+  type Attributes = {
+    id: string, 
+    name: string, 
+    time_to_cook: number, 
+    nutrient: string, 
+    image: string,
+    description: string,
+    ingredients: string[],
+    instructions: string[]
   }
 
+  type Recipe = {
+    id: number, 
+    type: string,
+    attributes: Attributes
+  }
+
+export default function Recipes() {
+  const [isFlipped, setIsFlipped] = useState<boolean>(false)
+  const [recipes, setRecipes] = useState<Recipe[]>([])
   const navigate = useNavigate()
   const location = useLocation()
-  let mood = location.state.mood;
-  let time = location.state.time;
-   console.log('MOOD:', mood)
-  console.log('TIME:', time)
- 
+  // let mood = location.state.mood;
+  // let time = location.state.time;
   useEffect(() => {
     setRecipes(location.state.data)
   }, [])
 
- console.log(recipes)
   let settings = {
     dots: true, 
     infinite: true, 
@@ -56,26 +64,22 @@ export default function Recipes() {
     <Slider {...settings}>
     {recipes.map(recipe => {
       return (
-
         <ReactCardFlip
         isFlipped={isFlipped}
         flipDirection="horizontal"
         >
-          
         <section className="front">
           <RecipeCard
           key={recipe.id} 
-          id={recipe.id}
           image={recipe.attributes.image}
           name={recipe.attributes.name}
           description={recipe.attributes.description}
           cookTime={recipe.attributes.time_to_cook}
           nutrient={recipe.attributes.nutrient}
           />
-  
-        <button onClick={() => setIsFlipped(!isFlipped)} className='ingredient-button'>Ingredients & Instructions</button>
-      </section> 
-      <section className="back">
+          <button onClick={() => setIsFlipped(!isFlipped)} className='ingredient-button'>Ingredients & Instructions</button>
+        </section> 
+        <section className="back">
          <section className='ingredient-container'>
             <h4>Ingredients</h4>
           {recipe.attributes.ingredients.map(ingredient => {
@@ -92,10 +96,10 @@ export default function Recipes() {
         </section>
         <button className='recipe-button'onClick={() => setIsFlipped(!isFlipped)}>Recipe</button> 
       </section>
-      </ReactCardFlip>
-      )
+    </ReactCardFlip>
+    )
   })}
-      </Slider> 
+    </Slider> 
    </main>
   )
 }

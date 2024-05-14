@@ -9,7 +9,7 @@ import Logo from '../../assets/logo.png'
 
 export default function Home() {
   const [moodValue, setMoodValue] = useState<number>(0)
-  const [timeValue, setTimeValue] = useState<number>(0)
+  const [timeValue, setTimeValue] = useState<number>(15)
   const navigate = useNavigate()
 
   function postUserData() {

@@ -12,17 +12,16 @@ type RecipeProps = {
 }
 
 export default function RecipeCard({ name, description, cookTime, image, nutrient } : RecipeProps){
-    const [favorite, setFavorite] = useState(false)
+    const [favorite, setFavorite] = useState<boolean>(false)
 
     return (
         <>
-        <h3>{name}</h3>
-        <p>{description}</p>
-        <p>Time to Cook: {cookTime} minutes</p>
-        <img className='recipe-image' src={image}/>
-        <p className='nutrient'>This recipe contains ✨{nutrient}✨</p>
-        {favorite ? <img className='favorite' src={Favorite} onClick={() => setFavorite(!favorite)}/> : <img className='favorite' src={Unfavorite} onClick={() => setFavorite(!favorite)}/>}
+            <h3>{name}</h3>
+            <p>{description}</p>
+            <p>Time to Cook: {cookTime} minutes</p>
+            <img className='recipe-image' src={image}/>
+            <p className='nutrient'>This recipe contains ✨{nutrient}✨</p>
+            {favorite ? <img className='favorite' src={Favorite} onClick={() => setFavorite(!favorite)}/> : <img className='favorite' src={Unfavorite} onClick={() => setFavorite(!favorite)}/>}
         </>
-        
     )
 }

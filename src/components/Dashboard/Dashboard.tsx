@@ -6,8 +6,10 @@ import affirmations from '../../Quotes/quotes'
 export default function Dashboard() {
   const [quote, setQuote] = useState('')
   const navigate = useNavigate()
-  console.log(affirmations)
-  function getRandomAffirmation(affirmations){
+ 
+
+
+  function getRandomAffirmation(affirmations: object[]){
      let randomQuote = affirmations[Math.floor(Math.random() * affirmations.length)]
      setQuote(randomQuote.quote)
   }

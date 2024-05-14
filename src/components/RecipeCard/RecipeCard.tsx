@@ -3,7 +3,15 @@ import Favorite from '../../assets/favorite.png';
 import Unfavorite from '../../assets/unfavorite.png';
 import './RecipeCard.css';
 
-export default function RecipeCard({ name, description, cookTime, image, nutrient }){
+type RecipeProps = {
+    name: string; 
+    description: string, 
+    cookTime: number, 
+    image: string, 
+    nutrient: string
+}
+
+export default function RecipeCard({ name, description, cookTime, image, nutrient } : RecipeProps){
     const [favorite, setFavorite] = useState(false)
 
     return (

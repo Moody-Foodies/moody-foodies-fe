@@ -12,6 +12,10 @@ export default function Recipes() {
   const [isFlipped, setIsFlipped] = useState<boolean>(false)
   const [recipes, setRecipes] = useState([])
 
+  type Affirmations = {
+    
+  }
+
   const navigate = useNavigate()
   const location = useLocation()
   let mood = location.state.mood;

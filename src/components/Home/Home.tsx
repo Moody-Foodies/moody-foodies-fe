@@ -45,7 +45,9 @@ export default function Home() {
               <a href="/dashboard">Moodboard</a>
             </li>
             <li>
-              <button>Logout</button>
+              <button className="logout" onClick={() => console.log('/login')}>
+                Logout
+              </button>
             </li>
           </ul>
         </nav>

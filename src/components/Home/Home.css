@@ -1,3 +1,19 @@
+.slider-container {
+    display: flex; 
+    align-items: center; 
+    margin-bottom: 30px;
+}
+
+@keyframes bounce {
+    from {
+      transform: translateY(0px);
+    }
+    to {
+      transform: translateY(-20px);
+    }
+  }
+
+
 .landing-page {
   display: flex;
   flex-direction: column;
@@ -60,12 +76,8 @@
   h2 {
     text-align: center;
     font-size: 3em;
-    margin-bottom: 25px;
-
-    &.time {
-      margin-bottom: 60px;
-    }
-  }
+    margin-bottom: 35px;
+}
 
   h1 {
     font-size: 7em;
@@ -76,25 +88,25 @@
     align-items: center;
     margin-bottom: 30px;
 
-    .sad {
-      height: 70px;
-      width: 70px;
-      margin-right: 30px;
-    }
+.sad {
+    height: 70px;
+    width: 70px;
+    margin-right: 30px;
+    animation:
+    bounce 1200ms
+    alternate infinite
+    cubic-bezier(.2, .65, .6, 1);
+}
 
-    .happy {
-      height: 70px;
-      width: 70px;
-      margin-left: 30px;
-    }
-  }
-
-  input {
-    width: 10%;
-    text-align: center;
-    background-color: #facd57;
-    border: none;
-  }
+.happy {
+    height: 70px;
+    width: 70px;
+    margin-left: 30px;
+    animation:
+    bounce 400ms
+    alternate infinite
+    cubic-bezier(.2, .65, .6, 1);
+}
 
   .cook {
     background-color: #01c2af;

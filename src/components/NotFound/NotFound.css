@@ -1,5 +1,7 @@
 .notfound-container {
     display: flex; 
+    margin-top: 20px;
+    align-items: center; 
 }
 
 .sad-brain {
@@ -9,4 +11,5 @@
 .error-message {
     font-size: 5em;
     color: #198D55;
+    margin-left: 20px;
 }

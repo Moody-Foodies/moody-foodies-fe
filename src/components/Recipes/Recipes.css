@@ -33,6 +33,10 @@
     text-align: center; 
 }
 
+h4 {
+    text-decoration: underline;
+}
+
 
 
 /* .slick-arrow.slick-prev, 

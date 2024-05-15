@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import Brain from '../../assets/brain.png';
+import Brain from '../../assets/brain.png'; ;
 import Carousel from '../Carousel/Carousel';
 import './Recipes.css';
 import { CarouselItem } from '../../types'; 
@@ -33,6 +33,7 @@ export default function Recipes() {
   useEffect(() => {
     setRecipes(state.data);
   }, [state.data]);
+
 
   const carouselItems: CarouselItem[] = recipes.map(recipe => ({
     id: recipe.id, 

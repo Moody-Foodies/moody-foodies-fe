@@ -13,13 +13,16 @@
   "dependencies": {
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
+    "@fontsource/roboto": "^5.0.13",
     "@mui/material": "^5.15.17",
     "cypress": "^13.9.0",
     "react": "^18.2.0",
     "react-card-flip": "^1.2.2",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.23.0",
+    "react-simple-star-rating": "^5.1.7",
     "react-slick": "^0.30.2",
+    "react-star-ratings": "^2.3.0",
     "slick-carousel": "^1.8.1"
   },
   "optionalDependencies": {
@@ -27,6 +30,8 @@
     "@esbuild/linux-riscv64": "0"
   },
   "devDependencies": {
+    "@cypress/vite-dev-server": "^5.0.7",
+    "@cypress/webpack-dev-server": "^3.8.0",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
     "@types/react-slick": "^0.23.13",

@@ -5,7 +5,7 @@ import Box from '@mui/material/Box'
 import Slider from '@mui/material/Slider'
 import Sad from '../../assets/sad.png'
 import Happy from '../../assets/happy.png'
-import Logo from '../../assets/logo.png'
+import Logo from '../../assets/logo.png';
 
 export default function Home() {
   const [moodValue, setMoodValue] = useState<number>(0)
@@ -81,7 +81,6 @@ export default function Home() {
             type="number"
             step="5"
             min="15"
-            placeholder="#"
             value={timeValue}
             onChange={(event) => setTimeValue(Number(event.target.value))}
           />

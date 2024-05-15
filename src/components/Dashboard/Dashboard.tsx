@@ -5,7 +5,7 @@ import Carousel from '../Carousel/Carousel'
 import './Dashboard.css'
 import { CarouselItem } from '../../types'
 
-type Affirmation = {
+interface Affirmation {
   quote: string
 }
 
@@ -16,7 +16,7 @@ export default function Dashboard() {
   function getRandomAffirmation(affirmations: Affirmation[]) {
     let randomQuote =
       affirmations[Math.floor(Math.random() * affirmations.length)]
-    setQuote(randomQuote.quote)
+      setQuote(randomQuote.quote)
   }
 
   useEffect(() => {

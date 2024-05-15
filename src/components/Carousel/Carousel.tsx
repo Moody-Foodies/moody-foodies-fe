@@ -20,7 +20,7 @@ export default function CustomCarousel({
   customClass,
 }: CarouselProps) {
   const [isFlipped, setIsFlipped] = useState<{ [key: string]: boolean }>({})
-  const [favorites, setFavorites] = useState<{ [key: string]: boolean }>({})
+  const [favorites, setFavorites] = useState<{ [key: string]: boolean }>(getFavorites())
 
   useEffect(() => {
     console.log('Carousel items:', items)
@@ -34,6 +34,15 @@ export default function CustomCarousel({
     slidesToScroll: 3,
   }
 
+useEffect(() => {
+  localStorage.setItem('favorites', JSON.stringify(favorites))
+}, [favorites])
+
+function getFavorites(){
+  const favorites = localStorage.getItem('favorites') || '{}';
+  const initialValue = JSON.parse(favorites);
+  return initialValue || "";
+}
   const finalSettings = { ...defaultSettings, ...settings }
 
   const handleFlip = (id: string) => {

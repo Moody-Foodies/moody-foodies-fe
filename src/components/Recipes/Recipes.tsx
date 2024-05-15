@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Brain from '../../assets/brain.png';
-import RecipeCard from '../RecipeCard/RecipeCard';
 import Carousel from '../Carousel/Carousel';
 import './Recipes.css';
+import { CarouselItem } from '../../types'; 
 
 interface Recipe {
   id: string;
@@ -34,15 +34,19 @@ export default function Recipes() {
     setRecipes(state.data);
   }, [state.data]);
 
-  const carouselItems = recipes.map(recipe => ({
+  const carouselItems: CarouselItem[] = recipes.map(recipe => ({
+    id: recipe.id, 
     name: recipe.attributes.name,
     image: recipe.attributes.image,
     details: recipe.attributes.description,
-    favoriteIcon: Brain,
+    favoriteIcon: Brain, 
     frontButtonText: 'Ingredients & Instructions',
     backButtonText: 'Recipe',
-    ingredients: recipe.attributes.ingredients,
-    instructions: recipe.attributes.instructions,
+    description: recipe.attributes.description, 
+    cookTime: recipe.attributes.time_to_cook,   
+    nutrient: recipe.attributes.nutrient,       
+    ingredients: recipe.attributes.ingredients, 
+    instructions: recipe.attributes.instructions 
   }));
 
   const recipeCarouselSettings = { 

@@ -7,7 +7,8 @@ import ReactCardFlip from 'react-card-flip';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Brain from '../../assets/brain.png'; 
 import RecipeCard from '../RecipeCard/RecipeCard'
-
+import Favorite from '../../assets/favorite.png';
+import Unfavorite from '../../assets/unfavorite.png';
   type Attributes = { 
     name: string, 
     time_to_cook: number, 
@@ -27,6 +28,8 @@ import RecipeCard from '../RecipeCard/RecipeCard'
 export default function Recipes() {
   const [isFlipped, setIsFlipped] = useState<boolean>(false)
   const [recipes, setRecipes] = useState<Recipe[]>([])
+  const [favoriteRecipe, setFavoriteRecipe] = useState(getFavoriteRecipes())
+  const [favorite, setFavorite] = useState(false)
   const navigate = useNavigate()
   const location = useLocation()
   // let mood = location.state.mood;
@@ -53,6 +56,36 @@ console.log(recipes)
     )
   }
 
+  function addRecipe(id) {
+    setFavoriteRecipe([...favoriteRecipe, id])
+  }
+
+  function deleteRecipe(id){
+    let filteredRecipes = favoriteRecipe.filter(recipe => recipe !== id)
+    setFavoriteRecipe(filteredRecipes)
+  }
+    useEffect(() => {
+        localStorage.setItem('favoriteRecipe', JSON.stringify(favoriteRecipe));
+    }, [favoriteRecipe]);
+    function getFavoriteRecipes(){
+        const favoriteRecipe = localStorage.getItem('favoriteRecipe')
+        const saved = JSON.parse(favoriteRecipe)
+        return saved || []
+    }
+    
+    
+    // useEffect(() => {
+    //     localStorage.setItem('favorite', JSON.stringify(favorite))
+    // }, [favorite])
+
+    // useEffect(() => {
+    //     const test = JSON.parse(localStorage.getItem('test'))
+    //     if(test) {
+    //         setTest(test)
+    //     }
+    // }, [])
+
+
   return (
     <main className='recipe-container'>
       <header className='carousel' >
@@ -76,8 +109,14 @@ console.log(recipes)
           description={recipe.attributes.description}
           cookTime={recipe.attributes.time_to_cook}
           nutrient={recipe.attributes.nutrient}
+          favoriteRecipe={favoriteRecipe}
+          addRecipe={addRecipe}
+          deleteRecipe={deleteRecipe}
+
           />
           <button onClick={() => setIsFlipped(!isFlipped)} className='ingredient-button'>Ingredients & Instructions</button>
+          <button onClick={() => setFavoriteRecipe('')}>reset</button>
+          <button onClick={() => checkState()}>Checking!!</button>
         </section> 
         <section className="back">
          <section className='ingredient-container'>

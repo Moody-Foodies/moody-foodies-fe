@@ -34,7 +34,6 @@ export default function Recipes() {
     setRecipes(state.data);
   }, [state.data]);
 
-
   const carouselItems: CarouselItem[] = recipes.map(recipe => ({
     id: recipe.id, 
     name: recipe.attributes.name,
@@ -65,7 +64,7 @@ export default function Recipes() {
         <h2 className='title'>Food for Your Mood</h2>
         <img className='dashboard-icon' src={Brain} onClick={() => navigate('/dashboard')} />
       </header>
-      <Carousel items={carouselItems} settings={recipeCarouselSettings} customClass="recipe-carousel" />
+      <Carousel recipes={recipes} items={carouselItems} settings={recipeCarouselSettings} customClass="recipe-carousel" />
     </main>
   );
 }

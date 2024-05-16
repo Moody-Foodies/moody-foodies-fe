@@ -17,14 +17,11 @@ interface CarouselProps {
 export default function CustomCarousel({
   items = [],
   settings,
+  recipes,
   customClass,
 }: CarouselProps) {
   const [isFlipped, setIsFlipped] = useState<{ [key: string]: boolean }>({})
   const [favorites, setFavorites] = useState<{ [key: string]: boolean }>(getFavorites())
-
-  useEffect(() => {
-    console.log('Carousel items:', items)
-  }, [items])
 
   const defaultSettings = {
     dots: true,
@@ -38,6 +35,20 @@ useEffect(() => {
   localStorage.setItem('favorites', JSON.stringify(favorites))
 }, [favorites])
 
+function postFavorites(){
+  fetch('https://7a97657d-b4dd-468a-960b-563f46161622.mock.pstmn.io/api/v1/recipes/favorites', {
+    method: 'POST', 
+    headers: {
+      'Content-type': 'application/json'
+    }, 
+    body: JSON.stringify([...findFavorites])
+  })
+  .then(res => res.json())
+  .then(data => console.log(data))
+}
+
+
+
 function getFavorites(){
   const favorites = localStorage.getItem('favorites') || '{}';
   const initialValue = JSON.parse(favorites);
@@ -49,8 +60,42 @@ function getFavorites(){
     setIsFlipped((prevState) => ({ ...prevState, [id]: !prevState[id] }))
   }
 
+  function findRecipe(id){
+    let favoriteRecipe = recipes.filter(recipe => recipe.id === id)
+    return favoriteRecipe; 
+  }
+
   const toggleFavorite = (id: string) => {
     setFavorites((prevState) => ({ ...prevState, [id]: !prevState[id] }))
+    if(favorites[id] === false){
+
+      fetch('https://7a97657d-b4dd-468a-960b-563f46161622.mock.pstmn.io/api/v1/recipes/favorites', {
+        method: 'POST', 
+        headers: {
+          'Content-type': 'application/json'
+        }, 
+        body: JSON.stringify(findRecipe(id))
+        // may need to include user id in body request. 
+      })
+      .then(res => res.json())
+      .then(data => console.log(data))
+    } else {
+      fetch('https://7a97657d-b4dd-468a-960b-563f46161622.mock.pstmn.io/api/v1/recipes/favorites', {
+        method: 'DELETE', 
+        headers: {
+          'Content-type': 'application/json'
+        }, 
+        body: JSON.stringify(
+          {
+            user_id: 1,
+            recipe_id: Number(`${id}`)
+        }
+        )
+        // may need to include user id in body request. 
+      })
+      // .then(res => res.json())
+      // .then(data => console.log(data))
+    }
   }
 
   return (
@@ -99,6 +144,7 @@ function getFavorites(){
               <button onClick={() => handleFlip(item.id)}>
                 {item.backButtonText}
               </button>
+              <button onClick={() => postFavorites()}>TEST/POST FAVORITES</button>
             </section>
           </ReactCardFlip>
         ))

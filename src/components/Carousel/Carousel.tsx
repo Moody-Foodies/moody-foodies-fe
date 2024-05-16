@@ -35,20 +35,6 @@ useEffect(() => {
   localStorage.setItem('favorites', JSON.stringify(favorites))
 }, [favorites])
 
-function postFavorites(){
-  fetch('https://7a97657d-b4dd-468a-960b-563f46161622.mock.pstmn.io/api/v1/recipes/favorites', {
-    method: 'POST', 
-    headers: {
-      'Content-type': 'application/json'
-    }, 
-    body: JSON.stringify([...findFavorites])
-  })
-  .then(res => res.json())
-  .then(data => console.log(data))
-}
-
-
-
 function getFavorites(){
   const favorites = localStorage.getItem('favorites') || '{}';
   const initialValue = JSON.parse(favorites);
@@ -144,7 +130,6 @@ function getFavorites(){
               <button onClick={() => handleFlip(item.id)}>
                 {item.backButtonText}
               </button>
-              <button onClick={() => postFavorites()}>TEST/POST FAVORITES</button>
             </section>
           </ReactCardFlip>
         ))

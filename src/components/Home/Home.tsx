@@ -12,6 +12,11 @@ export default function Home() {
   const [timeValue, setTimeValue] = useState<number>(15)
   const navigate = useNavigate()
 
+ const currentTime = new Date().toLocaleTimeString()
+ if(currentTime.includes('AM')){
+  console.log('Good Morning!')
+ }
+
   function postUserData() {
     fetch(
       'https://7a97657d-b4dd-468a-960b-563f46161622.mock.pstmn.io/api/v1/recipes',

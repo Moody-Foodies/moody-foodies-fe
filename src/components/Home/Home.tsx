@@ -1,22 +1,29 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './Home.css'
 import { useNavigate } from 'react-router-dom'
 import Box from '@mui/material/Box'
 import Slider from '@mui/material/Slider'
 import Sad from '../../assets/sad.png'
 import Happy from '../../assets/happy.png'
-import Logo from '../../assets/logo.png';
+import Relaxation from '../../assets/relaxation.jpeg'
 
 export default function Home() {
   const [moodValue, setMoodValue] = useState<number>(0)
   const [timeValue, setTimeValue] = useState<number>(15)
+  const [timeOfDay, setTimeOfDay] = useState('')
   const navigate = useNavigate()
+const time = new Date().getHours()
 
- const currentTime = new Date().toLocaleTimeString()
- if(currentTime.includes('AM')){
-  console.log('Good Morning!')
- }
-
+useEffect(() => {
+  if (time < 12) {
+  console.log('good morning')
+} else if (time < 18) {
+  setTimeOfDay('good afternoon')
+} else {
+  console.log('good evening')
+}
+}, [])
+console.log(timeOfDay)
   function postUserData() {
     fetch(
       'https://7a97657d-b4dd-468a-960b-563f46161622.mock.pstmn.io/api/v1/recipes',
@@ -42,7 +49,12 @@ export default function Home() {
   }
 
   return (
-    <main className="landing-page">
+    <main style={{ 
+      backgroundImage: `url(${Relaxation})`, 
+      backgroundSize: 'cover', 
+      backgroundPosition: 'center', 
+      height: '100vh', 
+      width: '100%' }} className="landing-page">
       <header>
         <nav className="nav-bar">
           <ul className="nav-links">
@@ -57,9 +69,7 @@ export default function Home() {
           </ul>
         </nav>
         <section className="logo-container">
-          <h1 className="brain">Brain</h1>
-          <img className="logo" src={Logo} />
-          <h1 className="food">Food</h1>
+          <h1 className="brain">Brain Food</h1>
         </section>
       </header>
       <h2>How are you feeling today?</h2>

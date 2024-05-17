@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Brain from '../../assets/brain.png'; ;
-import Carousel from '../Carousel/Carousel';
+import RecipeGrid from '../RecipeGrid/RecipeGrid';
 import './Recipes.css';
-import { CarouselItem } from '../../types'; 
+import { RecipeGridItem } from '../../types'; 
 
 interface Recipe {
   id: string;
@@ -35,14 +35,14 @@ export default function Recipes() {
   }, [state.data]);
 
 
-  const carouselItems: CarouselItem[] = recipes.map(recipe => ({
+  const recipeGridItems: RecipeGridItem[] = recipes.map(recipe => ({
     id: recipe.id, 
     name: recipe.attributes.name,
     image: recipe.attributes.image,
     details: recipe.attributes.description,
     favoriteIcon: Brain, 
-    frontButtonText: 'Ingredients & Instructions',
-    backButtonText: 'Recipe',
+    frontButtonText: 'Recipe Details',
+    backButtonText: 'Go Back',
     description: recipe.attributes.description, 
     cookTime: recipe.attributes.time_to_cook,   
     nutrient: recipe.attributes.nutrient,       
@@ -50,22 +50,15 @@ export default function Recipes() {
     instructions: recipe.attributes.instructions 
   }));
 
-  const recipeCarouselSettings = { 
-    dots: true, 
-    infinite: true, 
-    speed: 500, 
-    slidesToShow: 1, 
-    slidesToScroll: 1, 
-  };
 
   return (
     <main className='recipe-container'>
-      <header className='carousel'>
+      <header className='recipeGrid'>
         <h2 className='previous' onClick={() => navigate('/')}>⬅</h2>
         <h2 className='title'>Food for Your Mood</h2>
         <img className='dashboard-icon' src={Brain} onClick={() => navigate('/dashboard')} />
       </header>
-      <Carousel items={carouselItems} settings={recipeCarouselSettings} customClass="recipe-carousel" />
+      <RecipeGrid items={recipeGridItems} customClass="recipe-grid" />
     </main>
   );
 }

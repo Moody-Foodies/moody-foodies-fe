@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import affirmations from '../../Quotes/quotes'
-import Carousel from '../Carousel/Carousel'
+import RecipeGrid from '../RecipeGrid/RecipeGrid'
 import './Dashboard.css'
-import { CarouselItem } from '../../types'
+import { RecipeGridItem } from '../../types'
 
 interface Affirmation {
   quote: string
@@ -23,7 +23,7 @@ export default function Dashboard() {
     getRandomAffirmation(affirmations)
   }, [])
 
-  const carouselItems: CarouselItem[] = [
+  const recipeGridItems: RecipeGridItem[] = [
     //this is fake data, replace with real data... 
     {
       id: '1',
@@ -80,7 +80,7 @@ export default function Dashboard() {
       </header>
       <h3 className="average-mood-score">Average mood score: 7.5</h3>
       <h3 className="affirmation">{quote}</h3>
-      <Carousel items={carouselItems} customClass="dashboard-carousel" />
+      <RecipeGrid items={recipeGridItems} customClass="dashboard-recipeGrid" />
     </section>
   )
 }

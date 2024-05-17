@@ -10,15 +10,15 @@ import {
   Collapse,
   Box,
 } from '@mui/material'
-import { CarouselItem } from '../../types'
-import './Carousel.css' 
+import { RecipeGridItem } from '../../types'
+import './RecipeGrid.css' 
 
-interface CarouselProps {
-  items: CarouselItem[]
+interface RecipeGridProps {
+  items: RecipeGridItem[]
   customClass?: string
 }
 
-export default function Carousel({ items = [], customClass }: CarouselProps) {
+export default function RecipeGrid({ items = [], customClass }: RecipeGridProps) {
   const [isFlipped, setIsFlipped] = useState<{ [key: string]: boolean }>({})
 
   const handleFlip = (id: string) => {

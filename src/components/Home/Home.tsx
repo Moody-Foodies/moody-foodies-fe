@@ -45,7 +45,7 @@ export default function Home() {
   }
   const handleClose = () => {
     setAnchorEl(null);
-    navigate('/dashboard')
+    navigate('/dashboard', {state: { value: value} })
   };
 const time = new Date().getHours()
 useEffect(() => {

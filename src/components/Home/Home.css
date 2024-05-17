@@ -35,7 +35,8 @@ h1 {
     margin-bottom: 25px;
   }
 
-  img {
+  .sad, 
+  .happy {
     height: 100px;
     width: 150px;
     border-radius: 100px;

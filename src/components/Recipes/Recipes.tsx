@@ -43,7 +43,6 @@ export default function Recipes() {
     setRecipes(state.data);
   }, [state.data]);
 
-  console.log('VALUE:', state.value)
 
   const recipeGridItems: RecipeGridItem[] = recipes.map(recipe => ({
     id: recipe.id, 
@@ -84,7 +83,9 @@ export default function Recipes() {
       <header className='recipeGrid'>
         <h2 className='previous' onClick={() => navigate('/')}>⬅</h2>
         <h2 className='title'>Food for Your Mood</h2>
-        <img className='dashboard-icon' src={Brain} onClick={() => navigate('/dashboard')} />
+        <img className='dashboard-icon' src={Brain} onClick={() => navigate('/dashboard', {
+    state: { value: value },
+  })} />
       </header>
       <RecipeGrid recipes={recipes} items={recipeGridItems} customClass="recipe-grid" />
     </main>

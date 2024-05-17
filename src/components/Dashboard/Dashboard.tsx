@@ -1,20 +1,30 @@
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import affirmations from '../../Quotes/quotes'
 import RecipeGrid from '../RecipeGrid/RecipeGrid'
 import './Dashboard.css'
-import { RecipeGridItem } from '../../types'
+import { RecipeGridItem } from '../../types';
+import Relaxation from '../../assets/relaxation.jpeg';
+import Calm from '../../assets/calm.jpeg';
+import HappyTheme from '../../assets/happy.jpeg';
+import Energy from '../../assets/energy.jpeg'
+import Enthus from '../../assets/enthus.jpeg' 
 
 interface Affirmation {
   quote: string
 }
 
+interface LocationState {
+  value: string; 
+}
 
 
 export default function Dashboard() {
   const [quote, setQuote] = useState<string>('')
   const navigate = useNavigate()
-
+  const location = useLocation();
+  const state = location.state as LocationState;
+  const value = state.value;
   function getRandomAffirmation(affirmations: Affirmation[]) {
     let randomQuote =
       affirmations[Math.floor(Math.random() * affirmations.length)]
@@ -73,7 +83,23 @@ export default function Dashboard() {
   ]
 
   return (
-    <section className="container">
+    <section className="container"
+    style={{ 
+      backgroundImage: 
+      `url(${value === 'calm' ? Calm : 
+      value === 'energetic' ? Energy :
+      value === 'relaxed' ? Relaxation :
+      value === 'happy' ? HappyTheme :
+      value === 'enthus' ? Enthus  :
+     Relaxation})` , 
+      backgroundSize: 'cover', 
+      backgroundRepeat: 'repeat',
+      backgroundPosition: 'center', 
+      height: '100vh', 
+      width: '100vw',
+      backgroundAttachment: 'fixed', 
+      overflow: 'auto'
+     }} >
       <header className="dashboard-container">
         <h2 className="back-arrow" onClick={() => navigate('/')}>
           ⬅

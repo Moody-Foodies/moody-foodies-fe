@@ -4,6 +4,7 @@ import Brain from '../../assets/brain.png'; ;
 import Carousel from '../Carousel/Carousel';
 import './Recipes.css';
 import { CarouselItem } from '../../types'; 
+import { motion } from 'framer-motion';
 
 interface Recipe {
   id: string;
@@ -58,6 +59,7 @@ export default function Recipes() {
   };
 
   return (
+    <motion.div initial={{scaleX:0}} animate={{scaleX:1}} exit={{scaleX:0}} transition={{duration: 0.3}}>
     <main className='recipe-container'>
       <header className='carousel'>
         <h2 className='previous' onClick={() => navigate('/')}>⬅</h2>
@@ -66,5 +68,6 @@ export default function Recipes() {
       </header>
       <Carousel recipes={recipes} items={carouselItems} settings={recipeCarouselSettings} customClass="recipe-carousel" />
     </main>
+    </motion.div>
   );
 }

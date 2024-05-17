@@ -5,13 +5,12 @@ import Box from '@mui/material/Box'
 import Slider from '@mui/material/Slider'
 import Sad from '../../assets/sad.jpeg'
 import HappyFace from '../../assets/happyface.jpeg'
-
+import { motion } from 'framer-motion';
 import Relaxation from '../../assets/relaxation.jpeg';
 import Calm from '../../assets/calm.jpeg';
 import HappyTheme from '../../assets/happy.jpeg';
 import Energy from '../../assets/energy.jpeg'
 import Enthus from '../../assets/enthus.jpeg'
-import Switch from '@mui/material/Switch';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -28,6 +27,7 @@ export default function Home() {
   const [checked, setChecked] = useState(false)
   const [theme, setTheme] = useState('')
   const [value, setValue] = useState('')
+
   const navigate = useNavigate()
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -75,15 +75,9 @@ console.log(timeOfDay)
         console.log('mood:', moodValue)
       })
   }
-  // function handleChange(event) {
 
-  //   setChecked(event.target.checked);
-  //   setTheme(event.target.id)
-  // };
-
-
-console.log('VALUEEEE:', value)
   return (
+    <motion.div initial={{scaleX:0}} animate={{scaleX:1}} exit={{scaleX:0}} transition={{duration: 0.3}}>
     <main style={{ 
       backgroundImage: 
       `url(${value === 'calm' ? Calm : 
@@ -102,8 +96,6 @@ console.log('VALUEEEE:', value)
       <header>
       <p className='name'>Brain Food</p>
 
-          {/* <Switch {...label} id="1" onChange={(event) => handleChange(event)}/>
-          <Switch {...label} id="2" onChange={(event) => handleChange(event)}/> */}
           <FormControl>
           <FormLabel className='label' component="legend">I want to feel ...</FormLabel>
           <RadioGroup
@@ -120,18 +112,7 @@ console.log('VALUEEEE:', value)
         <FormControlLabel onClick={event => setValue(event.target.value)} value="enthus" control={<Radio />} label="Enthusiastic" />
       </RadioGroup>
     </FormControl>
-        {/* <nav className="nav-bar">
-          <ul className="nav-links">
-            <li className="nav-link">
-              <a href="/dashboard">Moodboard</a>
-            </li>
-            <li>
-              <button className="logout" onClick={() => console.log('/login')}>
-                Logout
-              </button>
-            </li>
-          </ul>
-        </nav> */}
+
          <div>
       <Button
         id="demo-positioned-button"
@@ -196,11 +177,14 @@ console.log('VALUEEEE:', value)
         }{' '}
         minutes to cook.
       </h2>
+
       <button className="cook" onClick={() => postUserData()}>
         Let's cook!
       </button>
+      
         </section>
-        
+
     </main>
+    </motion.div>
   )
 }

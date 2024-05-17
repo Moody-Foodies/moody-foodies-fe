@@ -1,110 +1,96 @@
-import { useState, useEffect } from 'react'
-import Slider from 'react-slick'
-import ReactCardFlip from 'react-card-flip'
-import 'slick-carousel/slick/slick.css'
-import 'slick-carousel/slick/slick-theme.css'
-import Favorite from '../../assets/favorite.png'
-import Unfavorite from '../../assets/unfavorite.png'
-import './Carousel.css'
+import { useState } from 'react'
+import {
+  Grid,
+  Card,
+  CardContent,
+  CardMedia,
+  Typography,
+  Button,
+  Collapse,
+  Box,
+} from '@mui/material'
 import { CarouselItem } from '../../types'
+import './Carousel.css'
 
 interface CarouselProps {
   items: CarouselItem[]
-  settings?: object
   customClass?: string
 }
 
-export default function CustomCarousel({
-  items = [],
-  settings,
-  customClass,
-}: CarouselProps) {
+export default function Carousel({ items = [], customClass }: CarouselProps) {
   const [isFlipped, setIsFlipped] = useState<{ [key: string]: boolean }>({})
-  const [favorites, setFavorites] = useState<{ [key: string]: boolean }>(getFavorites())
-
-  useEffect(() => {
-    console.log('Carousel items:', items)
-  }, [items])
-
-  const defaultSettings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 3,
-  }
-
-useEffect(() => {
-  localStorage.setItem('favorites', JSON.stringify(favorites))
-}, [favorites])
-
-function getFavorites(){
-  const favorites = localStorage.getItem('favorites') || '{}';
-  const initialValue = JSON.parse(favorites);
-  return initialValue || "";
-}
-  const finalSettings = { ...defaultSettings, ...settings }
 
   const handleFlip = (id: string) => {
     setIsFlipped((prevState) => ({ ...prevState, [id]: !prevState[id] }))
   }
 
-  const toggleFavorite = (id: string) => {
-    setFavorites((prevState) => ({ ...prevState, [id]: !prevState[id] }))
-  }
-
   return (
-    <Slider {...finalSettings} className={customClass}>
+    <Grid container spacing={2} className={customClass}>
       {Array.isArray(items) && items.length > 0 ? (
         items.map((item) => (
-          <ReactCardFlip
-            key={item.id}
-            isFlipped={isFlipped[item.id]}
-            flipDirection="horizontal"
-          >
-            <section className="front">
-              <h3>{item.name}</h3>
-              <img
-                className="favorite"
-                src={favorites[item.id] ? Favorite : Unfavorite}
-                onClick={() => toggleFavorite(item.id)}
-                alt="Favorite"
-              />
-              <img src={item.image} alt={item.name} className="recipe-image" />
-              <p>{item.description}</p>
-              <p>Time to Cook: {item.cookTime} minutes</p>
-              <p className="nutrient">
-                This recipe contains ✨{item.nutrient}✨
-              </p>
-              <button onClick={() => handleFlip(item.id)}>
-                {item.frontButtonText}
-              </button>
-            </section>
-            <section className="back">
-              <h3>Ingredients & Instructions</h3>
-              <section className="ingredient-container">
-                <h4>Ingredients</h4>
-                <ul>
-                  {item.ingredients.map((ingredient, index) => (
-                    <li key={index}>{ingredient}</li>
-                  ))}
-                </ul>
-                <h4>Instructions</h4>
-                <ol>
-                  {item.instructions.map((instruction, index) => (
-                    <li key={index}>{instruction}</li>
-                  ))}
-                </ol>
-              </section>
-              <button onClick={() => handleFlip(item.id)}>
-                {item.backButtonText}
-              </button>
-            </section>
-          </ReactCardFlip>
+          <Grid item xs={12} sm={6} md={4} key={item.id}>
+            <Card>
+              <Box position="relative">
+                <CardMedia
+                  component="img"
+                  height="140"
+                  image={item.image}
+                  alt={item.name}
+                  onClick={() => handleFlip(item.id)}
+                  sx={{ cursor: 'pointer' }}
+                />
+              </Box>
+              <Collapse in={!isFlipped[item.id]}>
+                <CardContent>
+                  <Typography variant="h5" component="div">
+                    {item.name}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {item.description}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Time to Cook: {item.cookTime} minutes
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    This recipe contains ✨{item.nutrient}✨
+                  </Typography>
+                  <Button size="small" onClick={() => handleFlip(item.id)}>
+                    {item.frontButtonText}
+                  </Button>
+                </CardContent>
+              </Collapse>
+              <Collapse in={isFlipped[item.id]}>
+                <CardContent>
+                  <Typography variant="h6" component="div">
+                    Ingredients & Instructions
+                  </Typography>
+                  <Typography variant="body2" component="div">
+                    <strong>Ingredients:</strong>
+                    <ul>
+                      {item.ingredients.map((ingredient, index) => (
+                        <li key={index}>{ingredient}</li>
+                      ))}
+                    </ul>
+                  </Typography>
+                  <Typography variant="body2" component="div">
+                    <strong>Instructions:</strong>
+                    <ol>
+                      {item.instructions.map((instruction, index) => (
+                        <li key={index}>{instruction}</li>
+                      ))}
+                    </ol>
+                  </Typography>
+                  <Button size="small" onClick={() => handleFlip(item.id)}>
+                    {item.backButtonText}
+                  </Button>
+                </CardContent>
+              </Collapse>
+            </Card>
+          </Grid>
         ))
       ) : (
-        <p>No items to display</p>
+        <Typography variant="h6">No items to display</Typography>
       )}
-    </Slider>
+    </Grid>
   )
 }

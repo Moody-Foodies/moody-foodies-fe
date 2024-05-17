@@ -32,7 +32,6 @@ export default function Home() {
         navigate('/recipes', {
           state: { data: data.data, mood: moodValue, time: timeValue },
         })
-        console.log('mood:', moodValue)
       })
   }
 

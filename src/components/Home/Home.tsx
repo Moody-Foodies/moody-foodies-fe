@@ -3,26 +3,54 @@ import './Home.css'
 import { useNavigate } from 'react-router-dom'
 import Box from '@mui/material/Box'
 import Slider from '@mui/material/Slider'
-import Sad from '../../assets/sad.png'
-import Happy from '../../assets/happy.png'
-import Relaxation from '../../assets/relaxation.jpeg'
+import Sad from '../../assets/sad.jpeg'
+import HappyFace from '../../assets/happyface.jpeg'
+
+import Relaxation from '../../assets/relaxation.jpeg';
+import Calm from '../../assets/calm.jpeg';
+import HappyTheme from '../../assets/happy.jpeg';
+import Energy from '../../assets/energy.jpeg'
+import Enthus from '../../assets/enthus.jpeg'
+import Switch from '@mui/material/Switch';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
+import Button from '@mui/material/Button';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 
 export default function Home() {
   const [moodValue, setMoodValue] = useState<number>(0)
   const [timeValue, setTimeValue] = useState<number>(15)
   const [timeOfDay, setTimeOfDay] = useState('')
+  const [checked, setChecked] = useState(false)
+  const [theme, setTheme] = useState('')
+  const [value, setValue] = useState('')
   const navigate = useNavigate()
-const time = new Date().getHours()
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event: MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
 
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+    navigate('/dashboard')
+  };
+const time = new Date().getHours()
+const label = { inputProps: { 'aria-label': 'Switch demo' } };
 useEffect(() => {
   if (time < 12) {
-  console.log('good morning')
+  setTimeOfDay('Good morning')
 } else if (time < 18) {
-  setTimeOfDay('good afternoon')
+  setTimeOfDay('Good afternoon')
 } else {
-  console.log('good evening')
+  setTimeOfDay('Good evening')
 }
 }, [])
+console.log(checked)
 console.log(timeOfDay)
   function postUserData() {
     fetch(
@@ -47,16 +75,52 @@ console.log(timeOfDay)
         console.log('mood:', moodValue)
       })
   }
+  // function handleChange(event) {
 
+  //   setChecked(event.target.checked);
+  //   setTheme(event.target.id)
+  // };
+
+
+console.log('VALUEEEE:', value)
   return (
     <main style={{ 
-      backgroundImage: `url(${Relaxation})`, 
+      backgroundImage: 
+      `url(${value === 'calm' ? Calm : 
+      value === 'energetic' ? Energy :
+      value === 'relaxed' ? Relaxation :
+      value === 'happy' ? HappyTheme :
+      value === 'enthus' ? Enthus  :
+     Relaxation})` , 
       backgroundSize: 'cover', 
       backgroundPosition: 'center', 
       height: '100vh', 
-      width: '100%' }} className="landing-page">
+      width: '100vw'
+     }} 
+     className='landing-page'
+      >
       <header>
-        <nav className="nav-bar">
+      <p className='name'>Brain Food</p>
+
+          {/* <Switch {...label} id="1" onChange={(event) => handleChange(event)}/>
+          <Switch {...label} id="2" onChange={(event) => handleChange(event)}/> */}
+          <FormControl>
+          {/* <FormLabel component="legend">Choose Your Mood Mode</FormLabel> */}
+          <RadioGroup
+          row
+        aria-labelledby="demo-radio-buttons-group-label"
+        defaultValue="relaxed"
+        name="radio-buttons-group"
+      >
+      
+        <FormControlLabel onClick={event => setValue(event.target.value)} value="calm" control={<Radio />} label="Calm" />
+        <FormControlLabel onClick={event => setValue(event.target.value)} value="energetic" control={<Radio />} label="Energetic" />
+        <FormControlLabel onClick={event => setValue(event.target.value)} value="relaxed" control={<Radio />} label="Relaxed" />
+        <FormControlLabel onClick={event => setValue(event.target.value)} value="happy" control={<Radio />} label="Happy" />
+        <FormControlLabel onClick={event => setValue(event.target.value)} value="enthus" control={<Radio />} label="Enthusiastic" />
+      </RadioGroup>
+    </FormControl>
+        {/* <nav className="nav-bar">
           <ul className="nav-links">
             <li className="nav-link">
               <a href="/dashboard">Moodboard</a>
@@ -67,15 +131,43 @@ console.log(timeOfDay)
               </button>
             </li>
           </ul>
-        </nav>
-        <section className="logo-container">
-          <h1 className="brain">Brain Food</h1>
-        </section>
-      </header>
+        </nav> */}
+         <div>
+      <Button
+        id="demo-positioned-button"
+        aria-controls={open ? 'demo-positioned-menu' : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? 'true' : undefined}
+        onClick={handleClick}
+        className='dashboard-button'
+      >
+        Menu 
+      </Button>
+      <Menu
+        id="demo-positioned-menu"
+        aria-labelledby="demo-positioned-button"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'left',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'left',
+        }}
+      >
+        <MenuItem onClick={handleClose}>Mood Board</MenuItem>
+      </Menu>
+    </div>
+        </header>
+        <section className={value === 'enthus' ? 'enthus' : value === 'energetic' ? 'energetic' : 'main-page'}>
+          {timeOfDay && <h1>{timeOfDay}!</h1>}
       <h2>How are you feeling today?</h2>
       <section className="slider-container">
+        <img className="sad" src={Sad} />
         <div className="slider-container">
-          <img className="sad" src={Sad} />
           <Box sx={{ width: 500 }}>
             <Slider
               step={1}
@@ -86,8 +178,10 @@ console.log(timeOfDay)
               onChange={(event: any) => setMoodValue(event.target.value)}
             />
           </Box>
-          <img className="happy" src={Happy} />
+
         </div>
+        
+        <img className='happy' src={HappyFace} />
       </section>
       <h2 className="time">
         I have{' '}
@@ -105,6 +199,8 @@ console.log(timeOfDay)
       <button className="cook" onClick={() => postUserData()}>
         Let's cook!
       </button>
+        </section>
+        
     </main>
   )
 }

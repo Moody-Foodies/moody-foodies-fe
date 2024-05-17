@@ -105,7 +105,7 @@ console.log('VALUEEEE:', value)
           {/* <Switch {...label} id="1" onChange={(event) => handleChange(event)}/>
           <Switch {...label} id="2" onChange={(event) => handleChange(event)}/> */}
           <FormControl>
-          {/* <FormLabel component="legend">Choose Your Mood Mode</FormLabel> */}
+          <FormLabel className='label' component="legend">I want to feel ...</FormLabel>
           <RadioGroup
           row
         aria-labelledby="demo-radio-buttons-group-label"

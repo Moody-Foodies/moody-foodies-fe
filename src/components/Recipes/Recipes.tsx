@@ -3,10 +3,13 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import Brain from '../../assets/brain.png'; ;
 import RecipeGrid from '../RecipeGrid/RecipeGrid';
 import './Recipes.css';
+import { CarouselItem } from '../../types'; 
+import { motion } from 'framer-motion';
 import { RecipeGridItem } from '../../types'; 
 
 interface Recipe {
-  id: string;
+  id: string,
+  type: string,
   attributes: {
     image: string;
     name: string;
@@ -52,13 +55,15 @@ export default function Recipes() {
 
 
   return (
+    <motion.div initial={{scaleX:0}} animate={{scaleX:1}} exit={{scaleX:0}} transition={{duration: 0.3}}>
     <main className='recipe-container'>
       <header className='recipeGrid'>
         <h2 className='previous' onClick={() => navigate('/')}>⬅</h2>
         <h2 className='title'>Food for Your Mood</h2>
         <img className='dashboard-icon' src={Brain} onClick={() => navigate('/dashboard')} />
       </header>
-      <RecipeGrid items={recipeGridItems} customClass="recipe-grid" />
+      <RecipeGrid recipes={recipes} items={recipeGridItems} customClass="recipe-grid" />
     </main>
+    </motion.div>
   );
 }

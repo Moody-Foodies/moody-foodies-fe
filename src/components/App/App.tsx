@@ -3,22 +3,25 @@ import Home from '../Home/Home'
 import Dashboard from '../Dashboard/Dashboard'
 import { Container } from '@mui/material'
 import Recipes from '../Recipes/Recipes'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { useLocation, Routes, Route } from 'react-router-dom'
 import NotFound from '../NotFound/NotFound'
+import { AnimatePresence } from "framer-motion"
 
 export default function App() {
+  const location = useLocation();
+
   return (
     <div className="App">
-      <BrowserRouter>
-        <Container>
-          <Routes>
+      <AnimatePresence mode='wait' initial={false}>
+            <Container>
+          <Routes location={location} key={location.pathname}>
             <Route path="/" element={<Home />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/recipes" element={<Recipes />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Container>
-      </BrowserRouter>
+      </AnimatePresence>
     </div>
   )
 }

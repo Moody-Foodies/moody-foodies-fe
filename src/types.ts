@@ -1,4 +1,4 @@
-export interface CarouselItem {
+export interface RecipeGridItem {
   id: string;
   name: string;
   description: string;
@@ -13,4 +13,4 @@ export interface CarouselItem {
   instructions: string[];
 }
 
-// they are all strings right now, but we should make them more specific once we know what they are
+// they are all strings right now, but we should probably make them more specific once we know what they are

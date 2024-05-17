@@ -5,7 +5,6 @@
 }
 
 .front {
-    background-color: #D8CD94; 
     height: 500px;
     display: flex;
     flex-direction: column;

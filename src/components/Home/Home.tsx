@@ -24,7 +24,7 @@ export default function Home() {
   const [moodValue, setMoodValue] = useState<number>(0)
   const [timeValue, setTimeValue] = useState<number>(15)
   const [timeOfDay, setTimeOfDay] = useState('')
-  const [value, setValue] = useState('')
+  const [value, setValue] = useState(getValue())
 
   const navigate = useNavigate()
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -33,6 +33,16 @@ export default function Home() {
     setAnchorEl(event.currentTarget as HTMLElement);
 
   };
+
+  useEffect(() => {
+    localStorage.setItem('value', JSON.stringify(value))
+  }, [value])
+  
+  function getValue(){
+    const value = localStorage.getItem('value') || '';
+    const initialValue = JSON.parse(value);
+    return initialValue || "";
+  }
   const handleClose = () => {
     setAnchorEl(null);
     navigate('/dashboard')

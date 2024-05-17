@@ -67,7 +67,7 @@ console.log(timeOfDay)
       .then((res) => res.json())
       .then((data) => {
         navigate('/recipes', {
-          state: { data: data.data, mood: moodValue, time: timeValue },
+          state: { data: data.data, mood: moodValue, time: timeValue, value: value },
         })
       })
   }

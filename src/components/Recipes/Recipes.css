@@ -23,7 +23,8 @@
 .recipe-container {
     display: flex; 
     flex-direction: column;
-    align-items: center
+    align-items: center;
+    height: 100vh;
 }
 
 .slick-slider {

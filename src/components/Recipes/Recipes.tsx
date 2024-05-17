@@ -5,7 +5,12 @@ import RecipeGrid from '../RecipeGrid/RecipeGrid';
 import './Recipes.css';
 import { CarouselItem } from '../../types'; 
 import { motion } from 'framer-motion';
-import { RecipeGridItem } from '../../types'; 
+import { RecipeGridItem } from '../../types';
+import Relaxation from '../../assets/relaxation.jpeg';
+import Calm from '../../assets/calm.jpeg';
+import HappyTheme from '../../assets/happy.jpeg';
+import Energy from '../../assets/energy.jpeg'
+import Enthus from '../../assets/enthus.jpeg' 
 
 interface Recipe {
   id: string,
@@ -23,6 +28,7 @@ interface Recipe {
 
 interface LocationState {
   mood: string;
+  value: string; 
   time: string;
   data: Recipe[];
 }
@@ -32,11 +38,12 @@ export default function Recipes() {
   const navigate = useNavigate();
   const location = useLocation();
   const state = location.state as LocationState;
-
+  const value = state.value; 
   useEffect(() => {
     setRecipes(state.data);
   }, [state.data]);
 
+  console.log('VALUE:', state.value)
 
   const recipeGridItems: RecipeGridItem[] = recipes.map(recipe => ({
     id: recipe.id, 
@@ -56,7 +63,24 @@ export default function Recipes() {
 
   return (
     <motion.div initial={{scaleX:0}} animate={{scaleX:1}} exit={{scaleX:0}} transition={{duration: 0.3}}>
-    <main className='recipe-container'>
+    <main 
+    style={{ 
+      backgroundImage: 
+      `url(${value === 'calm' ? Calm : 
+      value === 'energetic' ? Energy :
+      value === 'relaxed' ? Relaxation :
+      value === 'happy' ? HappyTheme :
+      value === 'enthus' ? Enthus  :
+     Relaxation})` , 
+      backgroundSize: 'cover', 
+      backgroundRepeat: 'repeat',
+      backgroundPosition: 'center', 
+      height: '100vh', 
+      width: '100vw',
+      backgroundAttachment: 'fixed', 
+      overflow: 'auto'
+     }} 
+    className='recipe-container'>
       <header className='recipeGrid'>
         <h2 className='previous' onClick={() => navigate('/')}>⬅</h2>
         <h2 className='title'>Food for Your Mood</h2>

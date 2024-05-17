@@ -13,14 +13,12 @@ export default function App() {
   return (
     <div className="App">
       <AnimatePresence mode='wait' initial={false}>
-            <Container>
           <Routes location={location} key={location.pathname}>
             <Route path="/" element={<Home />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/recipes" element={<Recipes />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
-        </Container>
       </AnimatePresence>
     </div>
   )

@@ -1,4 +1,4 @@
-export interface CarouselItem {
+export interface RecipeGridItem {
   id: string;
   name: string;
   description: string;

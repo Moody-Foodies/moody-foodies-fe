@@ -69,12 +69,11 @@ console.log(timeOfDay)
         navigate('/recipes', {
           state: { data: data.data, mood: moodValue, time: timeValue },
         })
-        console.log('mood:', moodValue)
       })
   }
 
   return (
-    <motion.div initial={{scaleX:0}} animate={{scaleX:1}} exit={{scaleX:0}} transition={{duration: 0.3}}>
+    <motion.div initial={{scaleX:0}} animate={{scaleX:1}} exit={{scaleX:0}} transition={{duration: 0.5}}>
     <main style={{ 
       backgroundImage: 
       `url(${value === 'calm' ? Calm : 

@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import Brain from '../../assets/brain.png'; ;
 import RecipeGrid from '../RecipeGrid/RecipeGrid';
 import './Recipes.css';
-import { CarouselItem } from '../../types'; 
+// import { CarouselItem } from '../../types'; 
 import { motion } from 'framer-motion';
 import { RecipeGridItem } from '../../types'; 
 

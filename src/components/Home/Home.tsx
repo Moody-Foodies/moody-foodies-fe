@@ -24,15 +24,13 @@ export default function Home() {
   const [moodValue, setMoodValue] = useState<number>(0)
   const [timeValue, setTimeValue] = useState<number>(15)
   const [timeOfDay, setTimeOfDay] = useState('')
-  const [checked, setChecked] = useState(false)
-  const [theme, setTheme] = useState('')
   const [value, setValue] = useState('')
 
   const navigate = useNavigate()
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const handleClick = (event: MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
+  const handleClick = (event: React.MouseEvent) => {
+    setAnchorEl(event.currentTarget as HTMLElement);
 
   };
   const handleClose = () => {
@@ -40,7 +38,6 @@ export default function Home() {
     navigate('/dashboard')
   };
 const time = new Date().getHours()
-const label = { inputProps: { 'aria-label': 'Switch demo' } };
 useEffect(() => {
   if (time < 12) {
   setTimeOfDay('Good morning')
@@ -50,7 +47,7 @@ useEffect(() => {
   setTimeOfDay('Good evening')
 }
 }, [])
-console.log(checked)
+
 console.log(timeOfDay)
   function postUserData() {
     fetch(
@@ -103,13 +100,14 @@ console.log(timeOfDay)
         aria-labelledby="demo-radio-buttons-group-label"
         defaultValue="relaxed"
         name="radio-buttons-group"
+        onChange={(event) => setValue(event.target.value)}
       >
       
-        <FormControlLabel onClick={event => setValue(event.target.value)} value="calm" control={<Radio />} label="Calm" />
-        <FormControlLabel onClick={event => setValue(event.target.value)} value="energetic" control={<Radio />} label="Energetic" />
-        <FormControlLabel onClick={event => setValue(event.target.value)} value="relaxed" control={<Radio />} label="Relaxed" />
-        <FormControlLabel onClick={event => setValue(event.target.value)} value="happy" control={<Radio />} label="Happy" />
-        <FormControlLabel onClick={event => setValue(event.target.value)} value="enthus" control={<Radio />} label="Enthusiastic" />
+        <FormControlLabel value="calm" control={<Radio />} label="Calm" />
+        <FormControlLabel value="energetic" control={<Radio />} label="Energetic" />
+        <FormControlLabel value="relaxed" control={<Radio />} label="Relaxed" />
+        <FormControlLabel value="happy" control={<Radio />} label="Happy" />
+        <FormControlLabel value="enthus" control={<Radio />} label="Enthusiastic" />
       </RadioGroup>
     </FormControl>
 

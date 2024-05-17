@@ -6,12 +6,13 @@ import 'slick-carousel/slick/slick-theme.css'
 import Favorite from '../../assets/favorite.png'
 import Unfavorite from '../../assets/unfavorite.png'
 import './Carousel.css'
-import { CarouselItem } from '../../types'
+import { CarouselItem, Recipe } from '../../types'
 
 interface CarouselProps {
   items: CarouselItem[]
   settings?: object
-  customClass?: string
+  customClass?: string,
+  recipes: Recipe[]
 }
 
 export default function CustomCarousel({
@@ -46,7 +47,8 @@ function getFavorites(){
     setIsFlipped((prevState) => ({ ...prevState, [id]: !prevState[id] }))
   }
 
-  function findRecipe(id){
+  function findRecipe(id: number){
+    console.log(typeof  id)
     let favoriteRecipe = recipes.filter(recipe => recipe.id === id)
     return favoriteRecipe; 
   }
@@ -60,7 +62,7 @@ function getFavorites(){
         headers: {
           'Content-type': 'application/json'
         }, 
-        body: JSON.stringify(findRecipe(id))
+        body: JSON.stringify(findRecipe(Number(id)))
         // may need to include user id in body request. 
       })
       .then(res => res.json())

@@ -7,7 +7,8 @@ import { CarouselItem } from '../../types';
 import { motion } from 'framer-motion';
 
 interface Recipe {
-  id: string;
+  id: string,
+  type: string,
   attributes: {
     image: string;
     name: string;

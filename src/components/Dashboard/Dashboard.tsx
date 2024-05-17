@@ -9,6 +9,8 @@ interface Affirmation {
   quote: string
 }
 
+
+
 export default function Dashboard() {
   const [quote, setQuote] = useState<string>('')
   const navigate = useNavigate()
@@ -36,7 +38,7 @@ export default function Dashboard() {
       cookTime: '30',
       nutrient: 'Nutrient 1',
       ingredients: ['Ingredient 1', 'Ingredient 2'],
-      instructions: ['Step 1', 'Step 2'],
+      instructions: ['Step 1', 'Step 2']
     },
     {
       id: '2',
@@ -50,7 +52,7 @@ export default function Dashboard() {
       cookTime: '45',
       nutrient: 'Nutrient 2',
       ingredients: ['Ingredient 1', 'Ingredient 2'],
-      instructions: ['Step 1', 'Step 2'],
+      instructions: ['Step 1', 'Step 2']
     },
   ]
 

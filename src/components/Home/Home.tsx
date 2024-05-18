@@ -19,7 +19,7 @@ import FormLabel from '@mui/material/FormLabel';
 
 
 export default function Home() {
-  const [moodValue, setMoodValue] = useState<number>(0)
+  const [moodValue, setMoodValue] = useState<number>(1)
   const [timeValue, setTimeValue] = useState<number>(15)
   const [timeOfDay, setTimeOfDay] = useState<string>('')
   const [value, setValue] = useState(getValue())

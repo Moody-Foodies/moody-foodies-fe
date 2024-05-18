@@ -19,7 +19,7 @@ import { motion } from 'framer-motion'
 
 interface RecipeGridProps {
   items: RecipeGridItem[]
-  customClass?: string
+  // customClass?: string
 }
 
 const modalStyle = {
@@ -36,7 +36,7 @@ const modalStyle = {
 
 export default function RecipeGrid({
   items: recipes = [], 
-  customClass,
+  // customClass,
 }: RecipeGridProps) {
   const [favorites, setFavorites] = useState<{ [key: string]: boolean }>(() => {
     const savedFavorites = localStorage.getItem('favorites')
@@ -72,7 +72,7 @@ export default function RecipeGrid({
       transition={{ duration: 0.5 }}
     >
       <Container>
-        <Grid container spacing={2} className={customClass}>
+        <Grid container spacing={2} >
           {Array.isArray(recipes) && recipes.length > 0 ? ( 
             recipes.map((recipe) => ( 
               <Grid item xs={12} sm={6} md={4} key={recipe.id}>

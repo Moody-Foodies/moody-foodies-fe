@@ -37,7 +37,7 @@ export default function Dashboard() {
       details: 'Detail 1',
       favoriteIcon: 'https://example.com/icon1.png',
       frontButtonText: 'Recipe Details',
-      backButtonText: 'More Info',
+      backButtonText: 'Go Back',
       description: 'Description 1',
       cookTime: '30',
       nutrient: 'Nutrient 1',
@@ -51,7 +51,7 @@ export default function Dashboard() {
       details: 'Detail 2',
       favoriteIcon: 'https://example.com/icon2.png',
       frontButtonText: 'Recipe Details',
-      backButtonText: 'More Info',
+      backButtonText: 'Go Back',
       description: 'Description 2',
       cookTime: '45',
       nutrient: 'Nutrient 2',
@@ -65,7 +65,7 @@ export default function Dashboard() {
       details: 'Detail 3',
       favoriteIcon: 'https://example.com/icon3.png',
       frontButtonText: 'Recipe Details',
-      backButtonText: 'More Info',
+      backButtonText: 'Go Back',
       description: 'Description 3',
       cookTime: '60',
       nutrient: 'Nutrient 3',
@@ -99,13 +99,14 @@ export default function Dashboard() {
         </Toolbar>
       </AppBar>
 
+      <RecipeGrid items={recipeGridItems} />
+
       <Typography variant="h6" component="div" sx={{ mt: 2 }}>
         Average mood score: 7.5
       </Typography>
       <Typography variant="h6" component="div" sx={{ mt: 2 }}>
         {quote}
       </Typography>
-      <RecipeGrid items={recipeGridItems} customClass="dashboard-recipeGrid" />
     </section>
   );
 }

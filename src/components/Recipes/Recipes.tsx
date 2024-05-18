@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Favorite from '../../assets/favorite.png'
 import RecipeGrid from '../RecipeGrid/RecipeGrid';
+import Error from '../Error/Error';
 import './Recipes.css';
-import { CarouselItem } from '../../types'; 
 import { motion } from 'framer-motion';
 import { RecipeGridItem } from '../../types';
 import Relaxation from '../../assets/relaxation.jpeg';
@@ -34,12 +34,17 @@ interface LocationState {
 }
 
 export default function Recipes() {
-  const [recipes, setRecipes] = useState<Recipe[]>([]);
+  const [recipes, setRecipes] = useState<Recipe[]>(getRecipes());
   const [value, setValue] = useState('')
   const navigate = useNavigate();
   const location = useLocation();
   const state = location.state as LocationState;
-
+console.log(state)
+if(!state){
+  return (
+    <Error />
+  )
+}
   useEffect(() => {
     setRecipes(state.data);
     setValue(state.value)
@@ -54,15 +59,15 @@ export default function Recipes() {
   //   const initialValue = JSON.parse(value);
   //   return initialValue || "";
   // }
-  // useEffect(() => {
-  //   localStorage.setItem('recipes', JSON.stringify(recipes))
-  // }, [recipes])
+  useEffect(() => {
+    localStorage.setItem('recipes', JSON.stringify(recipes))
+  }, [recipes])
   
-  // function getRecipes(){
-  //   const recipes = localStorage.getItem('recipes') || '[]';
-  //   const initialValue = JSON.parse(recipes);
-  //   return initialValue || "";
-  // }
+  function getRecipes(){
+    const recipes = localStorage.getItem('recipes') || '[]';
+    const initialValue = JSON.parse(recipes);
+    return initialValue || "";
+  }
 
 
   const recipeGridItems: RecipeGridItem[] = recipes.map(recipe => ({
@@ -82,7 +87,7 @@ export default function Recipes() {
 
 
   return (
-    <motion.div initial={{scaleX:0}} animate={{scaleX:1}} exit={{scaleX:0}} transition={{duration: 0.3}}>
+    <motion.div initial={{scaleX:0}} animate={{scaleX:1}} exit={{scaleX:0}} transition={{duration: 0.5}}>
     <main 
     style={{ 
       backgroundImage: 

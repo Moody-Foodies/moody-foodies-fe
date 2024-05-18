@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import './Home.css'
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import Box from '@mui/material/Box'
 import Slider from '@mui/material/Slider'
 import Sad from '../../assets/sad.jpeg'
@@ -18,16 +18,11 @@ import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 
 
-  interface LocationState {
-    value: string; 
-  }
-
 export default function Home() {
   const [moodValue, setMoodValue] = useState<number>(0)
   const [timeValue, setTimeValue] = useState<number>(15)
   const [timeOfDay, setTimeOfDay] = useState('')
-  const [value, setValue] = useState('')
-
+  const [value, setValue] = useState(getValue())
   const navigate = useNavigate()
 
   useEffect(() => {

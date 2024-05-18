@@ -8,7 +8,8 @@ import Relaxation from '../../assets/relaxation.jpeg';
 import Calm from '../../assets/calm.jpeg';
 import HappyTheme from '../../assets/happy.jpeg';
 import Energy from '../../assets/energy.jpeg'
-import Enthus from '../../assets/enthus.jpeg' 
+import Enthus from '../../assets/enthus.jpeg';
+import { motion } from 'framer-motion';
 
 interface Affirmation {
   quote: string
@@ -34,9 +35,14 @@ export default function Dashboard() {
 
   useEffect(() => {
     getRandomAffirmation(affirmations)
-    setValue(state.value)
+    if(!state){
+      setValue('relaxed')
+    } else {
+      setValue(state.value)
+    }
+    
   }, [])
-console.log(state.value)
+
   const recipeGridItems: RecipeGridItem[] = [
     //this is fake data, replace with real data... 
     {
@@ -85,6 +91,7 @@ console.log(state.value)
   ]
 
   return (
+    <motion.div initial={{scaleX:0}} animate={{scaleX:1}} exit={{scaleX:0}} transition={{duration: 0.3}}>
     <section className="container"
     style={{ 
       backgroundImage: 
@@ -104,12 +111,13 @@ console.log(state.value)
      }} >
       <header className="dashboard-container">
         <h2 className="dashboard">Mood Board</h2>
-        <p onClick={() => navigate('/recipes')}>Recipes</p>
-        <p onClick={() => navigate('/')}>Home</p>
+        <p className='navigate' onClick={() => navigate('/recipes')}>Recipes</p>
+        <p className='navigate' onClick={() => navigate('/')}>Home</p>
       </header>
       <h3 className="average-mood-score">Average mood score: 7.5</h3>
       <h3 className="affirmation">{quote}</h3>
       <RecipeGrid items={recipeGridItems} customClass="dashboard-recipeGrid" />
     </section>
+    </motion.div>
   )
 }

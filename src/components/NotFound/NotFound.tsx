@@ -1,4 +1,3 @@
-import SadBrain from '../../assets/sadbrain.png';
 import './NotFound.css';
 import Sad from '../../assets/sad.jpeg'
 

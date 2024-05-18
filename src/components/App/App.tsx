@@ -1,7 +1,6 @@
 import './App.css'
 import Home from '../Home/Home'
 import Dashboard from '../Dashboard/Dashboard'
-import { Container } from '@mui/material'
 import Recipes from '../Recipes/Recipes'
 import { useLocation, Routes, Route } from 'react-router-dom'
 import NotFound from '../NotFound/NotFound'

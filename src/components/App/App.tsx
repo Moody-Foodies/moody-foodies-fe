@@ -11,7 +11,7 @@ export default function App() {
 
   return (
     <div className="App">
-      <AnimatePresence mode='wait' initial={false}>
+      <AnimatePresence mode={'wait'} initial={false}>
           <Routes location={location} key={location.pathname}>
             <Route path="/" element={<Home />} />
             <Route path="/dashboard" element={<Dashboard />} />

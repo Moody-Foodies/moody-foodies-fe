@@ -23,6 +23,7 @@ export default function Home() {
   const [timeValue, setTimeValue] = useState<number>(15)
   const [timeOfDay, setTimeOfDay] = useState<string>('')
   const [value, setValue] = useState(getValue())
+
   const navigate = useNavigate()
   useEffect(() => {
     localStorage.setItem('value', JSON.stringify(value))

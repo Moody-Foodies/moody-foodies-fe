@@ -76,8 +76,7 @@ useEffect(() => {
       navigate('/dashboard', {state: { value: value} })
   }
 
-console.log(moodValue)
-console.log(timeValue)
+
   return (
     <motion.div initial={{scaleX:0}} animate={{scaleX:1}} exit={{scaleX:0}} transition={{duration: 0.5}}>
     <main 
@@ -107,7 +106,7 @@ console.log(timeValue)
           <RadioGroup
           row
         aria-labelledby="demo-radio-buttons-group-label"
-        defaultValue={value}
+        value={value}
         name="radio-buttons-group"
         onChange={(event) => setValue(event.target.value)}
       >

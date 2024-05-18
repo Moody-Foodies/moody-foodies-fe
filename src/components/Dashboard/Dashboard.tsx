@@ -1,19 +1,31 @@
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import affirmations from '../../Quotes/quotes'
 import RecipeGrid from '../RecipeGrid/RecipeGrid'
 import './Dashboard.css'
-import { RecipeGridItem } from '../../types'
+import { RecipeGridItem } from '../../types';
+import Relaxation from '../../assets/relaxation.jpeg';
+import Calm from '../../assets/calm.jpeg';
+import HappyTheme from '../../assets/happy.jpeg';
+import Energy from '../../assets/energy.jpeg'
+import Enthus from '../../assets/enthus.jpeg';
+import { motion } from 'framer-motion';
 
 interface Affirmation {
   quote: string
 }
 
+interface LocationState {
+  value: string; 
+}
 
 
 export default function Dashboard() {
   const [quote, setQuote] = useState<string>('')
   const navigate = useNavigate()
+  const location = useLocation();
+  const state = location.state as LocationState;
+  const [value, setValue] = useState('')
 
   function getRandomAffirmation(affirmations: Affirmation[]) {
     let randomQuote =
@@ -23,6 +35,12 @@ export default function Dashboard() {
 
   useEffect(() => {
     getRandomAffirmation(affirmations)
+    if(!state){
+      setValue('relaxed')
+    } else {
+      setValue(state.value)
+    }
+    
   }, [])
 
   const recipeGridItems: RecipeGridItem[] = [
@@ -73,16 +91,33 @@ export default function Dashboard() {
   ]
 
   return (
-    <section className="container">
+    <motion.div initial={{scaleX:0}} animate={{scaleX:1}} exit={{scaleX:0}} transition={{duration: 0.3}}>
+    <section className="container"
+    style={{ 
+      backgroundImage: 
+      `url(${value === 'calm' ? Calm : 
+      value === 'energetic' ? Energy :
+      value === 'relaxed' ? Relaxation :
+      value === 'happy' ? HappyTheme :
+      value === 'enthus' ? Enthus  :
+     Relaxation})` , 
+      backgroundSize: 'cover', 
+      backgroundRepeat: 'repeat',
+      backgroundPosition: 'center', 
+      height: '100vh', 
+      width: '100vw',
+      backgroundAttachment: 'fixed', 
+      overflow: 'auto'
+     }} >
       <header className="dashboard-container">
-        <h2 className="back-arrow" onClick={() => navigate('/')}>
-          ⬅
-        </h2>
         <h2 className="dashboard">Mood Board</h2>
+        <p className='navigate' onClick={() => navigate('/recipes')}>Recipes</p>
+        <p className='navigate' onClick={() => navigate('/')}>Home</p>
       </header>
       <h3 className="average-mood-score">Average mood score: 7.5</h3>
       <h3 className="affirmation">{quote}</h3>
       <RecipeGrid items={recipeGridItems} customClass="dashboard-recipeGrid" />
     </section>
+    </motion.div>
   )
 }

@@ -1,0 +1,34 @@
+.error {
+    background-image: url('https://cdn.dribbble.com/users/275118/screenshots/1391334/cserving1.gif');
+    background-size: cover;
+    background-repeat: repeat;
+    background-position: center;
+    height: 100vh;
+    width: 100vw;
+    background-attachment: fixed; 
+    overflow: auto;
+    display: flex; 
+    justify-content: center;
+}
+
+.message {
+    color: #390400;
+    font-size: 4em;
+    text-align: center;
+    width: 80%;
+}
+
+.back-home {
+    position: absolute; 
+    bottom: 50px; 
+    width: 220px;
+    border-radius: 30px;
+    border: none; 
+    height: 35px;
+    color: #390400;
+    background-color: #FFA340;
+    cursor: pointer;
+    &:hover {
+        background-color: #E47797;
+    }
+}

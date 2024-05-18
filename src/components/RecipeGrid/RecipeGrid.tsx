@@ -28,7 +28,7 @@ export default function RecipeGrid({ items = [], customClass }: RecipeGridProps)
 
   return (
     <motion.div initial={{scaleX:0}} animate={{scaleX:1}} exit={{scaleX:0}} transition={{duration: 0.5}}>
-    <Container>
+    <Container sx={{marginTop: 5}}>
       <Grid container spacing={2} className={customClass}>
         {Array.isArray(items) && items.length > 0 ? (
           items.map((item) => (

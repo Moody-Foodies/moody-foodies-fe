@@ -16,27 +16,24 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
-import Button from '@mui/material/Button';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
+
 
 export default function Home() {
-  const [moodValue, setMoodValue] = useState<number>(0)
+  const [moodValue, setMoodValue] = useState<number>(1)
   const [timeValue, setTimeValue] = useState<number>(15)
-  const [timeOfDay, setTimeOfDay] = useState('')
-  const [value, setValue] = useState('')
-
+  const [timeOfDay, setTimeOfDay] = useState<string>('')
+  const [value, setValue] = useState(getValue())
   const navigate = useNavigate()
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event: React.MouseEvent) => {
-    setAnchorEl(event.currentTarget as HTMLElement);
+  useEffect(() => {
+    localStorage.setItem('value', JSON.stringify(value))
+  }, [value])
+  
+  function getValue(){
+    const value = localStorage.getItem('value') || '';
+    const initialValue = JSON.parse(value);
+    return initialValue || "";
+  }
 
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-    navigate('/dashboard')
-  };
 const time = new Date().getHours()
 useEffect(() => {
   if (time < 12) {
@@ -46,12 +43,12 @@ useEffect(() => {
 } else {
   setTimeOfDay('Good evening')
 }
+
 }, [])
 
-console.log(timeOfDay)
   function postUserData() {
     fetch(
-      'https://7a97657d-b4dd-468a-960b-563f46161622.mock.pstmn.io/api/v1/recipes',
+      'https://brain-food-501b641e50fb.herokuapp.com/api/v1/recipes',
       {
         method: 'POST',
         headers: {
@@ -60,21 +57,31 @@ console.log(timeOfDay)
         body: JSON.stringify({
           mood: moodValue,
           time_available: timeValue,
-          user_id: 1,
+          user_id: 1
         }),
       }
     )
       .then((res) => res.json())
       .then((data) => {
         navigate('/recipes', {
-          state: { data: data.data, mood: moodValue, time: timeValue },
+          state: { data: data.data, mood: moodValue, time: timeValue, value: value },
         })
       })
   }
 
+  function getFavoriteRecipes() {
+    fetch('https://brain-food-501b641e50fb.herokuapp.com/api/v1/recipes/favorites?user_id=1') 
+      .then(res => res.json())
+      .then(data => console.log('ALLFAVS:', data))
+      navigate('/dashboard', {state: { value: value} })
+  }
+
+
   return (
     <motion.div initial={{scaleX:0}} animate={{scaleX:1}} exit={{scaleX:0}} transition={{duration: 0.5}}>
-    <main style={{ 
+    <main 
+    style=
+    {{ 
       backgroundImage: 
       `url(${value === 'calm' ? Calm : 
       value === 'energetic' ? Energy :
@@ -84,8 +91,10 @@ console.log(timeOfDay)
      Relaxation})` , 
       backgroundSize: 'cover', 
       backgroundPosition: 'center', 
-      height: '100vh', 
-      width: '100vw'
+      minHeight: '100vh', 
+      width: '100vw',
+      backgroundAttachment: 'fixed', 
+      overflow: 'auto'
      }} 
      className='landing-page'
       >
@@ -97,7 +106,7 @@ console.log(timeOfDay)
           <RadioGroup
           row
         aria-labelledby="demo-radio-buttons-group-label"
-        defaultValue="relaxed"
+        value={value}
         name="radio-buttons-group"
         onChange={(event) => setValue(event.target.value)}
       >
@@ -109,38 +118,10 @@ console.log(timeOfDay)
         <FormControlLabel value="enthus" control={<Radio />} label="Enthusiastic" />
       </RadioGroup>
     </FormControl>
-
-         <div>
-      <Button
-        id="demo-positioned-button"
-        aria-controls={open ? 'demo-positioned-menu' : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? 'true' : undefined}
-        onClick={handleClick}
-        className='dashboard-button'
-      >
-        Menu 
-      </Button>
-      <Menu
-        id="demo-positioned-menu"
-        aria-labelledby="demo-positioned-button"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
-        }}
-      >
-        <MenuItem onClick={handleClose}>Mood Board</MenuItem>
-      </Menu>
-    </div>
+      <p className='menu' onClick={()=> getFavoriteRecipes()}>Mood Board</p>
         </header>
-        <section className={value === 'enthus' ? 'enthus' : value === 'energetic' ? 'energetic' : 'main-page'}>
+        <section 
+        className={value === 'enthus' ? 'enthus' : value === 'energetic' ? 'energetic' : 'main-page'}>
           {timeOfDay && <h1>{timeOfDay}!</h1>}
       <h2>How are you feeling today?</h2>
       <section className="slider-container">
@@ -150,7 +131,7 @@ console.log(timeOfDay)
             <Slider
               step={1}
               marks
-              min={0}
+              min={1}
               max={5}
               valueLabelDisplay="auto"
               onChange={(event: any) => setMoodValue(event.target.value)}

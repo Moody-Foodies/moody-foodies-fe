@@ -69,6 +69,13 @@ if(!state){
     return initialValue || "";
   }
 
+  function getFavoriteRecipes() {
+    fetch('https://brain-food-501b641e50fb.herokuapp.com/api/v1/recipes/favorites?user_id=1') 
+      .then(res => res.json())
+      .then(data => console.log('ALLFAVS:', data))
+      navigate('/dashboard', {state: { value: value} })
+  }
+
 
   const recipeGridItems: RecipeGridItem[] = recipes.map(recipe => ({
     id: recipe.id, 
@@ -108,7 +115,7 @@ if(!state){
     className='recipe-container'>
       <header className='recipeGrid'>
         <h2 className='title'>Food for Your Mood</h2>
-        <p className='navigate' onClick={() => navigate('/dashboard', {state: {value: value}})}>Mood Board</p>
+        <p className='navigate' onClick={() => getFavoriteRecipes()}>Mood Board</p>
         <p className='navigate' onClick={() => navigate('/', {state: {value: value}})}>Home</p>
       </header>
       <RecipeGrid recipes={recipes} items={recipeGridItems} customClass="recipe-grid" />

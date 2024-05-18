@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import Brain from '../../assets/brain.png'; ;
+import Favorite from '../../assets/favorite.png'
 import RecipeGrid from '../RecipeGrid/RecipeGrid';
 import './Recipes.css';
 import { CarouselItem } from '../../types'; 
@@ -10,7 +10,7 @@ import Relaxation from '../../assets/relaxation.jpeg';
 import Calm from '../../assets/calm.jpeg';
 import HappyTheme from '../../assets/happy.jpeg';
 import Energy from '../../assets/energy.jpeg'
-import Enthus from '../../assets/enthus.jpeg' 
+import Enthus from '../../assets/enthus.jpeg';
 
 interface Recipe {
   id: string,
@@ -35,13 +35,34 @@ interface LocationState {
 
 export default function Recipes() {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
+  const [value, setValue] = useState('')
   const navigate = useNavigate();
   const location = useLocation();
   const state = location.state as LocationState;
-  const value = state.value; 
+
   useEffect(() => {
     setRecipes(state.data);
+    setValue(state.value)
   }, [state.data]);
+
+  // useEffect(() => {
+  //   localStorage.setItem('value', JSON.stringify(value))
+  // }, [value])
+  
+  // function getValue(){
+  //   const value = localStorage.getItem('value') || '';
+  //   const initialValue = JSON.parse(value);
+  //   return initialValue || "";
+  // }
+  // useEffect(() => {
+  //   localStorage.setItem('recipes', JSON.stringify(recipes))
+  // }, [recipes])
+  
+  // function getRecipes(){
+  //   const recipes = localStorage.getItem('recipes') || '[]';
+  //   const initialValue = JSON.parse(recipes);
+  //   return initialValue || "";
+  // }
 
 
   const recipeGridItems: RecipeGridItem[] = recipes.map(recipe => ({
@@ -49,7 +70,7 @@ export default function Recipes() {
     name: recipe.attributes.name,
     image: recipe.attributes.image,
     details: recipe.attributes.description,
-    favoriteIcon: Brain, 
+    favoriteIcon: Favorite, 
     frontButtonText: 'Recipe Details',
     backButtonText: 'Go Back',
     description: recipe.attributes.description, 
@@ -81,11 +102,9 @@ export default function Recipes() {
      }} 
     className='recipe-container'>
       <header className='recipeGrid'>
-        <h2 className='previous' onClick={() => navigate('/')}>⬅</h2>
         <h2 className='title'>Food for Your Mood</h2>
-        <img className='dashboard-icon' src={Brain} onClick={() => navigate('/dashboard', {
-    state: { value: value },
-  })} />
+        <p className='navigate' onClick={() => navigate('/dashboard', {state: {value: value}})}>Mood Board</p>
+        <p className='navigate' onClick={() => navigate('/', {state: {value: value}})}>Home</p>
       </header>
       <RecipeGrid recipes={recipes} items={recipeGridItems} customClass="recipe-grid" />
     </main>

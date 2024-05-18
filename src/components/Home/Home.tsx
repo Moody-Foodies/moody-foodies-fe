@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import './Home.css'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import Box from '@mui/material/Box'
 import Slider from '@mui/material/Slider'
 import Sad from '../../assets/sad.jpeg'
@@ -16,23 +16,19 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
-import Button from '@mui/material/Button';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
+
+
+  interface LocationState {
+    value: string; 
+  }
 
 export default function Home() {
   const [moodValue, setMoodValue] = useState<number>(0)
   const [timeValue, setTimeValue] = useState<number>(15)
   const [timeOfDay, setTimeOfDay] = useState('')
-  const [value, setValue] = useState(getValue())
+  const [value, setValue] = useState('')
 
   const navigate = useNavigate()
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event: React.MouseEvent) => {
-    setAnchorEl(event.currentTarget as HTMLElement);
-
-  };
 
   useEffect(() => {
     localStorage.setItem('value', JSON.stringify(value))
@@ -43,10 +39,7 @@ export default function Home() {
     const initialValue = JSON.parse(value);
     return initialValue || "";
   }
-  const handleClose = () => {
-    setAnchorEl(null);
-    navigate('/dashboard', {state: { value: value} })
-  };
+
 const time = new Date().getHours()
 useEffect(() => {
   if (time < 12) {
@@ -56,6 +49,7 @@ useEffect(() => {
 } else {
   setTimeOfDay('Good evening')
 }
+
 }, [])
 
 console.log(timeOfDay)
@@ -119,36 +113,7 @@ console.log(timeOfDay)
         <FormControlLabel value="enthus" control={<Radio />} label="Enthusiastic" />
       </RadioGroup>
     </FormControl>
-
-         <div>
-      <Button
-        id="demo-positioned-button"
-        aria-controls={open ? 'demo-positioned-menu' : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? 'true' : undefined}
-        onClick={handleClick}
-        className='dashboard-button'
-      >
-        Menu 
-      </Button>
-      <Menu
-        id="demo-positioned-menu"
-        aria-labelledby="demo-positioned-button"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
-        }}
-      >
-        <MenuItem onClick={handleClose}>Mood Board</MenuItem>
-      </Menu>
-    </div>
+      <p className='menu' onClick={()=> navigate('/dashboard', {state: { value: value} })}>Mood Board</p>
         </header>
         <section className={value === 'enthus' ? 'enthus' : value === 'energetic' ? 'energetic' : 'main-page'}>
           {timeOfDay && <h1>{timeOfDay}!</h1>}

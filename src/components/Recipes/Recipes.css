@@ -80,6 +80,14 @@ h4 {
     color: rgb(171,78,82);
 }
 
+.navigate {
+   color: #1876D2;
+text-decoration: underline;
+font-size: 1em;
+cursor: pointer; 
+}
+
+
 .dashboard-icon {
     height: 80px; 
     position: absolute; 

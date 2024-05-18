@@ -24,7 +24,8 @@ export default function Dashboard() {
   const navigate = useNavigate()
   const location = useLocation();
   const state = location.state as LocationState;
-  const value = state.value;
+  const [value, setValue] = useState('')
+
   function getRandomAffirmation(affirmations: Affirmation[]) {
     let randomQuote =
       affirmations[Math.floor(Math.random() * affirmations.length)]
@@ -33,8 +34,9 @@ export default function Dashboard() {
 
   useEffect(() => {
     getRandomAffirmation(affirmations)
+    setValue(state.value)
   }, [])
-
+console.log(state.value)
   const recipeGridItems: RecipeGridItem[] = [
     //this is fake data, replace with real data... 
     {
@@ -101,10 +103,9 @@ export default function Dashboard() {
       overflow: 'auto'
      }} >
       <header className="dashboard-container">
-        <h2 className="back-arrow" onClick={() => navigate('/')}>
-          ⬅
-        </h2>
         <h2 className="dashboard">Mood Board</h2>
+        <p onClick={() => navigate('/recipes')}>Recipes</p>
+        <p onClick={() => navigate('/')}>Home</p>
       </header>
       <h3 className="average-mood-score">Average mood score: 7.5</h3>
       <h3 className="affirmation">{quote}</h3>

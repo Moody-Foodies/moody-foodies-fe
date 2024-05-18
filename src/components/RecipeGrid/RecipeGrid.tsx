@@ -35,39 +35,33 @@ const modalStyle = {
 }
 
 export default function RecipeGrid({
-  items = [],
+  items: recipes = [], 
   customClass,
 }: RecipeGridProps) {
-  
   const [favorites, setFavorites] = useState<{ [key: string]: boolean }>(() => {
     const savedFavorites = localStorage.getItem('favorites')
     return savedFavorites ? JSON.parse(savedFavorites) : {}
   })
 
-  
   const [modalOpen, setModalOpen] = useState<boolean>(false)
-  const [selectedItem, setSelectedItem] = useState<RecipeGridItem | null>(null)
+  const [selectedRecipe, setSelectedRecipe] = useState<RecipeGridItem | null>(null) 
 
-  
   useEffect(() => {
     localStorage.setItem('favorites', JSON.stringify(favorites))
   }, [favorites])
 
-  
   const toggleFavorite = (id: string) => {
     setFavorites((prevState) => ({ ...prevState, [id]: !prevState[id] }))
   }
 
-  
-  const handleOpenModal = (item: RecipeGridItem) => {
-    setSelectedItem(item)
+  const handleOpenModal = (recipe: RecipeGridItem) => { 
+    setSelectedRecipe(recipe) 
     setModalOpen(true)
   }
 
-  
   const handleCloseModal = () => {
     setModalOpen(false)
-    setSelectedItem(null)
+    setSelectedRecipe(null) 
   }
 
   return (
@@ -79,45 +73,45 @@ export default function RecipeGrid({
     >
       <Container>
         <Grid container spacing={2} className={customClass}>
-          {Array.isArray(items) && items.length > 0 ? (
-            items.map((item) => (
-              <Grid item xs={12} sm={6} md={4} key={item.id}>
-                <Card>
+          {Array.isArray(recipes) && recipes.length > 0 ? ( 
+            recipes.map((recipe) => ( 
+              <Grid item xs={12} sm={6} md={4} key={recipe.id}>
+                <Card sx={{ position: 'relative' }}>
                   <Box position="relative">
                     <CardMedia
                       component="img"
                       height="140"
-                      image={item.image}
-                      alt={item.name}
-                      onClick={() => handleOpenModal(item)}
+                      image={recipe.image} 
+                      alt={recipe.name} 
+                      onClick={() => handleOpenModal(recipe)} 
                       sx={{ cursor: 'pointer' }}
                     />
-                    <IconButton
-                      onClick={() => toggleFavorite(item.id)}
-                      sx={{ position: 'absolute', top: 8, right: 8 }}
-                    >
-                      {favorites[item.id] ? (
-                        <FavoriteIcon color="error" />
-                      ) : (
-                        <FavoriteBorderIcon />
-                      )}
-                    </IconButton>
                   </Box>
+                  <IconButton
+                    onClick={() => toggleFavorite(recipe.id)} 
+                    sx={{ position: 'absolute', bottom: 8, right: 8 }}
+                  >
+                    {favorites[recipe.id] ? ( 
+                      <FavoriteIcon color="error" />
+                    ) : (
+                      <FavoriteBorderIcon />
+                    )}
+                  </IconButton>
                   <CardContent>
                     <Typography variant="h5" component="div">
-                      {item.name}
+                      {recipe.name} 
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                      {item.description}
+                      {recipe.description} 
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                      Time to Cook: {item.cookTime} minutes
+                      Time to Cook: {recipe.cookTime} minutes 
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                      This recipe contains ✨{item.nutrient}✨
+                      This recipe contains ✨{recipe.nutrient}✨ 
                     </Typography>
-                    <Button size="small" onClick={() => handleOpenModal(item)}>
-                      {item.frontButtonText}
+                    <Button size="small" onClick={() => handleOpenModal(recipe)}> 
+                      {recipe.frontButtonText} 
                     </Button>
                   </CardContent>
                 </Card>
@@ -135,7 +129,7 @@ export default function RecipeGrid({
           aria-describedby="modal-modal-description"
         >
           <Box sx={modalStyle}>
-            {selectedItem && (
+            {selectedRecipe && ( 
               <>
                 <Typography id="modal-modal-title" variant="h6" component="h2">
                   Ingredients & Instructions
@@ -143,7 +137,7 @@ export default function RecipeGrid({
                 <Typography variant="body2" component="div">
                   <strong>Ingredients:</strong>
                   <ul>
-                    {selectedItem.ingredients.map((ingredient, index) => (
+                    {selectedRecipe.ingredients.map((ingredient, index) => ( 
                       <li key={index}>{ingredient}</li>
                     ))}
                   </ul>
@@ -151,13 +145,13 @@ export default function RecipeGrid({
                 <Typography variant="body2" component="div">
                   <strong>Instructions:</strong>
                   <ol>
-                    {selectedItem.instructions.map((instruction, index) => (
+                    {selectedRecipe.instructions.map((instruction, index) => ( 
                       <li key={index}>{instruction}</li>
                     ))}
                   </ol>
                 </Typography>
                 <Button size="small" onClick={handleCloseModal}>
-                  {selectedItem.backButtonText}
+                  {selectedRecipe.backButtonText} 
                 </Button>
               </>
             )}

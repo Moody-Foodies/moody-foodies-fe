@@ -4,74 +4,74 @@
   align-items: center;
   color: #390400;
 } */
-  header {
-    display: flex;
-    justify-content: space-evenly; 
-    width: 100vw;
-    align-items: center; 
-    background-color: #06C7EE;
-    color: #390400;
+.home-header {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100vw;
+  align-items: center;
+  background-color: #06c7ee;
+  color: #390400;
 }
 
 h1 {
-  font-size: 5.5em; 
-  margin-bottom: 30px; 
+  font-size: 5.5em;
+  margin-bottom: 30px;
 }
 
 .slider-container {
-  display: flex; 
-  align-items: center; 
-  background-color: #87A96B;
-  border-radius: 100px; 
+  display: flex;
+  align-items: center;
+  background-color: #87a96b;
+  border-radius: 100px;
 }
 
 .name {
-  font-size: 2.2em; 
-  color: rgb(171,78,82)
+  font-size: 2.2em;
+  color: rgb(171, 78, 82);
 }
-  h2 {
-    text-align: center;
-    font-size: 3em;
-    margin-bottom: 25px;
-  }
+h2 {
+  text-align: center;
+  font-size: 3em;
+  margin-bottom: 25px;
+}
 
-  img {
-    height: 100px;
-    width: 150px;
-    border-radius: 100px;
-  }
+img {
+  height: 100px;
+  width: 150px;
+  border-radius: 100px;
+}
 
-  .sad {
-    margin-right: 20px; 
-  }
+.sad {
+  margin-right: 20px;
+}
 
-  .happy {
-    margin-left: 20px; 
-  }
+.happy {
+  margin-left: 20px;
+}
 
-  .dashboard-btn, .cook {
-    background-color: rgb(171,78,82);
-    border: none;
-    width: 300px;
-    height: 50px;
-    margin-top: 30px;
-    font-size: 2em;
-    border-radius: 50px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    &:hover {
-      transform: scale(1.1);
-      background-color: rgb(255,248,220);
-    }
+.dashboard-btn,
+.cook {
+  background-color: rgb(171, 78, 82);
+  border: none;
+  width: 300px;
+  height: 50px;
+  margin-top: 30px;
+  font-size: 2em;
+  border-radius: 50px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &:hover {
+    transform: scale(1.1);
+    background-color: rgb(255, 248, 220);
   }
-
+}
 
 input {
   width: 85px;
-  background-color: transparent; 
-  border: none; 
+  background-color: transparent;
+  border: none;
   color: #390400;
   margin-right: -10px;
   margin-left: 15px;
@@ -114,4 +114,3 @@ input {
 .time {
   margin-top: 30px;
 }
-

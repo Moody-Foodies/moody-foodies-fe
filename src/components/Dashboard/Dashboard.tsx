@@ -1,32 +1,35 @@
-import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
-import affirmations from '../../Quotes/quotes'
-import RecipeGrid from '../RecipeGrid/RecipeGrid'
-import './Dashboard.css'
-import { RecipeGridItem } from '../../types'
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import affirmations from '../../Quotes/quotes';
+import RecipeGrid from '../RecipeGrid/RecipeGrid';
+import './Dashboard.css';
+import { RecipeGridItem } from '../../types';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import BrainIcon from '@mui/icons-material/EmojiEmotions';
 
 interface Affirmation {
-  quote: string
+  quote: string;
 }
 
-
-
 export default function Dashboard() {
-  const [quote, setQuote] = useState<string>('')
-  const navigate = useNavigate()
+  const [quote, setQuote] = useState<string>('');
+  const navigate = useNavigate();
 
   function getRandomAffirmation(affirmations: Affirmation[]) {
-    let randomQuote =
-      affirmations[Math.floor(Math.random() * affirmations.length)]
-      setQuote(randomQuote.quote)
+    let randomQuote = affirmations[Math.floor(Math.random() * affirmations.length)];
+    setQuote(randomQuote.quote);
   }
 
   useEffect(() => {
-    getRandomAffirmation(affirmations)
-  }, [])
+    getRandomAffirmation(affirmations);
+  }, []);
 
   const recipeGridItems: RecipeGridItem[] = [
-    //this is fake data, replace with real data... 
+    //this is fake data, replace with real data...
     {
       id: '1',
       name: 'Item 1',
@@ -39,7 +42,7 @@ export default function Dashboard() {
       cookTime: '30',
       nutrient: 'Nutrient 1',
       ingredients: ['Ingredient 1', 'Ingredient 2'],
-      instructions: ['Step 1', 'Step 2']
+      instructions: ['Step 1', 'Step 2'],
     },
     {
       id: '2',
@@ -53,7 +56,7 @@ export default function Dashboard() {
       cookTime: '45',
       nutrient: 'Nutrient 2',
       ingredients: ['Ingredient 1', 'Ingredient 2'],
-      instructions: ['Step 1', 'Step 2']
+      instructions: ['Step 1', 'Step 2'],
     },
     {
       id: '3',
@@ -69,20 +72,40 @@ export default function Dashboard() {
       ingredients: ['Ingredient 1', 'Ingredient 2'],
       instructions: ['Step 1', 'Step 2'],
     },
-    
-  ]
+  ];
 
   return (
     <section className="container">
-      <header className="dashboard-container">
-        <h2 className="back-arrow" onClick={() => navigate('/')}>
-          ⬅
-        </h2>
-        <h2 className="dashboard">Mood Board</h2>
-      </header>
-      <h3 className="average-mood-score">Average mood score: 7.5</h3>
-      <h3 className="affirmation">{quote}</h3>
+      <AppBar position="static">
+        <Toolbar>
+          <IconButton
+            edge="start"
+            color="inherit"
+            aria-label="back"
+            onClick={() => navigate('/')}
+          >
+            <ArrowBackIcon />
+          </IconButton>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            Mood Board
+          </Typography>
+          <IconButton
+            color="inherit"
+            aria-label="dashboard"
+            onClick={() => navigate('/dashboard')}
+          >
+            <BrainIcon />
+          </IconButton>
+        </Toolbar>
+      </AppBar>
+
+      <Typography variant="h6" component="div" sx={{ mt: 2 }}>
+        Average mood score: 7.5
+      </Typography>
+      <Typography variant="h6" component="div" sx={{ mt: 2 }}>
+        {quote}
+      </Typography>
       <RecipeGrid items={recipeGridItems} customClass="dashboard-recipeGrid" />
     </section>
-  )
+  );
 }

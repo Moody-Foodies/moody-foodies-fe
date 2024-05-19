@@ -39,7 +39,7 @@ export default function Recipes() {
   const navigate = useNavigate();
   const location = useLocation();
   const state = location.state as LocationState;
-console.log(state)
+
 if(!state){
   return (
     <Error />
@@ -118,7 +118,7 @@ if(!state){
         <p className='navigate' onClick={() => getFavoriteRecipes()}>Mood Board</p>
         <p className='navigate' onClick={() => navigate('/', {state: {value: value}})}>Home</p>
       </header>
-      <RecipeGrid recipes={recipes} items={recipeGridItems} customClass="recipe-grid" />
+      <RecipeGrid items={recipeGridItems} customClass="recipe-grid" />
     </main>
     </motion.div>
   );

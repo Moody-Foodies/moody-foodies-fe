@@ -22,6 +22,7 @@ export default function Home() {
   const [moodValue, setMoodValue] = useState<number>(1)
   const [timeValue, setTimeValue] = useState<number>(15)
   const [timeOfDay, setTimeOfDay] = useState<string>('')
+  const [loading, setLoading] = useState(false)
   const [value, setValue] = useState(getValue())
 
   const navigate = useNavigate()
@@ -67,6 +68,7 @@ useEffect(() => {
         navigate('/recipes', {
           state: { data: data.data, mood: moodValue, time: timeValue, value: value },
         })
+        setLoading(true)
       })
   }
 
@@ -77,7 +79,7 @@ useEffect(() => {
       navigate('/dashboard', {state: { value: value} })
   }
 
-
+console.log(loading)
   return (
     <motion.div initial={{scaleX:0}} animate={{scaleX:1}} exit={{scaleX:0}} transition={{duration: 0.5}}>
     <main 
@@ -157,9 +159,10 @@ useEffect(() => {
         minutes to cook.
       </h2>
 
-      <button className="cook" onClick={() => postUserData()}>
+      <button className="cook" onClick={() => {postUserData()}}>
         Let's cook!
       </button>
+      {loading && <p className='loading'>Loading Recipes ...</p>}
       
         </section>
 

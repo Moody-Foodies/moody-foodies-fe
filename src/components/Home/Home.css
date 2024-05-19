@@ -117,3 +117,8 @@ input {
   margin-top: 30px;
 }
 
+.loading {
+  margin-top: 10px; 
+  color: #06C7EE;
+}
+

@@ -91,8 +91,8 @@ export default function Dashboard() {
     
   ]
 
-let filteredRecipes = recipeGridItems.filter(recipe => recipe.name.toLowerCase().includes(search))
-console.log(search)
+let filteredRecipes = recipeGridItems.filter(recipe => recipe.name.toLowerCase().includes(search.toLowerCase()))
+
   return (
     <motion.div initial={{scaleX:0}} animate={{scaleX:1}} exit={{scaleX:0}} transition={{duration: 0.3}}>
     <section className="container"
@@ -117,7 +117,7 @@ console.log(search)
         <p className='navigate' onClick={() => navigate('/recipes')}>Recipes</p>
         <p className='navigate' onClick={() => navigate('/')}>Home</p>
       </header>
-      <input type='text' placeholder='Search recipe by name' onChange={(event) => setSearch(event.target.value)} />
+      <input className='search' type='text' placeholder='Search recipe by name' onChange={(event) => setSearch(event.target.value)} />
       <h3 className="average-mood-score">Average mood score: 7.5</h3>
       <h3 className="affirmation">{quote}</h3>
       <RecipeGrid items={filteredRecipes} customClass="dashboard-recipeGrid" />

@@ -1,3 +1,16 @@
 .dashboard-container {
     color: rgb(171,78,82);
 }
+
+.search {
+    width: 300px; 
+    background-color: bisque;
+    text-decoration: none;
+    border-radius: 30px;
+    margin-top: 20px; 
+}
+
+::placeholder {
+    color: #390400;
+    text-align: center;
+}

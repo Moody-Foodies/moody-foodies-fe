@@ -94,7 +94,7 @@ export default function Dashboard() {
 let filteredRecipes = recipeGridItems.filter(recipe => recipe.name.toLowerCase().includes(search.toLowerCase()))
 
   return (
-    <motion.div initial={{scaleX:0}} animate={{scaleX:1}} exit={{scaleX:0}} transition={{duration: 0.3}}>
+    <motion.div initial={{scaleX:0}} animate={{scaleX:1}} exit={{scaleX:0}} transition={{duration: 0.5}}>
     <section className="container"
     style={{ 
       backgroundImage: 

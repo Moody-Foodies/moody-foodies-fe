@@ -22,7 +22,7 @@ export default function Home() {
   const [moodValue, setMoodValue] = useState<number>(1)
   const [timeValue, setTimeValue] = useState<number>(15)
   const [timeOfDay, setTimeOfDay] = useState<string>('')
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState('')
   const [value, setValue] = useState(getValue())
 
   const navigate = useNavigate()
@@ -49,6 +49,7 @@ useEffect(() => {
 }, [])
 
   function postUserData() {
+    setLoading('true')
     fetch(
       'https://brain-food-501b641e50fb.herokuapp.com/api/v1/recipes',
       {
@@ -68,7 +69,7 @@ useEffect(() => {
         navigate('/recipes', {
           state: { data: data.data, mood: moodValue, time: timeValue, value: value },
         })
-        setLoading(true)
+        setLoading('false')
       })
   }
 
@@ -163,7 +164,6 @@ console.log(loading)
         Let's cook!
       </button>
       {loading && <p className='loading'>Loading Recipes ...</p>}
-      
         </section>
 
     </main>

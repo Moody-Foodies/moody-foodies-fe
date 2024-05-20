@@ -16,6 +16,7 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
+import Error from '../Error/Error';
 
 
 export default function Home() {
@@ -24,6 +25,7 @@ export default function Home() {
   const [timeOfDay, setTimeOfDay] = useState<string>('')
   const [loading, setLoading] = useState('')
   const [value, setValue] = useState(getValue())
+  const [error, setError] = useState(null)
 
   const navigate = useNavigate()
   useEffect(() => {
@@ -65,13 +67,27 @@ useEffect(() => {
       }
     )
       .then((res) => res.json())
+      .then(res => {
+        if(!res.ok){
+          throw new Error()
+        } else {
+          return res.json()
+        }
+      })
       .then((data) => {
         navigate('/recipes', {
           state: { data: data.data, mood: moodValue, time: timeValue, value: value },
         })
         setLoading('false')
       })
+      .catch(error => setError(error))
+      
   }
+ if(error) {
+  return (
+    <Error />
+  )
+ }
 
   function getFavoriteRecipes() {
     fetch('https://brain-food-501b641e50fb.herokuapp.com/api/v1/recipes/favorites?user_id=1') 
@@ -80,7 +96,7 @@ useEffect(() => {
       navigate('/dashboard', {state: { value: value} })
   }
 
-console.log(loading)
+
   return (
     <motion.div initial={{scaleX:0}} animate={{scaleX:1}} exit={{scaleX:0}} transition={{duration: 0.5}}>
     <main 

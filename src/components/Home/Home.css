@@ -1,16 +1,11 @@
-/* .landing-page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: #390400;
-} */
-.home-header {
-  display: flex;
-  justify-content: space-evenly;
-  width: 100vw;
-  align-items: center;
-  background-color: #06c7ee;
-  color: #390400;
+
+  header {
+    display: flex;
+    justify-content: space-evenly; 
+    width: 100vw;
+    align-items: center; 
+    background-color: #06C7EE;
+    color: #390400;
 }
 
 h1 {
@@ -25,6 +20,13 @@ h1 {
   border-radius: 100px;
 }
 
+.menu {
+  color: #1876D2;
+  text-decoration: underline;
+  font-size: 1em;
+  cursor: pointer;
+}
+
 .name {
   font-size: 2.2em;
   color: rgb(171, 78, 82);
@@ -35,11 +37,12 @@ h2 {
   margin-bottom: 25px;
 }
 
-img {
-  height: 100px;
-  width: 150px;
-  border-radius: 100px;
-}
+  .sad, 
+  .happy {
+    height: 100px;
+    width: 150px;
+    border-radius: 100px;
+  }
 
 .sad {
   margin-right: 20px;
@@ -73,7 +76,6 @@ input {
   background-color: transparent;
   border: none;
   color: #390400;
-  margin-right: -10px;
   margin-left: 15px;
   text-decoration: underline;
 }

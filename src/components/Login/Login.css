@@ -1,0 +1,48 @@
+.form-container {
+    background-image: url('../../assets/login.jpeg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
+
+form {
+    display: flex; 
+    flex-direction: column;
+    margin-top: 50px;
+}
+
+.login {
+    border: solid 2px black; 
+    width: 300px;
+    
+}
+
+.logo-header {
+    background-color: #06C7EE;
+    width: 35vw;
+    border-top-left-radius: 20px; 
+    border-top-right-radius: 20px; 
+    text-align: center;
+}
+
+.sign-in {
+    width: 300px; 
+    border-radius: 30px; 
+    cursor: pointer;
+    border: none; 
+}
+
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 70vh; 
+    background-color: rgb(151, 90, 94, .7);
+    width: 35vw;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 20px; 
+
+}

@@ -23,7 +23,7 @@ export default function Home() {
   const [moodValue, setMoodValue] = useState<number>(1)
   const [timeValue, setTimeValue] = useState<number>(15)
   const [timeOfDay, setTimeOfDay] = useState<string>('')
-  const [loading, setLoading] = useState('')
+  const [loading, setLoading] = useState(false)
   const [value, setValue] = useState(getValue())
   const [error, setError] = useState(null)
 
@@ -50,38 +50,47 @@ useEffect(() => {
 
 }, [])
 
-  function postUserData() {
-    setLoading('true')
-    fetch(
-      'https://brain-food-501b641e50fb.herokuapp.com/api/v1/recipes',
-      {
-        method: 'POST',
-        headers: {
-          'Content-type': 'application/json',
-        },
-        body: JSON.stringify({
-          mood: moodValue,
-          time_available: timeValue,
-          user_id: 1
-        }),
-      }
-    )
-      .then((res) => res.json())
-      .then(res => {
-        if(!res.ok){
-          throw new Error()
-        } else {
-          return res.json()
-        }
-      })
-      .then((data) => {
-        navigate('/recipes', {
-          state: { data: data.data, mood: moodValue, time: timeValue, value: value },
-        })
-        setLoading('false')
-      })
-      .catch(error => setError(error))
+  // function postUserData() {
+  //   setLoading('true')
+  //   fetch(
+  //     'https://7a97657d-b4dd-468a-960b-563f46161622.mock.pstmn.io/api/v1/recipes',
+  //     // 'https://brain-food-501b641e50fb.herokuapp.com/api/v1/recipes',
+  //     {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-type': 'application/json',
+  //       },
+  //       body: JSON.stringify({
+  //         mood: moodValue,
+  //         time_available: timeValue,
+  //         user_id: 1
+  //       }),
+  //     }
+  //   )
+  //     .then((res) => res.json())
+  //     .then(res => {
+  //       if(!res.ok){
+  //         throw new Error()
+  //       } else {
+  //         return res.json()
+  //       }
+  //     })
+  //     .then((data) => {
+  //       navigate('/recipes', {
+  //         state: { data: data.data, mood: moodValue, time: timeValue, value: value },
+  //       })
+  //       setLoading('false')
+  //     })
+  //     .catch(error => setError(error))
       
+  // }
+
+  function goToPage(){
+    navigate('/recipes', {
+      state: { mood: moodValue, time: timeValue, value: value },
+      
+    })
+    setLoading(true)
   }
  if(error) {
   return (
@@ -176,7 +185,7 @@ useEffect(() => {
         minutes to cook.
       </h2>
 
-      <button className="cook" onClick={() => {postUserData()}}>
+      <button className="cook" onClick={() => {goToPage()}}>
         Let's cook!
       </button>
       {loading && <p className='loading'>Loading Recipes ...</p>}

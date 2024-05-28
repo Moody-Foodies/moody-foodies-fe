@@ -114,15 +114,22 @@ let filteredRecipes = recipeGridItems.filter(recipe => recipe.name.toLowerCase()
      }} >
       <header className="dashboard-container">
         <h2 className="dashboard">Mood Board</h2>
-        <p className='navigate' onClick={() => navigate('/recipes')}>Recipes</p>
+        <div className='link-styling'>
+           <p className='navigate' onClick={() => navigate('/recipes')}>Recipes</p>
         <p className='navigate' onClick={() => navigate('/')}>Home</p>
+        </div>
+       
       </header>
-      <div className='search-container'>
+      <div className='test'>
+    <div className='search-container'>
         <input className='search' type='text' placeholder='Search recipe by name' onChange={(event) => setSearch(event.target.value)} />
       </div>
       
       <h3 className="average-mood-score">Average mood score: 7.5</h3>
       <h3 className="affirmation">{quote}</h3>
+        
+      </div>
+  
       <RecipeGrid items={filteredRecipes} customClass="dashboard-recipeGrid" />
     </section>
     </motion.div>

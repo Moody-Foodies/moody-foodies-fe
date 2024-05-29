@@ -4,13 +4,16 @@ import Favorite from '../../assets/favorite.png'
 import RecipeGrid from '../RecipeGrid/RecipeGrid';
 import Error from '../Error/Error';
 import './Recipes.css';
-import { motion } from 'framer-motion';
-import { RecipeGridItem } from '../../types';
+
 import Relaxation from '../../assets/relaxation.jpeg';
 import Calm from '../../assets/calm.jpeg';
 import HappyTheme from '../../assets/happy.jpeg';
 import Energy from '../../assets/energy.jpeg'
 import Enthus from '../../assets/enthus.jpeg';
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Test from '../Test/Test'
 
 interface Recipe {
   id: string,
@@ -34,6 +37,7 @@ interface LocationState {
 }
 
 export default function Recipes() {
+
   // const [recipes, setRecipes] = useState<Recipe[]>(getRecipes());
   const [value, setValue] = useState('')
   const navigate = useNavigate();
@@ -68,7 +72,7 @@ if(!state){
   //   const initialValue = JSON.parse(recipes);
   //   return initialValue || "";
   // }
-  let test = [
+  let recipes = [
     {
       id: '1',
       name: 'Item 1',
@@ -110,7 +114,7 @@ if(!state){
       nutrient: 'Nutrient 3',
       ingredients: ['Ingredient 1', 'Ingredient 2'],
       instructions: ['Step 1', 'Step 2'],
-    },
+    }
     
     ]
 
@@ -136,24 +140,30 @@ if(!state){
   //   ingredients: recipe.attributes.ingredients, 
   //   instructions: recipe.attributes.instructions 
   // }));
-  const recipeGridItems: RecipeGridItem[] = test.map(recipe => ({
-    id: recipe.id, 
-    name: recipe.name,
-    image: recipe.image,
-    details: recipe.description,
-    favoriteIcon: Favorite, 
-    frontButtonText: 'Recipe Details',
-    backButtonText: 'Go Back',
-    description: recipe.description, 
-    cookTime: recipe.cookTime,   
-    nutrient: recipe.nutrient,       
-    ingredients: recipe.ingredients, 
-    instructions: recipe.instructions 
-  }));
+  // const recipeGridItems: RecipeGridItem[] = test.map(recipe => ({
+  //   id: recipe.id, 
+  //   name: recipe.name,
+  //   image: recipe.image,
+  //   details: recipe.description,
+  //   favoriteIcon: Favorite, 
+  //   frontButtonText: 'Recipe Details',
+  //   backButtonText: 'Go Back',
+  //   description: recipe.description, 
+  //   cookTime: recipe.cookTime,   
+  //   nutrient: recipe.nutrient,       
+  //   ingredients: recipe.ingredients, 
+  //   instructions: recipe.instructions 
+  // }));
 
-
+  var settings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 3
+  };
   return (
-    <motion.div initial={{scaleX:0}} animate={{scaleX:1}} exit={{scaleX:0}} transition={{duration: 0.5}}>
+    // <motion.div initial={{scaleX:0}} animate={{scaleX:1}} exit={{scaleX:0}} transition={{duration: 0.5}}>
     <main 
     style={{ 
       backgroundImage: 
@@ -180,8 +190,23 @@ if(!state){
         </div>
     
       </header>
-      <RecipeGrid items={recipeGridItems} customClass="recipe-grid" />
+      <Slider {...settings}>
+        {recipes.map(recipe => {
+          return (
+            <Test
+              name={recipe.name}
+              image={recipe.image}
+              ingredients={recipe.ingredients}
+              instructions={recipe.instructions}
+            />
+          )
+        })}
+        </Slider>
+ 
+ 
+      {/* <RecipeGrid items={recipeGridItems} customClass="recipe-grid" /> */}
     </main>
-    </motion.div>
-  );
+  )
+    // </motion.div>
+
 }

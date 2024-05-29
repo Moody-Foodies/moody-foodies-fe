@@ -16,8 +16,13 @@ form {
 
 .login {
     border: solid 2px black; 
-    width: 300px;
-    
+    width: 350px;
+    margin-left: 0; 
+    margin-bottom: 22px; 
+}
+
+label {
+    margin-bottom: 5px; 
 }
 
 .logo-header {
@@ -29,10 +34,11 @@ form {
 }
 
 .sign-in {
-    width: 300px; 
+    width: 350px; 
     border-radius: 30px; 
     cursor: pointer;
     border: none; 
+    height: 30px;
 }
 
 .login-container {
@@ -40,7 +46,7 @@ form {
     flex-direction: column;
     align-items: center;
     height: 70vh; 
-    background-color: rgb(151, 90, 94, .7);
+    background-color: rgb(151, 90, 94, .6);
     width: 35vw;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     border-radius: 20px; 

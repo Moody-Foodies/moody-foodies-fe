@@ -20,10 +20,12 @@
     "react": "^18.2.0",
     "react-card-flip": "^1.2.2",
     "react-dom": "^18.2.0",
+    "react-modal": "^3.16.1",
     "react-router-dom": "^6.23.0",
     "react-simple-star-rating": "^5.1.7",
     "react-slick": "^0.30.2",
     "react-star-ratings": "^2.3.0",
+    "react-stars": "^2.2.5",
     "slick-carousel": "^1.8.1"
   },
   "optionalDependencies": {
@@ -35,6 +37,7 @@
     "@cypress/webpack-dev-server": "^3.8.0",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
+    "@types/react-modal": "^3.16.3",
     "@types/react-slick": "^0.23.13",
     "@typescript-eslint/eslint-plugin": "^7.2.0",
     "@typescript-eslint/parser": "^7.2.0",

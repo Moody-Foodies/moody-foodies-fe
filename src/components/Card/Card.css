@@ -1,0 +1,8 @@
+.rating {
+    display: flex; 
+    align-items: center; 
+}
+
+.star-rating {
+    margin-left: 5px; 
+}

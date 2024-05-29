@@ -2,6 +2,10 @@
     color: rgb(171,78,82);
 }
 
+.favorite-recipes {
+    width: 33vw;
+}
+
 .search {
     width: 300px; 
     background-color: bisque;

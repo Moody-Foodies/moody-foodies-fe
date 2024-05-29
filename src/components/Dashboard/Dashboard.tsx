@@ -10,6 +10,7 @@ import HappyTheme from '../../assets/happy.jpeg';
 import Energy from '../../assets/energy.jpeg'
 import Enthus from '../../assets/enthus.jpeg';
 import { motion } from 'framer-motion';
+import RecipeCard from '../RecipeCard/RecipeCard';
 
 interface Affirmation {
   quote: string
@@ -44,8 +45,9 @@ export default function Dashboard() {
     
   }, [])
 
-  const recipeGridItems: RecipeGridItem[] = [
-    //this is fake data, replace with real data... 
+  // const recipeGridItems: RecipeGridItem[] = [
+  //   //this is fake data, replace with real data... 
+  const recipes = [
     {
       id: '1',
       name: 'Item 1',
@@ -87,14 +89,13 @@ export default function Dashboard() {
       nutrient: 'Nutrient 3',
       ingredients: ['Ingredient 1', 'Ingredient 2'],
       instructions: ['Step 1', 'Step 2'],
-    },
+    }
     
   ]
 
-let filteredRecipes = recipeGridItems.filter(recipe => recipe.name.toLowerCase().includes(search.toLowerCase()))
+let filteredRecipes = recipes.filter(recipe => recipe.name.toLowerCase().includes(search.toLowerCase()))
 
   return (
-    <motion.div initial={{scaleX:0}} animate={{scaleX:1}} exit={{scaleX:0}} transition={{duration: 0.5}}>
     <section className="container"
     style={{ 
       backgroundImage: 
@@ -112,7 +113,8 @@ let filteredRecipes = recipeGridItems.filter(recipe => recipe.name.toLowerCase()
       backgroundAttachment: 'fixed', 
       overflow: 'auto'
      }} >
-      <header className="dashboard-container">
+
+<header className="dashboard-container">
         <h2 className="dashboard">Mood Board</h2>
         <div className='link-styling'>
            <p className='navigate' onClick={() => navigate('/recipes')}>Recipes</p>
@@ -120,7 +122,10 @@ let filteredRecipes = recipeGridItems.filter(recipe => recipe.name.toLowerCase()
         </div>
        
       </header>
-      <div className='test'>
+ 
+ 
+
+    <div className='test'>
     <div className='search-container'>
         <input className='search' type='text' placeholder='Search recipe by name' onChange={(event) => setSearch(event.target.value)} />
       </div>
@@ -130,8 +135,8 @@ let filteredRecipes = recipeGridItems.filter(recipe => recipe.name.toLowerCase()
         
       </div>
   
-      <RecipeGrid items={filteredRecipes} customClass="dashboard-recipeGrid" />
+  <RecipeGrid items={filteredRecipes} /> 
+ 
     </section>
-    </motion.div>
   )
 }

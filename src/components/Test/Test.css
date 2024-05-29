@@ -1,0 +1,31 @@
+/* .recipe-carousel {
+    background-color: yellow;
+
+} */
+
+.slick-slide > div {
+    background-color: #c4c1e0;
+    height: 65vh; 
+    margin-right: 15px;
+    margin-left: 15px;
+    margin-top: 40px; 
+    border-radius: 20px; 
+    position: relative; 
+}
+
+.heart {
+    height: 25px; 
+    position: absolute; 
+    bottom: 0; 
+    margin-bottom: 10px;
+    right: 10px; 
+    cursor: pointer;
+}
+/* 
+.modal {
+    position: absolute; 
+    bottom: 0; 
+    margin-bottom: 10px;
+    left: 10px; 
+
+} */

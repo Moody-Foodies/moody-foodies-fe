@@ -36,9 +36,15 @@
     position: absolute; 
     top: 0; 
     margin-top: 5px; ;
-    right: 5px; 
+    right: 10px; 
     border-radius: 20px; 
     cursor: pointer;
+    background-color: bisque;
+    border: none; 
+    width: 100px;
+    &:hover {
+        transform: scale(1.1)
+    }
 }
 
 .star-rating {

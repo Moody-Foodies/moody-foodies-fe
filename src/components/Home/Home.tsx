@@ -24,7 +24,7 @@ export default function Home() {
   const [timeValue, setTimeValue] = useState<number>(15)
   const [timeOfDay, setTimeOfDay] = useState<string>('')
   const [loading, setLoading] = useState(false)
-  const [value, setValue] = useState(getValue())
+  const [value, setValue] = useState('')
   const [error, setError] = useState(null)
 
   const navigate = useNavigate()
@@ -32,11 +32,11 @@ export default function Home() {
     localStorage.setItem('value', JSON.stringify(value))
   }, [value])
   
-  function getValue(){
-    const value = localStorage.getItem('value') || '';
-    const initialValue = JSON.parse(value);
-    return initialValue || "";
-  }
+  // function getValue(){
+  //   const value = localStorage.getItem('value') || '';
+  //   const initialValue = JSON.parse(value);
+  //   return initialValue || "";
+  // }
 
 
 const time = new Date().getHours()
@@ -99,12 +99,16 @@ useEffect(() => {
   )
  }
 
-  function getFavoriteRecipes() {
-    fetch('https://brain-food-501b641e50fb.herokuapp.com/api/v1/recipes/favorites?user_id=1') 
-      .then(res => res.json())
-      .then(data => console.log('ALLFAVS:', data))
-      navigate('/dashboard', {state: { value: value} })
-  }
+ function getFavoriteRecipes(){
+  console.log('get favorite recipes')
+ }
+
+  // function getFavoriteRecipes() {
+  //   fetch('https://brain-food-501b641e50fb.herokuapp.com/api/v1/recipes/favorites?user_id=1') 
+  //     .then(res => res.json())
+  //     .then(data => console.log('ALLFAVS:', data))
+  //     navigate('/dashboard', {state: { value: value} })
+  // }
 
 
   return (

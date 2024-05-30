@@ -6,6 +6,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import ReactCardFlip from 'react-card-flip';
+import ReactStars from 'react-stars';
 const style = {
     position: 'absolute' as 'absolute',
     top: '50%',
@@ -23,16 +24,30 @@ const style = {
   };
 export default function Card({name, id, image}) {
     const [open, setOpen] = useState(false);
+    const [rating, setRating] = useState(0)
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const [isFlipped, setIsFlipped] = useState(true)
     function handleClick(){
       setIsFlipped(!isFlipped)
   }
+
+function handleRating(newRating){
+  setRating(newRating)
+}
     return (
       <ReactCardFlip isFlipped={!isFlipped} flipDirection="horizontal">
         <div className='favorite-recipe'>
-          
+        <ReactStars 
+                     className='star-rating'
+                     count={4}
+                    color2={'#06C7EE'}
+                    value={rating}
+                     half={true}
+                    edit={true} 
+                    size={15}
+                   onChange={handleRating}
+                />
             <h2>{name}</h2>
             <div className='image' style={{ 'backgroundImage': `url(${image})`, 'backgroundSize': 'cover',
     'backgroundPosition': 'center'}}></div> 

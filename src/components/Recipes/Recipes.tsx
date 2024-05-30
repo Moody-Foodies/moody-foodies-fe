@@ -179,7 +179,7 @@ if(!state){
     slidesToScroll: 3,
     responsive: [
       {
-        breakpoint: 1024,
+        breakpoint: 1300,
         settings: {
           slidesToShow: 2,
           slidesToScroll: 2,

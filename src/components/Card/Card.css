@@ -1,7 +1,7 @@
 .favorite-recipe, 
 .recipe-details {
     background-color: #ff9c6d;
-    height: 350px;
+    height: 420px;
     position: relative;
     border-radius: 20px;
 }
@@ -24,6 +24,7 @@
     border-radius: 20px; 
     margin-top: 20px;
     background-color: bisque;
+    border: none;
 }
 
 .image {
@@ -38,4 +39,11 @@
     right: 5px; 
     border-radius: 20px; 
     cursor: pointer;
+}
+
+.star-rating {
+    position: absolute; 
+    top: 0; 
+    margin-top: 5px; 
+    margin-left: 10px;
 }

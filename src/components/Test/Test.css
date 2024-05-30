@@ -28,3 +28,16 @@
     width: 100%;
     background-color: yellow;
 }
+
+.exit {
+    height: 20px;
+    position: absolute; 
+    bottom: 0;
+    margin-bottom: 20px; 
+    right: 0;
+    margin-right: 30px;
+    cursor: pointer;
+    &:hover {
+        transform: scale(1.1)
+    }
+}

@@ -1,4 +1,3 @@
-import { cyan } from "@mui/material/colors"
 import cypress from "cypress"
 
 describe('Homepage', () => {
@@ -19,6 +18,9 @@ describe('Homepage', () => {
         cy.get('h2').first().contains('How are you feeling today?')
         cy.get('.sad').should('exist')
         cy.get('.happy').should('exist')
+        cy.get('.slider-container').should('exist')
+        cy.get('.MuiBox-root').type('{rightArrow}')
+        cy.get('input[aria-valuenow]').should('have.attr', 'aria-valuenow', '3')
         cy.get('h2').last().contains('I have minutes to cook')
         cy.get('input[type=number]').should('exist')
         cy.get('input[type=number]').type('{upArrow}').should('have.value', 20)

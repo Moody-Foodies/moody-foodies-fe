@@ -1,5 +1,6 @@
 .dashboard-container {
     color: rgb(171,78,82);
+    position: relative;
 }
 
 .favorite-recipes {

@@ -2,11 +2,11 @@ import './Card.css';
 import { useState } from 'react';
 import Delete from '../../assets/delete.png';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import ReactCardFlip from 'react-card-flip';
 import ReactStars from 'react-stars';
+
 const style = {
     position: 'absolute' as 'absolute',
     top: '50%',

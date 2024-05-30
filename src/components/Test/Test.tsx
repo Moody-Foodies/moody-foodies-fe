@@ -10,6 +10,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import Exit from '../../assets/exit.png'
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -102,6 +103,7 @@ export default function Test({name, image, id,  ingredients, instructions, cookT
             <div>
                 <h2>Instructions</h2>
                 <p>{instructions}</p>
+                <img onClick={handleClose} src={Exit} className='exit' />
             </div>
          
          

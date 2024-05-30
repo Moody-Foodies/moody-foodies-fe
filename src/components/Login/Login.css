@@ -39,6 +39,10 @@ label {
     cursor: pointer;
     border: none; 
     height: 30px;
+    background-color: bisque;
+    &:hover {
+        transform: scale(1.1)
+    }
 }
 
 .login-container {

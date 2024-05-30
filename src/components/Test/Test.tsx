@@ -3,7 +3,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import './Test.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Favorite from '../../assets/favorite.png';
 import Unfavorite from '../../assets/unfavorite.png';
 import Box from '@mui/material/Box';
@@ -21,6 +21,7 @@ const style = {
   bgcolor: '#8F9779',
   overflowY: "auto",
   boxShadow: 24,
+  borderRadius: 10,
   p: 4,
 };
 
@@ -69,19 +70,20 @@ const style = {
 //     }
     
 //     ]
-export default function Test({name, image,  ingredients, instructions}){
+export default function Test({name, image, id,  ingredients, instructions, cookTime, description, toggleFavorite, isFavorite}){
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    const [favorite, setFavorite] = useState(false)
 
       return (
-
-      
       <div className='recipe-carousel'>
         <h3>{name}</h3>
-        <img src={image} />
-        <Button sx={{'position': 'absolute', 'bottom': 0, 'left': 10, 'margin-bottom': 2 }}onClick={handleOpen}>Instructions & Ingredients</Button>
+       <div className='image-container' style={{ 'backgroundImage': `url(${image})`, 'backgroundSize': 'cover',
+    'backgroundPosition': 'center'}}></div> 
+        <p>Cook time: {cookTime} minutes</p>
+        <p>{description}</p>
+       {/* {!isFavorite ?  <button onClick={() =>toggleFavorite()}>NotFav</button> : <button onClick={() =>toggleFavorite()}>Fav</button>} */}
+        <Button sx={{'position': 'absolute', 'bottom': 0, 'left': 10, 'color': '#00563B' }}onClick={handleOpen}>Ingredients & Instructions</Button>
         <Modal
         open={open}
         onClose={handleClose}
@@ -89,17 +91,25 @@ export default function Test({name, image,  ingredients, instructions}){
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
-          </Typography>
+          {/* <Typography id="modal-modal-title" variant="h6" component="h2">
+            Ingredients & Instructions
+          </Typography> */}
           <Typography id="modal-modal-description" sx={{ mt: 2}}>
-         {instructions}
-         {ingredients}
+            <div>
+                <h2>Ingredients</h2>
+                <p>{ingredients}</p>
+            </div>
+            <div>
+                <h2>Instructions</h2>
+                <p>{instructions}</p>
+            </div>
+         
+         
           </Typography>
         </Box>
       </Modal>
         
-        {(!favorite) ? <img className='heart' src={Unfavorite} onClick={() => setFavorite(!favorite)} /> : <img className='heart' src={Favorite} onClick={() => setFavorite(!favorite)} /> }
+        {(!isFavorite) ? <img className='heart' src={Unfavorite} onClick={() => toggleFavorite()} /> : <img className='heart' src={Favorite} onClick={() => toggleFavorite()} /> }
       </div>
        
 

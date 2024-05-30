@@ -21,11 +21,10 @@
     right: 10px; 
     cursor: pointer;
 }
-/* 
-.modal {
-    position: absolute; 
-    bottom: 0; 
-    margin-bottom: 10px;
-    left: 10px; 
 
-} */
+
+.image-container {
+    height: 270px;
+    width: 100%;
+    background-color: yellow;
+}

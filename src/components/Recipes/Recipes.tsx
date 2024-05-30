@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import Favorite from '../../assets/favorite.png'
+
 import RecipeGrid from '../RecipeGrid/RecipeGrid';
 import Error from '../Error/Error';
 import './Recipes.css';
-
+import Favorite from '../../assets/favorite.png';
+import Unfavorite from '../../assets/unfavorite.png';
 import Relaxation from '../../assets/relaxation.jpeg';
 import Calm from '../../assets/calm.jpeg';
 import HappyTheme from '../../assets/happy.jpeg';
@@ -43,6 +44,19 @@ export default function Recipes() {
   const navigate = useNavigate();
   const location = useLocation();
   const state = location.state as LocationState;
+  const [favorites, setFavorites] = useState({});
+
+  useEffect(() => {
+    // Load initial favorite states from localStorage
+    const savedFavorites = JSON.parse(localStorage.getItem('favorites')) || {};
+    setFavorites(savedFavorites);
+  }, []);
+
+  const toggleFavorite = (id) => {
+    const newFavorites = { ...favorites, [id]: !favorites[id] };
+    setFavorites(newFavorites);
+    localStorage.setItem('favorites', JSON.stringify(newFavorites));
+  };
 
 if(!state){
   return (
@@ -119,12 +133,14 @@ if(!state){
     ]
 
   function getFavoriteRecipes() {
+
     fetch('https://brain-food-501b641e50fb.herokuapp.com/api/v1/recipes/favorites?user_id=1') 
       .then(res => res.json())
       .then(data => console.log('ALLFAVS:', data))
       navigate('/dashboard', {state: { value: value} })
   }
 
+  
 
   // const recipeGridItems: RecipeGridItem[] = recipes.map(recipe => ({
   //   id: recipe.id, 
@@ -160,10 +176,29 @@ if(!state){
     infinite: true,
     speed: 500,
     slidesToShow: 3,
-    slidesToScroll: 3
+    slidesToScroll: 3,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          infinite: true,
+          dots: false
+        }
+      },
+      {
+        breakpoint: 900,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: false
+        }
+      }
+    ]
   };
   return (
-    // <motion.div initial={{scaleX:0}} animate={{scaleX:1}} exit={{scaleX:0}} transition={{duration: 0.5}}>
     <main 
     style={{ 
       backgroundImage: 
@@ -191,22 +226,29 @@ if(!state){
     
       </header>
       <Slider {...settings}>
+      
         {recipes.map(recipe => {
           return (
+     
             <Test
               name={recipe.name}
               image={recipe.image}
               ingredients={recipe.ingredients}
               instructions={recipe.instructions}
+              cookTime={recipe.cookTime}
+              description={recipe.description}
+              id={recipe.id}
+              isFavorite={favorites[recipe.id]}
+              toggleFavorite={() => toggleFavorite(recipe.id)}
+         
             />
+            
           )
+          
         })}
+
         </Slider>
- 
- 
-      {/* <RecipeGrid items={recipeGridItems} customClass="recipe-grid" /> */}
     </main>
   )
-    // </motion.div>
-
+ 
 }

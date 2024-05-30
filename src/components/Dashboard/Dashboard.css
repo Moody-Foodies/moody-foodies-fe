@@ -29,3 +29,10 @@
     position: absolute; 
     right: 50px; 
 }
+
+.affirmation, 
+.average-mood-score {
+    text-align: center;
+}
+
+

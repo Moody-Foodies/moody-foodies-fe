@@ -38,6 +38,7 @@ export default function Home() {
     return initialValue || "";
   }
 
+
 const time = new Date().getHours()
 useEffect(() => {
   if (time < 12) {
@@ -107,7 +108,7 @@ useEffect(() => {
 
 
   return (
-    <motion.div initial={{scaleX:0}} animate={{scaleX:1}} exit={{scaleX:0}} transition={{duration: 0.5}}>
+
     <main 
     style=
     {{ 
@@ -149,14 +150,14 @@ useEffect(() => {
     </FormControl>
       <p className='menu' onClick={()=> getFavoriteRecipes()}>Mood Board</p>
         </header>
-        <section 
+        <section id='main-section'
         className={value === 'enthus' ? 'enthus' : value === 'energetic' ? 'energetic' : 'main-page'}>
           {timeOfDay && <h1>{timeOfDay}!</h1>}
       <h2>How are you feeling today?</h2>
       <section className="slider-container">
         <img className="sad" src={Sad} />
         <div className="slider-container">
-          <Box sx={{ width: 500 }}>
+          <Box sx={{width: 500}}>
             <Slider
               step={1}
               marks
@@ -192,6 +193,6 @@ useEffect(() => {
         </section>
 
     </main>
-    </motion.div>
+
   )
 }

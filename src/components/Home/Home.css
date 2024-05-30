@@ -123,3 +123,37 @@ input {
   font-size: 2em;
 }
 
+@media screen and (max-width: 767px) {
+  .slider-container {
+    width: 200px;
+    justify-content: center;
+    background-color: transparent;
+  }
+
+
+
+  h1 {
+    font-size: 3em; 
+    margin-top: 50px;
+  }
+  input {
+    width: 50px
+  }
+
+  h2 {
+    font-size: 2em;
+  }
+  .sad, 
+  .happy {
+    height: 50px;
+  }
+
+.cook {
+  width: 220px;
+}
+
+  #main-section {
+    text-align: center;
+    position: static;
+  }
+}

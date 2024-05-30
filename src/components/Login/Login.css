@@ -50,5 +50,29 @@ label {
     width: 35vw;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     border-radius: 20px; 
+}
 
+@media screen and (max-width: 1024px) {
+    .login-container {
+        width: 60vw;
+    }
+
+    .logo-header {
+        width: 60vw; 
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .login-container {
+        width: 90vw;
+    }
+
+    .logo-header {
+        width: 90vw; 
+    }
+
+    .login, 
+    .sign-in {
+        width: 280px;
+    }
 }

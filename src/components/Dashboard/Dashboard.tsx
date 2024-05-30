@@ -12,6 +12,8 @@ import Enthus from '../../assets/enthus.jpeg';
 import { motion } from 'framer-motion';
 import RecipeCard from '../RecipeCard/RecipeCard';
 
+import ReactStars from 'react-stars';
+
 interface Affirmation {
   quote: string
 }
@@ -28,6 +30,7 @@ export default function Dashboard() {
   const state = location.state as LocationState;
   const [value, setValue] = useState('')
   const [search, setSearch] = useState('')
+
 
   function getRandomAffirmation(affirmations: Affirmation[]) {
     let randomQuote =
@@ -136,6 +139,7 @@ let filteredRecipes = recipes.filter(recipe => recipe.name.toLowerCase().include
       </div>
   
   <RecipeGrid items={filteredRecipes} /> 
+  
  
     </section>
   )

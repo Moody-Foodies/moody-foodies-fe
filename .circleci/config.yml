@@ -20,7 +20,7 @@ workflows:
       - cypress/run: # Run the cypress/run job from the cypress orb
           cypress-command: npx cypress run --browser chrome # Run the cypress run command in headless mode
           install-browsers: true
-          start-command: npm run start:dev
+          start-command: npm run dev
 
 jobs:
   start_server:

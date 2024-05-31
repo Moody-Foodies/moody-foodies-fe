@@ -55,8 +55,8 @@ export default function Recipes() {
     }
     
      }
-     function removeFavorite(id){
-      let newFavorites = favorites.filter(fav => fav !== id)
+     function removeFavorite(id: number){
+      let newFavorites = favorites.filter((fav: number) => fav !== id)
       setFavorites(newFavorites)
      }
 
@@ -230,7 +230,6 @@ if(!state){
               instructions={recipe.instructions}
               cookTime={recipe.cookTime}
               description={recipe.description}
-              // isFavorite={favorites[recipe.id]}
               removeFavorite={() => removeFavorite(recipe.id)}
               toggleFavorite={() => toggleFavorite(recipe.id)}
               favorites={favorites}

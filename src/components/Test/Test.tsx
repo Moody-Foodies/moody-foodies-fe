@@ -32,6 +32,10 @@ interface RecipeProps {
   instructions: string[],
   cookTime: string, 
   description: string, 
+  id: number,
+  favorites: number[],
+  toggleFavorite: (id: number) => void,
+  removeFavorite: (id: number) => void
 }
 
 export default function Test({name, image, ingredients, id, instructions, cookTime, description, favorites, removeFavorite, toggleFavorite}: RecipeProps){
@@ -39,8 +43,8 @@ export default function Test({name, image, ingredients, id, instructions, cookTi
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const [favorite, setFavorite] = useState(false)
-console.log('ALL THE FAVS< PLEASE WORK:', favorites)
-    function test(id){
+
+    function test(id: number){
       setFavorite(!favorite)
       if(!favorite){
         toggleFavorite(id)

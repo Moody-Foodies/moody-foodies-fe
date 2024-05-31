@@ -1,5 +1,7 @@
 import './RecipeGrid.css';
 import Card from '../Card/Card';
+import { useState, useEffect } from 'react';
+
 interface AllRecipe {
   id: number;
   name: string;
@@ -20,6 +22,23 @@ interface ItemProps {
 }
 
 export default function RecipeGrid({ items }: ItemProps) {
+  const [allRatings, setAllRatings] = useState(getStarRatings())
+function getRatings(id, test){
+  setAllRatings({...allRatings, [id]: test})
+  
+}
+
+useEffect(() => {
+  localStorage.setItem('allRatings', JSON.stringify(allRatings))
+}, [allRatings])
+
+  function getStarRatings(){
+    const starRatings = localStorage.getItem('allRatings') || '{}';
+  const initialValue = JSON.parse(starRatings);
+  return initialValue || "";
+  }
+  
+
 
   return (
     <div className='recipe-grid'>
@@ -28,6 +47,8 @@ export default function RecipeGrid({ items }: ItemProps) {
          name={item.name}
          id={item.id}
          image={item.image}
+         getRatings={getRatings}
+         allRatings={allRatings}
         />
 
       ))}

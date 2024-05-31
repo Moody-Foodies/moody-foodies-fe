@@ -1,5 +1,5 @@
 import './Card.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Delete from '../../assets/delete.png';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -28,19 +28,24 @@ const style = {
     flexDirection: 'column',
     p: 4,
   };
-export default function Card({name, image}: ItemProps) {
+export default function Card({name, image, id, getRatings, allRatings}: ItemProps) {
     const [open, setOpen] = useState(false);
     const [rating, setRating] = useState(0)
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const [isFlipped, setIsFlipped] = useState(true)
+
     function handleClick(){
       setIsFlipped(!isFlipped)
   }
 
 function handleRating(newRating: number){
   setRating(newRating)
+  getRatings(id, newRating)
 }
+
+
+console.log('allRatings:', allRatings)
     return (
       <ReactCardFlip isFlipped={!isFlipped} flipDirection="horizontal">
         <div className='favorite-recipe'>
@@ -48,7 +53,8 @@ function handleRating(newRating: number){
                      className='star-rating'
                      count={4}
                     color2={'#06C7EE'}
-                    value={rating}
+                    // value={rating}
+                    value={allRatings[id]}
                      half={true}
                     edit={true} 
                     size={15}

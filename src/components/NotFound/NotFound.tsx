@@ -1,8 +1,9 @@
 import './NotFound.css';
-import Sad from '../../assets/sad.jpeg'
+import Sad from '../../assets/sad.jpeg';
 
 export default function NotFound(){
     return (
+
         <section 
         style={{ 
             backgroundImage: 
@@ -15,5 +16,6 @@ export default function NotFound(){
         className='notfound-container'>
             <h1 className='error-message'>Oh no! Looks like something went wrong. Please try again later.</h1>
         </section>
+
     )
 }

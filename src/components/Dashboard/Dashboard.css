@@ -1,3 +1,39 @@
 .dashboard-container {
     color: rgb(171,78,82);
+    position: relative;
 }
+
+.favorite-recipes {
+    width: 33vw;
+}
+
+.search {
+    width: 300px; 
+    background-color: bisque;
+    text-decoration: none;
+    border-radius: 30px;
+    margin-top: 20px; 
+}
+
+::placeholder {
+    color: #390400;
+    text-align: center;
+}
+
+.test {
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+}
+
+.link-styling {
+    position: absolute; 
+    right: 50px; 
+}
+
+.affirmation, 
+.average-mood-score {
+    text-align: center;
+}
+
+

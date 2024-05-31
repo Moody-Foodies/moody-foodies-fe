@@ -26,9 +26,14 @@
     border: none; 
     height: 35px;
     color: #390400;
-    background-color: #FFA340;
+    background-color: #ACE1AF;
     cursor: pointer;
     &:hover {
         background-color: #E47797;
     }
+}
+
+.notfound-container {
+    display: flex; 
+    justify-content: center; 
 }

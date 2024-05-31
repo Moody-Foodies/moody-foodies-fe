@@ -1,28 +1,27 @@
-// describe('Recipes carousel page', () => {
-//     beforeEach(() => {
-//         cy.intercept('GET', 'https://7a97657d-b4dd-468a-960b-563f46161622.mock.pstmn.io/api/v1/recipes', {
-//             statusCode: 200, 
-//             body: "recipes"
-//         })
-//         cy.visit('http://localhost:3000/recipes')
-//     })
-//     it('Should show the user the recipes carousel page', () => {
-//         cy.get('h2').contains('Food for Your Mood')
-// //         cy.get('.front').contains('h3', 'Red Lentil Soup with Chicken and Turnips')
-// //         cy.get('p').first().contains('This good is good because of its taste')
-// //         cy.get('p').last().contains('This recipe contains Magnesium')
-// //         cy.get('.ingredient-button').contains('Ingredients & Instructions')
-// //         cy.get('.ingredient-button').contains('Ingredients & Instructions').click()
-// //         cy.get('.ingredient-container').find('h4').first().contains('Ingredients');
-// //         cy.get('.ingredient-container').find('h4').last().contains('Instructions');
-
-//     })
-
-
-// })
-
-// describe('Just visit e2e test', () => {
-//     it('should visit', () => {
-//         cy.visit('/')
-//     })
-// })
+describe('Recipe carousel page', () => {
+    beforeEach(() => {
+        
+        cy.visit('http://127.0.0.1:5173/home')
+        cy.get('button').contains('Let\'s cook!').click()
+    })
+    it('Should show all the recipes based on mood level and time allotted to cook', () => {
+        cy.get('h2').contains('Food for Your Mood')
+        cy.get('.link-styling').contains('p', 'Mood Board')
+        cy.get('.link-styling').contains('p', 'Home')
+        cy.get('.slick-slider').contains('h3', 'Item 1')
+        cy.get('.image-container').should('exist')
+        cy.get('.slick-slider').contains('p', 'Cook time: 30 minutes')
+        cy.get('.slick-slider').contains('p', 'Description 1')
+        cy.get('.MuiButtonBase-root').contains('Ingredients & Instructions').click({force: true})
+        cy.get('.MuiBox-root').should('exist')
+        cy.get('.MuiBox-root').contains('h2', 'Ingredients')
+        cy.get('.MuiBox-root').contains('h2', 'Instructions')
+        // test ingredients & instructions here. 
+        cy.get('.exit').click()
+        cy.get('.MuiBox-root').should('not.exist')
+        cy.get('.heart').first().click()
+        // heart changing image png
+        cy.get('.slick-next').click()
+        cy.get('.slick-prev').click()
+    })
+})

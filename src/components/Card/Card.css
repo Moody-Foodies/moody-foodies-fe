@@ -1,0 +1,55 @@
+.favorite-recipe, 
+.recipe-details {
+    background-color: #ff9c6d;
+    height: 420px;
+    position: relative;
+    border-radius: 20px;
+}
+
+.recipe-details {
+    overflow-y: auto; 
+}
+
+.delete {
+    height: 30px; 
+    position: absolute; 
+    bottom: 0;
+    margin-bottom: 10px; 
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.delete-button {
+    cursor: pointer;
+    border-radius: 20px; 
+    margin-top: 20px;
+    background-color: bisque;
+    border: none;
+}
+
+.image {
+    width: 100%;
+    height: 250px;
+}
+
+.recipe-btn {
+    position: absolute; 
+    top: 0; 
+    margin-top: 5px; ;
+    right: 10px; 
+    border-radius: 20px; 
+    cursor: pointer;
+    background-color: bisque;
+    border: none; 
+    width: 100px;
+    &:hover {
+        transform: scale(1.1)
+    }
+}
+
+.star-rating {
+    position: absolute; 
+    top: 0; 
+    margin-top: 5px; 
+    margin-left: 10px;
+}

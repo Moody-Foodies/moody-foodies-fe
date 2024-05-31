@@ -1,11 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-
-import RecipeGrid from '../RecipeGrid/RecipeGrid';
 import Error from '../Error/Error';
 import './Recipes.css';
-import Favorite from '../../assets/favorite.png';
-import Unfavorite from '../../assets/unfavorite.png';
 import Relaxation from '../../assets/relaxation.jpeg';
 import Calm from '../../assets/calm.jpeg';
 import HappyTheme from '../../assets/happy.jpeg';
@@ -44,19 +40,34 @@ export default function Recipes() {
   const navigate = useNavigate();
   const location = useLocation();
   const state = location.state as LocationState;
-  const [favorites, setFavorites] = useState({});
+  // const [favorite, setFavorite] = useState(false)
+  const [favorites, setFavorites] = useState(getFavorites());
+  // const [favorite, setFavorite] = useState(false)
+  // useEffect(() => {
+  //   const savedFavorites = JSON.parse(localStorage.getItem('favorites')) || {};
+  //   setFavorites(savedFavorites);
+  // }, []);
 
-  useEffect(() => {
-    // Load initial favorite states from localStorage
-    const savedFavorites = JSON.parse(localStorage.getItem('favorites')) || {};
-    setFavorites(savedFavorites);
-  }, []);
+  function toggleFavorite (id: number) {
+    if(!favorites.includes(id)){
+      setFavorites([...favorites, id])
 
-  const toggleFavorite = (id) => {
-    const newFavorites = { ...favorites, [id]: !favorites[id] };
-    setFavorites(newFavorites);
-    localStorage.setItem('favorites', JSON.stringify(newFavorites));
-  };
+    }
+    
+     }
+     function removeFavorite(id){
+      let newFavorites = favorites.filter(fav => fav !== id)
+      setFavorites(newFavorites)
+     }
+
+
+// console.log(id, favorite)
+//     // setFavorite(toggle[!favorite])
+//     // // const newFavorites = { ...favorites, [id]: !favorites[id] };
+//     // setFavorites([...favorites, id]);
+//     // localStorage.setItem('favorites', JSON.stringify(newFavorites));
+//   };
+ 
 
 if(!state){
   return (
@@ -86,9 +97,21 @@ if(!state){
   //   const initialValue = JSON.parse(recipes);
   //   return initialValue || "";
   // }
+
+    useEffect(() => {
+    localStorage.setItem('favorites', JSON.stringify(favorites))
+  }, [favorites])
+
+   function getFavorites(){
+    const favorites = localStorage.getItem('favorites') || '[]';
+    const initialValue = JSON.parse(favorites);
+    return initialValue || "";
+  }
+
+  
   let recipes = [
     {
-      id: '1',
+      id: 1,
       name: 'Item 1',
       image: 'https://www.howsweeteats.com/wp-content/uploads/2023/09/chickpea-salad-bowl-6.jpg',
       details: 'Detail 1',
@@ -102,7 +125,7 @@ if(!state){
       instructions: ['Step 1', 'Step 2']
     },
     {
-      id: '2',
+      id: 2,
       name: 'Item 2',
       image: 'https://www.inspiredtaste.net/wp-content/uploads/2021/03/Vegetable-Quesadilla-Recipe-1-1200-1200x800.jpg',
       details: 'Detail 2',
@@ -116,7 +139,7 @@ if(!state){
       instructions: ['Step 1', 'Step 2']
     },
     {
-      id: '3',
+      id: 3,
       name: 'Item 3',
       image: 'https://fraicheliving.com/wp-content/uploads/2021/01/fraiche-living-tropical-green-smoothie.jpg',
       details: 'Detail 3',
@@ -129,7 +152,6 @@ if(!state){
       ingredients: ['Ingredient 1', 'Ingredient 2'],
       instructions: ['Step 1', 'Step 2'],
     }
-    
     ]
 
   function getFavoriteRecipes() {
@@ -139,37 +161,6 @@ if(!state){
       .then(data => console.log('ALLFAVS:', data))
       navigate('/dashboard', {state: { value: value} })
   }
-
-  
-
-  // const recipeGridItems: RecipeGridItem[] = recipes.map(recipe => ({
-  //   id: recipe.id, 
-  //   name: recipe.attributes.name,
-  //   image: recipe.attributes.image,
-  //   details: recipe.attributes.description,
-  //   favoriteIcon: Favorite, 
-  //   frontButtonText: 'Recipe Details',
-  //   backButtonText: 'Go Back',
-  //   description: recipe.attributes.description, 
-  //   cookTime: recipe.attributes.time_to_cook,   
-  //   nutrient: recipe.attributes.nutrient,       
-  //   ingredients: recipe.attributes.ingredients, 
-  //   instructions: recipe.attributes.instructions 
-  // }));
-  // const recipeGridItems: RecipeGridItem[] = test.map(recipe => ({
-  //   id: recipe.id, 
-  //   name: recipe.name,
-  //   image: recipe.image,
-  //   details: recipe.description,
-  //   favoriteIcon: Favorite, 
-  //   frontButtonText: 'Recipe Details',
-  //   backButtonText: 'Go Back',
-  //   description: recipe.description, 
-  //   cookTime: recipe.cookTime,   
-  //   nutrient: recipe.nutrient,       
-  //   ingredients: recipe.ingredients, 
-  //   instructions: recipe.instructions 
-  // }));
 
   var settings = {
     dots: false,
@@ -232,19 +223,19 @@ if(!state){
      
             <Test
               name={recipe.name}
+              key={recipe.id}
+              id={recipe.id}
               image={recipe.image}
               ingredients={recipe.ingredients}
               instructions={recipe.instructions}
               cookTime={recipe.cookTime}
               description={recipe.description}
-              id={recipe.id}
-              isFavorite={favorites[recipe.id]}
+              // isFavorite={favorites[recipe.id]}
+              removeFavorite={() => removeFavorite(recipe.id)}
               toggleFavorite={() => toggleFavorite(recipe.id)}
-         
+              favorites={favorites}
             />
-            
           )
-          
         })}
 
         </Slider>

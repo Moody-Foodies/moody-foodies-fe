@@ -5,7 +5,6 @@ import Box from '@mui/material/Box'
 import Slider from '@mui/material/Slider'
 import Sad from '../../assets/sad.jpeg'
 import HappyFace from '../../assets/happyface.jpeg'
-import { motion } from 'framer-motion';
 import Relaxation from '../../assets/relaxation.jpeg';
 import Calm from '../../assets/calm.jpeg';
 import HappyTheme from '../../assets/happy.jpeg';
@@ -16,16 +15,16 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
-import Error from '../Error/Error';
+// import Error from '../Error/Error';
 
 
 export default function Home() {
   const [moodValue, setMoodValue] = useState<number>(1)
   const [timeValue, setTimeValue] = useState<number>(15)
   const [timeOfDay, setTimeOfDay] = useState<string>('')
-  const [loading, setLoading] = useState(false)
+  // const [loading, setLoading] = useState(false)
   const [value, setValue] = useState('')
-  const [error, setError] = useState(null)
+  // const [error, setError] = useState(null)
 
   const navigate = useNavigate()
   useEffect(() => {
@@ -91,12 +90,12 @@ useEffect(() => {
       state: { mood: moodValue, time: timeValue, value: value },
       
     })
-    setLoading(true)
-  }
- if(error) {
-  return (
-    <Error />
-  )
+//     setLoading(true)
+//   }
+//  if(error) {
+//   return (
+//     <Error />
+//   )
  }
 
  function getFavoriteRecipes(){
@@ -193,7 +192,7 @@ useEffect(() => {
       <button className="cook" onClick={() => {goToPage()}}>
         Let's cook!
       </button>
-      {loading && <p className='loading'>Loading Recipes ...</p>}
+      {/* {loading && <p className='loading'>Loading Recipes ...</p>} */}
         </section>
 
     </main>

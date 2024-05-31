@@ -1,9 +1,8 @@
 
-import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import './Test.css';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Favorite from '../../assets/favorite.png';
 import Unfavorite from '../../assets/unfavorite.png';
 import Box from '@mui/material/Box';
@@ -26,55 +25,31 @@ const style = {
   p: 4,
 };
 
-// let test = [
-//     {
-//       id: '1',
-//       name: 'Item 1',
-//       image: 'https://www.howsweeteats.com/wp-content/uploads/2023/09/chickpea-salad-bowl-6.jpg',
-//       details: 'Detail 1',
-//       favoriteIcon: 'https://example.com/icon1.png',
-//       frontButtonText: 'Recipe Details',
-//       backButtonText: 'More Info',
-//       description: 'Description 1',
-//       cookTime: '30',
-//       nutrient: 'Nutrient 1',
-//       ingredients: ['Ingredient 1', 'Ingredient 2'],
-//       instructions: ['Step 1', 'Step 2']
-//     },
-//     {
-//       id: '2',
-//       name: 'Item 2',
-//       image: 'https://www.inspiredtaste.net/wp-content/uploads/2021/03/Vegetable-Quesadilla-Recipe-1-1200-1200x800.jpg',
-//       details: 'Detail 2',
-//       favoriteIcon: 'https://example.com/icon2.png',
-//       frontButtonText: 'Recipe Details',
-//       backButtonText: 'More Info',
-//       description: 'Description 2',
-//       cookTime: '45',
-//       nutrient: 'Nutrient 2',
-//       ingredients: ['Ingredient 1', 'Ingredient 2'],
-//       instructions: ['Step 1', 'Step 2']
-//     },
-//     {
-//       id: '3',
-//       name: 'Item 3',
-//       image: 'https://fraicheliving.com/wp-content/uploads/2021/01/fraiche-living-tropical-green-smoothie.jpg',
-//       details: 'Detail 3',
-//       favoriteIcon: 'https://example.com/icon3.png',
-//       frontButtonText: 'Recipe Details',
-//       backButtonText: 'More Info',
-//       description: 'Description 3',
-//       cookTime: '60',
-//       nutrient: 'Nutrient 3',
-//       ingredients: ['Ingredient 1', 'Ingredient 2'],
-//       instructions: ['Step 1', 'Step 2'],
-//     }
-    
-//     ]
-export default function Test({name, image, id,  ingredients, instructions, cookTime, description, toggleFavorite, isFavorite}){
+interface RecipeProps {
+  name: string, 
+  image: string, 
+  ingredients: string[],
+  instructions: string[],
+  cookTime: string, 
+  description: string, 
+}
+
+export default function Test({name, image, ingredients, id, instructions, cookTime, description, favorites, removeFavorite, toggleFavorite}: RecipeProps){
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const [favorite, setFavorite] = useState(false)
+console.log('ALL THE FAVS< PLEASE WORK:', favorites)
+    function test(id){
+      setFavorite(!favorite)
+      if(!favorite){
+        toggleFavorite(id)
+      } else {
+        removeFavorite(id)
+        console.log('this will be removed.')
+      }
+      
+    }
 
       return (
       <div className='recipe-carousel'>
@@ -83,7 +58,6 @@ export default function Test({name, image, id,  ingredients, instructions, cookT
     'backgroundPosition': 'center'}}></div> 
         <p>Cook time: {cookTime} minutes</p>
         <p>{description}</p>
-       {/* {!isFavorite ?  <button onClick={() =>toggleFavorite()}>NotFav</button> : <button onClick={() =>toggleFavorite()}>Fav</button>} */}
         <Button sx={{'position': 'absolute', 'bottom': 0, 'left': 10, 'color': '#00563B' }}onClick={handleOpen}>Ingredients & Instructions</Button>
         <Modal
         open={open}
@@ -92,9 +66,7 @@ export default function Test({name, image, id,  ingredients, instructions, cookT
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          {/* <Typography id="modal-modal-title" variant="h6" component="h2">
-            Ingredients & Instructions
-          </Typography> */}
+
           <Typography id="modal-modal-description" sx={{ mt: 2}}>
             <div>
                 <h2>Ingredients</h2>
@@ -111,7 +83,7 @@ export default function Test({name, image, id,  ingredients, instructions, cookT
         </Box>
       </Modal>
         
-        {(!isFavorite) ? <img className='heart' src={Unfavorite} onClick={() => toggleFavorite()} /> : <img className='heart' src={Favorite} onClick={() => toggleFavorite()} /> }
+        {(!favorites.includes(id)) ? <img className='heart' src={Unfavorite} onClick={() => test(id)} /> : <img className='heart' src={Favorite} onClick={() => test(id)} /> }
       </div>
        
 

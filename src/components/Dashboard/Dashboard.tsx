@@ -3,16 +3,11 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import affirmations from '../../Quotes/quotes'
 import RecipeGrid from '../RecipeGrid/RecipeGrid'
 import './Dashboard.css'
-import { RecipeGridItem } from '../../types';
 import Relaxation from '../../assets/relaxation.jpeg';
 import Calm from '../../assets/calm.jpeg';
 import HappyTheme from '../../assets/happy.jpeg';
 import Energy from '../../assets/energy.jpeg'
 import Enthus from '../../assets/enthus.jpeg';
-import { motion } from 'framer-motion';
-import RecipeCard from '../RecipeCard/RecipeCard';
-
-import ReactStars from 'react-stars';
 
 interface Affirmation {
   quote: string
@@ -21,7 +16,6 @@ interface Affirmation {
 interface LocationState {
   value: string; 
 }
-
 
 export default function Dashboard() {
   const [quote, setQuote] = useState<string>('')
@@ -52,7 +46,7 @@ export default function Dashboard() {
   //   //this is fake data, replace with real data... 
   const recipes = [
     {
-      id: '1',
+      id: 1,
       name: 'Item 1',
       image: 'https://www.howsweeteats.com/wp-content/uploads/2023/09/chickpea-salad-bowl-6.jpg',
       details: 'Detail 1',
@@ -66,7 +60,7 @@ export default function Dashboard() {
       instructions: ['Step 1', 'Step 2']
     },
     {
-      id: '2',
+      id: 2,
       name: 'Item 2',
       image: 'https://www.inspiredtaste.net/wp-content/uploads/2021/03/Vegetable-Quesadilla-Recipe-1-1200-1200x800.jpg',
       details: 'Detail 2',
@@ -80,7 +74,7 @@ export default function Dashboard() {
       instructions: ['Step 1', 'Step 2']
     },
     {
-      id: '3',
+      id: 3,
       name: 'Item 3',
       image: 'https://fraicheliving.com/wp-content/uploads/2021/01/fraiche-living-tropical-green-smoothie.jpg',
       details: 'Detail 3',

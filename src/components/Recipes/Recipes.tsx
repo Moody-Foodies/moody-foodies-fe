@@ -209,7 +209,7 @@ if(!state){
     className='recipe-container'>
       <header className='recipeGrid'>
         <h1 className='title'>Food for Your Mood</h1>
-        <div className='link-styling'>
+        <div className='link-container'>
           <Link to='/dashboard' className='menu' onClick={() => getFavoriteRecipes()}>Mood Board</Link>
           <Link to='/home' className='menu' onClick={() => navigate('/', {state: {value: value}})}>Home</Link>
           <Link to='/' className='menu'>Login Page</Link>

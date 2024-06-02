@@ -58,7 +58,6 @@ export default function Test({name, image, ingredients, id, instructions, cookTi
         removeFavorite(id)
         console.log('this will be removed.')
       }
-      
     }
 
       return (

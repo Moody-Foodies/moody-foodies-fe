@@ -57,6 +57,10 @@
     margin-top: 0;
 }
 
-
+@media screen and (max-width: 767px) {
+    .affirmation {
+        font-size: 1.2em; 
+    }
+}
 
 

@@ -113,9 +113,9 @@ let filteredRecipes = recipes.filter(recipe => recipe.name.toLowerCase().include
 
 <header className="dashboard-container">
         <h1 className="dashboard">Mood Board</h1>
-        <div className='link-styling'>
+        <div className='link-container'>
            <Link to='/' className='menu' onClick={() => navigate('/recipes')}>Login Page</Link>
-        <Link to='/home' className='menu' onClick={() => navigate('/')}>Home</Link>
+          <Link to='/home' className='menu' onClick={() => navigate('/')}>Home</Link>
         </div>
        
       </header>

@@ -152,6 +152,11 @@ input {
     /* background-color: transparent; */
   }
 
+  .link-container {
+    display: flex;
+    flex-direction: column;
+  }
+
   #slider-color {
     background-color: #87A96B;
     width: 350px;

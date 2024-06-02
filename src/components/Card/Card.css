@@ -34,8 +34,16 @@
     cursor: pointer;
     border-radius: 20px; 
     margin-top: 20px;
-    background-color: bisque;
+    background-color: #fff6f6;
     border: none;
+}
+
+.grid-recipe-name {
+    text-align: center;
+    text-decoration: none;
+    font-size: 2.2em;
+    margin-top: 8px;
+    margin-bottom: 8px;
 }
 
 .image {

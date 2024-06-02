@@ -156,7 +156,7 @@ useEffect(() => {
         <section id='main-section'
         className={value === 'enthus' ? 'enthus' : value === 'energetic' ? 'energetic' : 'main-page'}>
           {timeOfDay && <h2>{timeOfDay}!</h2>}
-      <h2>How are you feeling today?</h2>
+      <h2 className='feeling'>How are you feeling today?</h2>
       <section className="slider-container">
         <img className="sad" src={Sad} alt='Icon of a blue frowning face with an orange background'/>
         <div className="slider-container">
@@ -178,7 +178,7 @@ useEffect(() => {
         <img className='happy' src={HappyFace} alt='Icon of a yellow smiling face with a pink background'/>
       </section>
       <h2 className="time">
-        I have
+        I have{''}
         {<><label className='time-label' htmlFor='time'>Time</label>
           <input
             id='time'
@@ -189,7 +189,7 @@ useEffect(() => {
             onChange={(event) => setTimeValue(Number(event.target.value))}
           />
           </>
-        }
+        }{''}
         minutes to cook.
       </h2>
 

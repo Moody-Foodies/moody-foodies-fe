@@ -22,7 +22,7 @@ const style = {
     transform: 'translate(-50%, -50%)',
     width: 400,
     height: 200,
-    bgcolor: '#8F9779',
+    bgcolor: '#ffc0d0',
     overflowY: "auto",
     boxShadow: 24,
     borderRadius: 10,
@@ -66,7 +66,7 @@ console.log(rating)
                 />
           </div>
        
-            <h4>{name}</h4>
+            <h4 className='grid-recipe-name'>{name}</h4>
             <div className='image' style={{ 'backgroundImage': `url(${image})`, 'backgroundSize': 'cover',
     'backgroundPosition': 'center'}}></div> 
     <button className='recipe-btn' onClick={handleClick}>Details</button>

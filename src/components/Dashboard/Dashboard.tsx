@@ -22,8 +22,8 @@ export default function Dashboard() {
   const navigate = useNavigate()
   const location = useLocation();
   const state = location.state as LocationState;
-  const [value, setValue] = useState('')
-  const [search, setSearch] = useState('')
+  const [value, setValue] = useState<string>('')
+  const [search, setSearch] = useState<string>('')
 
 
   function getRandomAffirmation(affirmations: Affirmation[]) {

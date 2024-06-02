@@ -39,10 +39,16 @@ interface RecipeProps {
 }
 
 export default function Test({name, image, ingredients, id, instructions, cookTime, description, favorites, removeFavorite, toggleFavorite}: RecipeProps){
-    const [open, setOpen] = useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+    const [open, setOpen] = useState<boolean>(false);
     const [favorite, setFavorite] = useState(false)
+
+    function handleOpen() {
+      setOpen(true)
+    }
+
+    function handleClose() {
+      setOpen(false)
+    }
 
     function test(id: number){
       setFavorite(!favorite)

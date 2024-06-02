@@ -36,7 +36,7 @@ interface LocationState {
 export default function Recipes() {
 
   // const [recipes, setRecipes] = useState<Recipe[]>(getRecipes());
-  const [value, setValue] = useState('')
+  const [value, setValue] = useState<string>('')
   const navigate = useNavigate();
   const location = useLocation();
   const state = location.state as LocationState;
@@ -51,7 +51,6 @@ export default function Recipes() {
   function toggleFavorite (id: number) {
     if(!favorites.includes(id)){
       setFavorites([...favorites, id])
-
     }
     
      }

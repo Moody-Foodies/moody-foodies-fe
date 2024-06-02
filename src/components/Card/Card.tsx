@@ -30,21 +30,28 @@ const style = {
     flexDirection: 'column',
     p: 4,
   };
-export default function Card({name, image, id, getRatings, allRatings}: ItemProps) {
-    const [open, setOpen] = useState(false);
-    const [rating, setRating] = useState(0)
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
-    const [isFlipped, setIsFlipped] = useState(true)
 
+export default function Card({name, image, id, getRatings, allRatings}: ItemProps) {
+    const [open, setOpen] = useState<boolean>(false);
+    const [rating, setRating] = useState<number>(0)
+    const [isFlipped, setIsFlipped] = useState<boolean>(true)
+
+    function handleOpen() {
+      setOpen(true)
+    }
+
+    function handleClose() {
+      setOpen(false)
+    }
+    
     function handleClick(){
       setIsFlipped(!isFlipped)
-  }
+    }
 
-function handleRating(newRating: number){
-  setRating(newRating)
-  getRatings(id, newRating)
-}
+    function handleRating(newRating: number){
+      setRating(newRating)
+      getRatings(id, newRating)
+    }
 
 console.log(rating)
     return (

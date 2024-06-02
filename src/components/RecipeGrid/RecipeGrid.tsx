@@ -23,14 +23,14 @@ interface ItemProps {
 
 export default function RecipeGrid({ items }: ItemProps) {
   const [allRatings, setAllRatings] = useState(getStarRatings())
-function getRatings(id: number, rating: number){
-  setAllRatings({...allRatings, [id]: rating})
-  
-}
 
-useEffect(() => {
-  localStorage.setItem('allRatings', JSON.stringify(allRatings))
-}, [allRatings])
+  function getRatings(id: number, rating: number){
+    setAllRatings({...allRatings, [id]: rating})
+  }
+
+  useEffect(() => {
+    localStorage.setItem('allRatings', JSON.stringify(allRatings))
+  }, [allRatings])
 
   function getStarRatings(){
     const starRatings = localStorage.getItem('allRatings') || '{}';

@@ -23,7 +23,7 @@ export default function Home() {
   const [timeValue, setTimeValue] = useState<number>(15)
   const [timeOfDay, setTimeOfDay] = useState<string>('')
   // const [loading, setLoading] = useState(false)
-  const [value, setValue] = useState('')
+  const [value, setValue] = useState<string>('')
   // const [error, setError] = useState(null)
 
   const navigate = useNavigate()

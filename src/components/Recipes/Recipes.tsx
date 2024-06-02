@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import Error from '../Error/Error';
 import './Recipes.css';
 import Relaxation from '../../assets/relaxation.jpeg';
@@ -36,7 +36,7 @@ interface LocationState {
 export default function Recipes() {
 
   // const [recipes, setRecipes] = useState<Recipe[]>(getRecipes());
-  const [value, setValue] = useState('')
+  const [value, setValue] = useState<string>('')
   const navigate = useNavigate();
   const location = useLocation();
   const state = location.state as LocationState;
@@ -51,7 +51,6 @@ export default function Recipes() {
   function toggleFavorite (id: number) {
     if(!favorites.includes(id)){
       setFavorites([...favorites, id])
-
     }
     
      }
@@ -118,7 +117,7 @@ if(!state){
       favoriteIcon: 'https://example.com/icon1.png',
       frontButtonText: 'Recipe Details',
       backButtonText: 'More Info',
-      description: 'Description 1',
+      description: 'Description 1 sdafsdafsdfsd fasdfasdfsdfsd ',
       cookTime: '30',
       nutrient: 'Nutrient 1',
       ingredients: ['Ingredient 1', 'Ingredient 2'],
@@ -132,7 +131,7 @@ if(!state){
       favoriteIcon: 'https://example.com/icon2.png',
       frontButtonText: 'Recipe Details',
       backButtonText: 'More Info',
-      description: 'Description 2',
+      description: 'Description 2 asdfasdfasdfas dfasdfasdfasdfas ',
       cookTime: '45',
       nutrient: 'Nutrient 2',
       ingredients: ['Ingredient 1', 'Ingredient 2'],
@@ -146,7 +145,7 @@ if(!state){
       favoriteIcon: 'https://example.com/icon3.png',
       frontButtonText: 'Recipe Details',
       backButtonText: 'More Info',
-      description: 'Description 3',
+      description: 'Description 3 asdfsdaf asdfasdfasdfsa',
       cookTime: '60',
       nutrient: 'Nutrient 3',
       ingredients: ['Ingredient 1', 'Ingredient 2'],
@@ -209,10 +208,11 @@ if(!state){
      }} 
     className='recipe-container'>
       <header className='recipeGrid'>
-        <h2 className='title'>Food for Your Mood</h2>
-        <div className='link-styling'>
-              <p className='navigate' onClick={() => getFavoriteRecipes()}>Mood Board</p>
-        <p className='navigate' onClick={() => navigate('/', {state: {value: value}})}>Home</p>
+        <h1 className='title'>Food for Your Mood</h1>
+        <div className='link-container'>
+          <Link to='/dashboard' className='menu' onClick={() => getFavoriteRecipes()}>Mood Board</Link>
+          <Link to='/home' className='menu' onClick={() => navigate('/', {state: {value: value}})}>Home</Link>
+          <Link to='/' className='menu'>Login Page</Link>
         </div>
     
       </header>
@@ -220,7 +220,6 @@ if(!state){
       
         {recipes.map(recipe => {
           return (
-     
             <Test
               name={recipe.name}
               key={recipe.id}

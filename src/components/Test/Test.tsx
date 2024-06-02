@@ -39,10 +39,16 @@ interface RecipeProps {
 }
 
 export default function Test({name, image, ingredients, id, instructions, cookTime, description, favorites, removeFavorite, toggleFavorite}: RecipeProps){
-    const [open, setOpen] = useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+    const [open, setOpen] = useState<boolean>(false);
     const [favorite, setFavorite] = useState(false)
+
+    function handleOpen() {
+      setOpen(true)
+    }
+
+    function handleClose() {
+      setOpen(false)
+    }
 
     function test(id: number){
       setFavorite(!favorite)
@@ -52,46 +58,36 @@ export default function Test({name, image, ingredients, id, instructions, cookTi
         removeFavorite(id)
         console.log('this will be removed.')
       }
-      
     }
 
       return (
       <div className='recipe-carousel'>
-        <h3>{name}</h3>
+        <h2>{name}</h2>
        <div className='image-container' style={{ 'backgroundImage': `url(${image})`, 'backgroundSize': 'cover',
     'backgroundPosition': 'center'}}></div> 
-        <p>Cook time: {cookTime} minutes</p>
-        <p>{description}</p>
-        <Button sx={{'position': 'absolute', 'bottom': 0, 'left': 10, 'color': '#00563B' }}onClick={handleOpen}>Ingredients & Instructions</Button>
+        <h3 className='cook-time-board'>Cook time: {cookTime} minutes</h3>
+        <p className='recipe-page-descrip'>{description}</p>
+          <Button sx={{'position': 'absolute', 'bottom': 0, 'left': 10, 'color': '#390400' }}onClick={handleOpen}>Ingredients & Instructions</Button>
         <Modal
         open={open}
         onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
 
           <Typography id="modal-modal-description" sx={{ mt: 2}}>
             <div>
-                <h2>Ingredients</h2>
-                <p>{ingredients}</p>
+                <h2 className='modal-text'>Ingredients</h2>
+                <p className='modal-text'>{ingredients}</p>
             </div>
             <div>
-                <h2>Instructions</h2>
-                <p>{instructions}</p>
-                <img onClick={handleClose} src={Exit} className='exit' />
+                <h2 className='modal-text'>Instructions</h2>
+                <p className='modal-text'>{instructions}</p>
+                <img onClick={handleClose} src={Exit} alt='A black X icon' className='exit' />
             </div>
-         
-         
           </Typography>
         </Box>
       </Modal>
-        
-        {(!favorites.includes(id)) ? <img className='heart' src={Unfavorite} onClick={() => test(id)} /> : <img className='heart' src={Favorite} onClick={() => test(id)} /> }
-      </div>
-       
-
+        {(!favorites.includes(id)) ? <div className='heart-container'><img className='heart' alt='White heart icon with a black outline' src={Unfavorite} onClick={() => test(id)} /></div> : <div className='heart-container'><img className='heart' alt='Red heart icon' src={Favorite} onClick={() => test(id)} /></div> }
+     </div>
         )
-
- 
 }

@@ -4,6 +4,10 @@
     color: transparent;
 }
 
+.recipeGrid {
+    height: 12vh;
+}
+
 .error {
     background-size: cover;
     background-repeat: repeat;
@@ -47,16 +51,11 @@ h4 {
     text-decoration: underline;
 }
 
-
-
-/* .slick-arrow.slick-prev, 
-.slick-arrow.slick-next {
-    background-color: blue;
-} */
-
 .title {
-    color: rgb(171,78,82);
+    color: #390400;
     font-size: 3.5em;
+    margin-bottom: 0;
+    margin-top: 0;
 }
 
 .favorite {
@@ -91,10 +90,10 @@ h4 {
 }
 
 .navigate {
-   color: #1876D2;
-text-decoration: underline;
-font-size: 1em;
-cursor: pointer; 
+   color: #390400;
+    text-decoration: underline;
+    font-size: 1em;
+    cursor: pointer; 
 }
 
 

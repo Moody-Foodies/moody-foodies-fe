@@ -1,6 +1,6 @@
 .dashboard-container {
-    color: rgb(171,78,82);
     position: relative;
+    height: 12vh; 
 }
 
 .favorite-recipes {
@@ -12,7 +12,7 @@
     background-color: bisque;
     text-decoration: none;
     border-radius: 30px;
-    margin-top: 20px; 
+    margin-top: 10px; 
 }
 
 ::placeholder {
@@ -20,13 +20,19 @@
     text-align: center;
 }
 
-.test {
+.quote-container {
     display: flex; 
     flex-direction: column;
     align-items: center;
+    background-color: #0093AF;
+    margin-right: 15px; 
+    margin-left: 15px; 
+    margin-top: 20px; 
+    margin-bottom: 20px;
+    border-radius: 20px;
 }
 
-.link-styling {
+.link-container {
     position: absolute; 
     right: 50px; 
 }
@@ -34,6 +40,34 @@
 .affirmation, 
 .average-mood-score {
     text-align: center;
+    color: #390400;
+    margin-bottom: 0;
+}
+
+.affirmation {
+    font-style: italic;
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.dashboard {
+    color: #390400;
+    font-size: 3.5em;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+@media screen and (max-width: 767px) {
+    .affirmation {
+        font-size: 1.2em; 
+    }
+
+    .dashboard {
+        font-size: 3em;
+        position: absolute; 
+        left: 0; 
+        margin-left: 10px;
+    }
 }
 
 

@@ -151,7 +151,7 @@ useEffect(() => {
         <FormControlLabel value="enthus" control={<Radio />} label="Enthusiastic" />
       </RadioGroup>
     </FormControl>
-    <div className='link-container'>
+    <div className='link-cont'>
       <Link to='/dashboard' className='menu' onClick={()=> getFavoriteRecipes()}>Mood Board</Link>
       <Link to='/' className='menu'>Login Page</Link>
     </div>

@@ -47,6 +47,11 @@
     text-align: center; 
 }
 
+.link-container {
+    position: absolute; 
+    right: 50px; 
+}
+
 h4 {
     text-decoration: underline;
 }
@@ -140,14 +145,19 @@ p {
     width: 250px;
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 900px) {
     .title {
         font-size: 2em;
         margin-left: 5px;
     }
 
-    .link-styling {
+    /* .link-styling {
         right: 15px
+    } */
+
+    .link-container {
+        display: flex;
+        flex-direction: column;
     }
 
     .recipeGrid {

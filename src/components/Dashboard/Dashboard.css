@@ -32,7 +32,7 @@
     border-radius: 20px;
 }
 
-.link-styling {
+.link-container {
     position: absolute; 
     right: 50px; 
 }
@@ -60,6 +60,13 @@
 @media screen and (max-width: 767px) {
     .affirmation {
         font-size: 1.2em; 
+    }
+
+    .dashboard {
+        font-size: 3em;
+        position: absolute; 
+        left: 0; 
+        margin-left: 10px;
     }
 }
 

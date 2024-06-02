@@ -25,9 +25,11 @@ h1 {
   text-decoration: underline;
   font-size: 1.2em;
   cursor: pointer;
-  /* &:hover {
-    color: ;
-} */
+  text-align: center;
+  margin-right: 15px;
+  &:hover {
+    color: #C06C84;
+}
 }
 
 .name {

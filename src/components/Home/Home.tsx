@@ -151,7 +151,10 @@ useEffect(() => {
         <FormControlLabel value="enthus" control={<Radio />} label="Enthusiastic" />
       </RadioGroup>
     </FormControl>
+    <div className='link-container'>
       <Link to='/dashboard' className='menu' onClick={()=> getFavoriteRecipes()}>Mood Board</Link>
+      <Link to='/' className='menu'>Login Page</Link>
+    </div>
         </header>
         <section id='main-section'
         className={value === 'enthus' ? 'enthus' : value === 'energetic' ? 'energetic' : 'main-page'}>

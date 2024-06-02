@@ -211,8 +211,9 @@ if(!state){
       <header className='recipeGrid'>
         <h1 className='title'>Food for Your Mood</h1>
         <div className='link-styling'>
-          <Link to='/dashboard' className='navigate' onClick={() => getFavoriteRecipes()}>Mood Board</Link>
-          <Link to='/home' className='navigate' onClick={() => navigate('/', {state: {value: value}})}>Home</Link>
+          <Link to='/dashboard' className='menu' onClick={() => getFavoriteRecipes()}>Mood Board</Link>
+          <Link to='/home' className='menu' onClick={() => navigate('/', {state: {value: value}})}>Home</Link>
+          <Link to='/' className='menu'>Login Page</Link>
         </div>
     
       </header>

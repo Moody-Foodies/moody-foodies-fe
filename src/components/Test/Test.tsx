@@ -61,13 +61,11 @@ export default function Test({name, image, ingredients, id, instructions, cookTi
        <div className='image-container' style={{ 'backgroundImage': `url(${image})`, 'backgroundSize': 'cover',
     'backgroundPosition': 'center'}}></div> 
         <h3 className='cook-time-board'>Cook time: {cookTime} minutes</h3>
-        <p>{description}</p>
+        <p className='recipe-page-descrip'>{description}</p>
           <Button sx={{'position': 'absolute', 'bottom': 0, 'left': 10, 'color': '#390400' }}onClick={handleOpen}>Ingredients & Instructions</Button>
         <Modal
         open={open}
         onClose={handleClose}
-        // aria-labelledby="modal-modal-title"
-        // aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
 
@@ -81,8 +79,6 @@ export default function Test({name, image, ingredients, id, instructions, cookTi
                 <p className='modal-text'>{instructions}</p>
                 <img onClick={handleClose} src={Exit} alt='A black X icon' className='exit' />
             </div>
-         
-         
           </Typography>
         </Box>
       </Modal>

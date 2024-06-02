@@ -4,8 +4,8 @@ describe('Mood board page', () => {
     })
     it('Should show the user the mood board dashboard', () => {
         cy.get('h1').contains('Mood Board')
-        cy.get('.navigate').first().contains('Recipes')
-        cy.get('.navigate').last().contains('Home')
+        cy.get('.menu').first().contains('Login Page')
+        cy.get('.menu').last().contains('Home')
         cy.get('input[type=text]').should('have.attr', 'placeholder', 'Search recipe by name')
         
         cy.get('h2').contains('Average mood score: 7.5')

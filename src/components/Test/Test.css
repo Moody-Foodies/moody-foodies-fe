@@ -12,6 +12,11 @@
     color: #390400;
 }
 
+.recipe-page-descrip {
+    font-size: 1em; 
+    margin-top: 10px;
+}
+
 .cook-time-board {
     font-size: 1.5em; 
 }

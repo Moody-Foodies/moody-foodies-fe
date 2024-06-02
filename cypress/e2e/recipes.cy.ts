@@ -6,8 +6,8 @@ describe('Recipe carousel page', () => {
     })
     it('Should show all the recipes based on mood level and time allotted to cook', () => {
         cy.get('h1').contains('Food for Your Mood')
-        cy.get('.navigate').first().contains('Mood Board')
-        cy.get('.navigate').last().contains('Home')
+        cy.get('.menu').first().contains('Mood Board')
+        cy.get('.menu').last().contains('Login Page')
         cy.get('.slick-slider').contains('h2', 'Item 1')
         cy.get('.image-container').should('exist')
         cy.get('.slick-slider').contains('h3', 'Cook time: 30 minutes')

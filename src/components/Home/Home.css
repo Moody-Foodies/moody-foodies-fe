@@ -42,6 +42,10 @@ h2 {
   margin-bottom: 25px;
 }
 
+.time-of-day {
+  font-size: 4em;
+}
+
   .sad, 
   .happy {
     height: 100px;
@@ -139,11 +143,16 @@ input {
   font-size: 2em;
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 900px) {
   .slider-container {
     width: 200px;
     justify-content: center;
-    background-color: transparent;
+    /* background-color: transparent; */
+  }
+
+  #slider-color {
+    background-color: #87A96B;
+    width: 350px;
   }
 
   h1 {
@@ -157,6 +166,12 @@ input {
   h2 {
     font-size: 2em;
   }
+
+  .time-of-day {
+    margin-top: 20px;
+    font-size: 3em;
+  }
+
   .sad, 
   .happy {
     height: 50px;

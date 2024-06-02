@@ -155,9 +155,9 @@ useEffect(() => {
         </header>
         <section id='main-section'
         className={value === 'enthus' ? 'enthus' : value === 'energetic' ? 'energetic' : 'main-page'}>
-          {timeOfDay && <h2>{timeOfDay}!</h2>}
+          {timeOfDay && <h2 className='time-of-day'>{timeOfDay}!</h2>}
       <h2 className='feeling'>How are you feeling today?</h2>
-      <section className="slider-container">
+      <section className="slider-container" id='slider-color'>
         <img className="sad" src={Sad} alt='Icon of a blue frowning face with an orange background'/>
         <div className="slider-container">
           

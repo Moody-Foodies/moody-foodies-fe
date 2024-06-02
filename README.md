@@ -1,23 +1,18 @@
 
-# Brain Food 
+# Brain Food 🥘 Frontend Repository
 
-(readme is a WIP)
+## Abstract
+Brain Food is a fullstack responsive web application that allows users to login, enter a mood level for the day on a sadness to happiness scale from 1-5, and time allotted to cook. Users can choose a color theme for the application dependent how they want to feel. When a mood level and time to cook input is entered, recipes will then populate based on nutritional value meant to either boost or maintain mood levels. Users have the option to favorite recipes and view details, such as cook time, nutritional content, ingredients needed to make the meal, and instructions on how to do so. A personal dashboard is available to view favorited recipes, delete recipes, view recipe details, search for recipes by name, and personally rate recipes on a star rating system. Brain Food was created using React Vite + TypeScript and tested with Cypress. Acccessibilty ... Happy cooking! 
 
-## Description
-Brain Food is a dynamic web application designed to improve users' mental health through nutrition. By tracking moods and suggesting recipes with mood-boosting nutrients, users can make informed dietary choices. This project showcases front-end web development skills, including API interaction, responsive design and........ not sure about how to add the back end stuff in here yet
+## Contributors
+[Erin Kelley](https://github.com/kelleyej) [Laura Long](https://github.com/lalonggone/)
 
-## Features
-- **Login**: Users can log in for a customized experience.
-- **Mood Tracking**: Users can track their mood on a sliding scale.
-- **Time Input**: Users can specify the amount of time they're willing to spend cooking.
-- **Recipe Recommendations**: Based on mood and time input, users are recommended {**recipes rich in nutrients**?} to help improve their mood.
-- **Recipe Management**: Users can view, favorie, save, and unfavorite recipes.
-- **Educational Information**: Provides information on the nutrients in the recipes and their mood-boosting benefits.
-- **Dashboard**: Users can view their favorite recipes and average mood over time.
-- **Mobile-Friendly Design**: The application is responsive so users can enjoy on various devices and screen sizes.
+## Technologies Used
+![React Badge](https://img.shields.io/badge/React-61DAFB?logo=react&logoColor=000&style=flat) ![React Router Badge](https://img.shields.io/badge/React%20Router-CA4245?logo=reactrouter&logoColor=fff&style=flat) ![Vite Badge](https://img.shields.io/badge/Vite-646CFF?logo=vite&logoColor=fff&style=flat) ![TypeScript Badge](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=fff&style=flat) ![Cypress Badge](https://img.shields.io/badge/Cypress-69D3A7?logo=cypress&logoColor=fff&style=flat) ![Framer Badge](https://img.shields.io/badge/Framer-05F?logo=framer&logoColor=fff&style=flat) ![MUI Badge](https://img.shields.io/badge/MUI-007FFF?logo=mui&logoColor=fff&style=flat) ![CircleCI Badge](https://img.shields.io/badge/CircleCI-343434?logo=circleci&logoColor=fff&style=flat) ![Netlify Badge](https://img.shields.io/badge/Netlify-00C7B7?logo=netlify&logoColor=fff&style=flat)
 
-## Demo
-[Demo Link](//insert)
+## App Preview
+
+## Deployed Link 
 
 ## Installation and Setup
 1. Clone this repository to your local machine:
@@ -42,40 +37,9 @@ Brain Food is a dynamic web application designed to improve users' mental health
 
 5. Open the app at [http://http://localhost:5173/](http://http://localhost:5173/) in your browser.
 
-## Backend Server Setup
-You will also need to clone and run the backend server. Open a new tab in your terminal and follow these steps:
+## Context
+- Goals
+- Wins
+- Challenges
 
-1. Clone the backend repository:
-   ```sh
-   git clone ....
-   ```
-
-2. Navigate to the backend directory:
-   ```sh
-   cd .....
-   ```
-
-3. Install project dependencies:
-   ```sh
-   npm install
-   ```
-
-4. Start the server:
-   ```sh
-   npm start ???
-   ```
-
-Navigate to the address provided in the terminal, e.g., [IDK](//insert).
-
-## Usage
-Once both the frontend and backend servers are running, the Brain Food login page should be accessible in your browser. You can log in with the following ???  mock ??? credentials:
-- Username: 
-- Password: 
-
-After logging in, the dashboard will display recommended recipes categorized based on your input of mood level and amount of time you have availible to cook. You can scroll through the list of recipes, view details, like or save recipes, and access educational information about the ingredients by flipping the recipe cards. After favoriting some recipes and tracking your mood overtime, your personailzed dashboard will automatically update based on those changes and updates. Here's to good eatin'!
-
-## Technologies Used
-- React with TypeScript
-- React Router
-- E2E testing with Cypress
-- Vite
+## Future Improvements 

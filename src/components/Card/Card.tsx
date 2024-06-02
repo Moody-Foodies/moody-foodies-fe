@@ -1,5 +1,5 @@
 import './Card.css';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Delete from '../../assets/delete.png';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -10,7 +10,9 @@ import ReactStars from 'react-stars';
 interface ItemProps {
   name: string, 
   id: number, 
-  image: string
+  image: string,
+  getRatings: (id: number, newRating: number) => void,
+  allRatings: any
 }
 
 const style = {
@@ -44,15 +46,17 @@ function handleRating(newRating: number){
   getRatings(id, newRating)
 }
 
-
-console.log('allRatings:', allRatings)
+console.log(rating)
     return (
       <ReactCardFlip isFlipped={!isFlipped} flipDirection="horizontal">
         <div className='favorite-recipe'>
+          <div className='star-rating-container'>
+               <p className='rating'>My Rating:</p>
         <ReactStars 
                      className='star-rating'
                      count={4}
-                    color2={'#06C7EE'}
+                     color1={'#36454F'}
+                    color2={'#ece8d9'}
                     // value={rating}
                     value={allRatings[id]}
                      half={true}
@@ -60,16 +64,18 @@ console.log('allRatings:', allRatings)
                     size={15}
                    onChange={handleRating}
                 />
-            <h2>{name}</h2>
+          </div>
+       
+            <h4>{name}</h4>
             <div className='image' style={{ 'backgroundImage': `url(${image})`, 'backgroundSize': 'cover',
     'backgroundPosition': 'center'}}></div> 
     <button className='recipe-btn' onClick={handleClick}>Details</button>
-            <img className='delete' onClick={handleOpen} src={Delete} />
+            <img className='delete' onClick={handleOpen} src={Delete} alt='Icon of a trash bin'/>
         <Modal
         open={open}
         onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
+        // aria-labelledby="modal-modal-title"
+        // aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
           <Typography id="modal-modal-description" sx={{ mt: 2, 'textAlign': 'center'}}>
@@ -80,8 +86,8 @@ console.log('allRatings:', allRatings)
       </Modal>
         </div>       
         <div className='recipe-details'>
-          <p>This will be the back</p>
-          <button className='recipe-btn' onClick={handleClick}>back to front</button>
+          {/* <p>This will be the back</p> */}
+          <button className='recipe-btn' onClick={handleClick}>Go Back</button>
         </div>
         </ReactCardFlip>
     )

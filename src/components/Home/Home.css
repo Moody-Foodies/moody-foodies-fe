@@ -4,7 +4,7 @@
     justify-content: space-evenly; 
     width: 100vw;
     align-items: center; 
-    background-color: #06C7EE;
+    background-color: #79c2d0;
     color: #390400;
 }
 
@@ -21,27 +21,38 @@ h1 {
 }
 
 .menu {
-  color: #1876D2;
+  color: #390400;
   text-decoration: underline;
-  font-size: 1em;
+  font-size: 1.2em;
   cursor: pointer;
+  /* &:hover {
+    color: ;
+} */
 }
 
 .name {
   font-size: 2.2em; 
-  color: rgb(171,78,82)
+  color: #390400;
+  margin-top: 0;
 }
-  h2 {
-    text-align: center;
-    font-size: 3em;
-    margin-bottom: 25px;
-  }
+
+h2 {
+  text-align: center;
+  font-size: 3em;
+  margin-bottom: 25px;
+}
 
   .sad, 
   .happy {
     height: 100px;
     width: 150px;
     border-radius: 100px;
+  }
+
+  .time-label {
+    position: absolute;
+    left: -10000px;
+    overflow:hidden 
   }
 
   .sad {
@@ -111,6 +122,9 @@ input {
   font-style: italic;
   margin-top: 5px;
   text-align: center;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-size: 1em; 
 }
 
 .time {

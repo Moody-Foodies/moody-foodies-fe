@@ -23,8 +23,8 @@ interface ItemProps {
 
 export default function RecipeGrid({ items }: ItemProps) {
   const [allRatings, setAllRatings] = useState(getStarRatings())
-function getRatings(id, test){
-  setAllRatings({...allRatings, [id]: test})
+function getRatings(id: number, rating: number){
+  setAllRatings({...allRatings, [id]: rating})
   
 }
 
@@ -46,6 +46,7 @@ useEffect(() => {
         <Card
          name={item.name}
          id={item.id}
+         key={item.id}
          image={item.image}
          getRatings={getRatings}
          allRatings={allRatings}

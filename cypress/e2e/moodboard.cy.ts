@@ -3,7 +3,7 @@ describe('Mood board page', () => {
         cy.visit('http://127.0.0.1:5173/dashboard')
     })
     it('Should show the user the mood board dashboard', () => {
-        cy.get('h2').contains('Mood Board')
+        cy.get('h1').contains('Mood Board')
         cy.get('.link-styling').contains('p', 'Recipes')
         cy.get('.link-styling').contains('p', 'Home')
         cy.get('input[type=text]').should('have.attr', 'placeholder', 'Search recipe by name')

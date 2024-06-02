@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate, useLocation, Link } from 'react-router-dom'
 import affirmations from '../../Quotes/quotes'
 import RecipeGrid from '../RecipeGrid/RecipeGrid'
 import './Dashboard.css'
@@ -112,29 +112,22 @@ let filteredRecipes = recipes.filter(recipe => recipe.name.toLowerCase().include
      }} >
 
 <header className="dashboard-container">
-        <h2 className="dashboard">Mood Board</h2>
+        <h1 className="dashboard">Mood Board</h1>
         <div className='link-styling'>
-           <p className='navigate' onClick={() => navigate('/recipes')}>Recipes</p>
-        <p className='navigate' onClick={() => navigate('/')}>Home</p>
+           <Link to='/recipes' className='navigate' onClick={() => navigate('/recipes')}>Recipes</Link>
+        <Link to='/home' className='navigate' onClick={() => navigate('/')}>Home</Link>
         </div>
        
       </header>
- 
- 
-
-    <div className='test'>
-    <div className='search-container'>
-        <input className='search' type='text' placeholder='Search recipe by name' onChange={(event) => setSearch(event.target.value)} />
+    <div className='quote-container'>
+     <div className='search-container'>
+        <label className='time-label' htmlFor='search'>Search recipe by name</label>
+        <input id='search' className='search' type='text' placeholder='Search recipe by name' onChange={(event) => setSearch(event.target.value)} />
       </div>
-      
-      <h3 className="average-mood-score">Average mood score: 7.5</h3>
+      <h2 className="average-mood-score">Average mood score: 7.5</h2>
       <h3 className="affirmation">{quote}</h3>
-        
       </div>
-  
   <RecipeGrid items={filteredRecipes} /> 
-  
- 
     </section>
   )
 }

@@ -1,16 +1,19 @@
-/* .recipe-carousel {
-    background-color: yellow;
-
-} */
-
 .slick-slide > div {
-    background-color: #c4c1e0;
+    background-color: #c06c84;
     height: 65vh; 
     margin-right: 15px;
     margin-left: 15px;
     margin-top: 40px; 
     border-radius: 20px; 
     position: relative; 
+}
+
+.modal-text {
+    color: #390400;
+}
+
+.cook-time-board {
+    font-size: 1.5em; 
 }
 
 .heart {
@@ -20,13 +23,25 @@
     margin-bottom: 10px;
     right: 10px; 
     cursor: pointer;
+    &:hover {
+        transform: scale(1.1)
+    }
 }
 
+.heart-container {
+    background-color: antiquewhite;
+    height: 45px;
+    position: absolute;
+    width: 46px;
+    border-radius: 50%;
+    bottom: 0;
+    right: 5px;
+    margin-bottom: 5px
+}
 
 .image-container {
     height: 270px;
     width: 100%;
-    background-color: yellow;
 }
 
 .exit {

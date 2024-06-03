@@ -22,6 +22,8 @@ const style = {
 
 export default function Login(){
     const [open, setOpen] = useState<boolean>(false);
+    const [email, setEmail] = useState<string>('')
+    const [password, setPassword] = useState<string>('')
 
     function handleOpen() {
       setOpen(true)
@@ -31,6 +33,20 @@ export default function Login(){
       setOpen(false)
     }
 
+    function sendAccountData() {
+        fetch('', {
+            method: 'POST', 
+            body: JSON.stringify({
+                email: email,
+                password: password
+            }),
+            headers: {
+                'Content-type': 'application/json'
+            }
+        })
+    }
+console.log(email)
+console.log(password)
     return (
         <main className='form-container'>
             <motion.section initial={{ y: -1000 }} animate={{ y: 0 }} transition={{ duration: 2, type: "spring", stiffness: 100, damping: 12 }} className='login-container'>
@@ -39,9 +55,9 @@ export default function Login(){
             </div>
             <form>
                 <label htmlFor='email'>Your email</label>
-                <input id='email' className='login' type='text'></input>
+                <input id='email' className='login' type='text' placeholder='Enter your email address here'></input>
                 <label htmlFor='password'>Your password</label>
-                <input id='password' className='login' type='text'></input> 
+                <input id='password' className='login' type='password' placeholder='Enter your password here'></input> 
             </form>
             <button className='sign-in'>Sign in</button> 
             <div className='account-styling'> 
@@ -54,12 +70,13 @@ export default function Login(){
         <Box sx={style}>
 
           <Typography id="modal-modal-description" sx={{ mt: 2}}>
-            <div>
-                <h2 className='modal-text'>Ingredients</h2>
-            </div>
-            <div>
-                <h2 className='modal-text'>Instructions</h2>
-            </div>
+          <form>
+                <label htmlFor='email'>Your email</label>
+                <input placeholder='Enter your email address here' id='email' value={email} className='login' type='text' onChange={(event) => setEmail(event.target.value)}></input>
+                <label htmlFor='password'>Your password</label>
+                <input placeholder='Enter your password here' id='password' value={password} onChange={(event) => setPassword(event.target.value)} className='login' type='password'></input> 
+            </form>
+            <button className='sign-in'>Sign up</button> 
           </Typography>
         </Box>
       </Modal>

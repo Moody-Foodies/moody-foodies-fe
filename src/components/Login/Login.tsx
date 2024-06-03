@@ -59,7 +59,7 @@ console.log(password)
                 <label htmlFor='password'>Your password</label>
                 <input id='password' className='login' type='password' placeholder='Enter your password here'></input> 
             </form>
-            <button className='sign-in'>Sign in</button> 
+            <button className='sign-in' onClick={() => console.log('sign in')}>Sign in</button> 
             <div className='account-styling'> 
             <p>Don't have an account?</p>
             <Button sx={{color: '#79c2d0'}}onClick={handleOpen}>Create one</Button>
@@ -76,7 +76,7 @@ console.log(password)
                 <label htmlFor='password'>Your password</label>
                 <input placeholder='Enter your password here' id='password' value={password} onChange={(event) => setPassword(event.target.value)} className='login' type='password'></input> 
             </form>
-            <button className='sign-in'>Sign up</button> 
+            <button className='sign-in' onClick={() => console.log('sign up')}>Sign up</button> 
           </Typography>
         </Box>
       </Modal>

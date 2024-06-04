@@ -20,20 +20,27 @@ input {
 .hide {
     height: 18px;
     width: 28px;
-    position: absolute;
-    bottom: 0; 
-    right: 0;
-    margin-right: 10px;
     margin-bottom: 5px;
 }
 
 .show {
     height: 30px;
     width: 30px;
+}
+
+.hide, 
+.show {
     position: absolute;
     bottom: 0; 
     right: 0;
     margin-right: 10px;
+    cursor: pointer;
+}
+
+.account-message {
+    font-size: 1.2em;
+    margin-bottom: 0; 
+    margin-top: 0; 
 }
 
 form {
@@ -51,6 +58,7 @@ form {
     position: absolute; 
     bottom: 0; 
     margin-bottom: 15px;
+    align-items: center; 
 }
 
 .login {
@@ -100,7 +108,7 @@ label {
     font-family: "Poetsen One", sans-serif;
     font-weight: 400;
     font-style: normal;
-    color:#924444;
+    color:	#800000;
     font-size: 1.5em;
 }
 

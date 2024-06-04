@@ -87,7 +87,7 @@ export default function Test({name, image, ingredients, id, instructions, cookTi
           </Typography>
         </Box>
       </Modal>
-        {(!favorites.includes(id)) ? <div className='heart-container'><img className='heart' alt='White heart icon with a black outline' src={Unfavorite} onClick={() => test(id)} /></div> : <div className='heart-container'><img className='heart' alt='Red heart icon' src={Favorite} onClick={() => test(id)} /></div> }
+        {(!favorites.includes(id)) ? <div className='heart-container'><img tabIndex={0} className='heart' alt='White heart icon with a black outline' src={Unfavorite} onKeyDown={() => test(id)} onClick={() => test(id)} /></div> : <div className='heart-container'><img className='heart' tabIndex={0} alt='Red heart icon' src={Favorite} onKeyDown={() => test(id)} onClick={() => test(id)} /></div> }
      </div>
         )
 }

@@ -82,11 +82,26 @@ label {
     cursor: pointer;
     border: none; 
     height: 30px;
-    margin-top: 20px;
+    margin-top: 30px;
     background-color: bisque;
     &:hover {
         transform: scale(1.1)
     }
+}
+
+.create-account {
+    margin-top: 0; 
+    margin-bottom: 0; 
+    font-size: 1.7em;
+}
+
+.cook-header {
+    text-align: center;
+    font-family: "Poetsen One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color:#924444;
+    font-size: 1.5em;
 }
 
 .login-container {

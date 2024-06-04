@@ -85,7 +85,11 @@ console.log(show)
                 <label htmlFor='email'>Email:</label>
                 <input id='email' className='login' value={email} type='text' placeholder='Enter your email address here' onChange={(event) => setEmail(event.target.value)}></input>
                 <label htmlFor='password'>Password:</label>
-                <input id='password' className='login' value={password} type={(show) ? 'text' : 'password'} placeholder='Enter your password here' onChange={(event) => setPassword(event.target.value)}></input> 
+                {/* <input id='password' className='login' value={password} type={(show) ? 'text' : 'password'} placeholder='Enter your password here' onChange={(event) => setPassword(event.target.value)}></input>  */}
+                <div className='password-icon'>
+                  <input placeholder='Enter your password here'  id='password' value={password} onChange={(event) => setPassword(event.target.value)} className='login' type={(show) ? 'text' : 'password'}></input> 
+                {(show) ? <img className='hide' src={Hide} onClick={() => setShow(!show)}/> : <img className='show' src={Show} onClick={() => setShow(!show)}/>}  
+                </div>
             </form>
             <button className='sign-in' onClick={() => console.log('sign in')}>Sign in</button> 
             <div className='account-styling'> 
@@ -98,9 +102,11 @@ console.log(show)
         <Box sx={style}>
 
           <Typography id="modal-modal-description" sx={{ mt: 2}}>
+            <h2 className='create-account'>Create a Brain Food Account</h2>
+            <h3 className='cook-header'>Let's get cookin'!</h3>
           <form>
                 <label>Name:</label>
-                <input placeholder='Enter your name here' type='text' value={name} className='login' onChange={(event) => setName(event.target.value)}/>
+                <input placeholder='Enter your name here' type='text' id='name' value={name} className='login' onChange={(event) => setName(event.target.value)}/>
                 <label htmlFor='email'>Email:</label>
                 <input placeholder='Enter your email address here' id='email' value={email} className='login' type='text' onChange={(event) => setEmail(event.target.value)}></input>
                 <label htmlFor='password'>Password:</label>

@@ -8,8 +8,32 @@
     align-items: center; 
 }
 
+.password-icon {
+    position: relative;
+    height: 30px;
+}
+
 input {
     text-decoration: none;
+}
+
+.hide {
+    height: 18px;
+    width: 28px;
+    position: absolute;
+    bottom: 0; 
+    right: 0;
+    margin-right: 10px;
+    margin-bottom: 5px;
+}
+
+.show {
+    height: 30px;
+    width: 30px;
+    position: absolute;
+    bottom: 0; 
+    right: 0;
+    margin-right: 10px;
 }
 
 form {
@@ -58,6 +82,7 @@ label {
     cursor: pointer;
     border: none; 
     height: 30px;
+    margin-top: 20px;
     background-color: bisque;
     &:hover {
         transform: scale(1.1)

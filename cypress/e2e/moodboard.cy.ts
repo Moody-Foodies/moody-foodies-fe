@@ -16,7 +16,10 @@ describe('Mood board page', () => {
         // cy.get('input[type=text]').type('2').should('have.value', 2)
         // cy.get('.react-card-flip').should('have.length', 1)
         cy.get('.react-card-flip').first().contains('button', 'Details').click()
-        cy.get('.react-card-flip').first().contains('button', 'Go Back')
+        cy.get('.react-card-flip').first().contains('button', 'Go Back').click()
         // include click function for details/back button, delete button, and header .. maybe stars?
+        cy.get('.rating').contains('My Rating')
+        cy.get('.p-rating-item').first().click()
+        cy.get('.p-rating-item-active').should('exist')
     })
 })

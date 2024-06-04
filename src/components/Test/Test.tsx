@@ -60,6 +60,11 @@ export default function Test({name, image, ingredients, id, instructions, cookTi
       }
     }
 
+    function accessibleExit(event) {
+      event.preventDefault()
+      handleClose()
+    }
+
       return (
       <div className='recipe-carousel'>
         <h2>{name}</h2>
@@ -82,7 +87,7 @@ export default function Test({name, image, ingredients, id, instructions, cookTi
             <div>
                 <h2 className='modal-text'>Instructions</h2>
                 <p className='modal-text'>{instructions}</p>
-                <img onClick={handleClose} src={Exit} alt='A black X icon' className='exit' />
+                <img onClick={handleClose} onKeyDown={(event) => accessibleExit(event)} tabIndex={0} src={Exit} alt='A black X icon' className='exit' />
             </div>
           </Typography>
         </Box>

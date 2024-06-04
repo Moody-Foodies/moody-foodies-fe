@@ -5,7 +5,10 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import ReactCardFlip from 'react-card-flip';
-import ReactStars from 'react-stars';
+import { Rating } from 'primereact/rating';
+import 'primereact/resources/themes/saga-blue/theme.css';  
+import 'primereact/resources/primereact.min.css';
+import 'primeicons/primeicons.css';
 
 interface ItemProps {
   name: string, 
@@ -53,13 +56,17 @@ export default function Card({name, image, id, getRatings, allRatings}: ItemProp
       getRatings(id, newRating)
     }
 
+    function deleteRecipe(event) {
+      event.preventDefault()
+    }
+
 console.log(rating)
     return (
       <ReactCardFlip isFlipped={!isFlipped} flipDirection="horizontal">
         <div className='favorite-recipe'>
           <div className='star-rating-container'>
                <p className='rating'>My Rating:</p>
-        <ReactStars 
+                {/* <ReactStars 
                      className='star-rating'
                      count={4}
                      color1={'#36454F'}
@@ -70,14 +77,15 @@ console.log(rating)
                     edit={true} 
                     size={15}
                    onChange={handleRating}
-                />
+                /> */}
+               <Rating value={allRatings[id]} onChange={(event) => handleRating(event.target.value)} cancel={false} /> 
           </div>
-       
+          
             <h4 className='grid-recipe-name'>{name}</h4>
             <div className='image' style={{ 'backgroundImage': `url(${image})`, 'backgroundSize': 'cover',
     'backgroundPosition': 'center'}}></div> 
     <button className='recipe-btn' onClick={handleClick}>Details</button>
-            <img className='delete' onClick={handleOpen} src={Delete} alt='Icon of a trash bin'/>
+            <img className='delete' onClick={handleOpen} src={Delete} tabIndex={0} onKeyDown={(event) => deleteRecipe(event)} alt='Icon of a trash bin'/>
         <Modal
         open={open}
         onClose={handleClose}

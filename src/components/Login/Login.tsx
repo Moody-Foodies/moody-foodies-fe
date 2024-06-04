@@ -1,6 +1,6 @@
 import './Login.css';
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useState, KeyboardEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -56,7 +56,7 @@ export default function Login(){
         })
     }
 
-    function test(event) {
+    function test(event: KeyboardEvent<HTMLImageElement>) {
         event.preventDefault()
        handleClose()
     }

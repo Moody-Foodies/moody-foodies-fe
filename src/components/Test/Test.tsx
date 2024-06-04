@@ -2,7 +2,7 @@
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import './Test.css';
-import { useState } from 'react';
+import { useState, KeyboardEvent } from 'react';
 import Favorite from '../../assets/favorite.png';
 import Unfavorite from '../../assets/unfavorite.png';
 import Box from '@mui/material/Box';
@@ -60,7 +60,7 @@ export default function Test({name, image, ingredients, id, instructions, cookTi
       }
     }
 
-    function accessibleExit(event) {
+    function accessibleExit(event: KeyboardEvent<HTMLImageElement>) {
       event.preventDefault()
       handleClose()
     }

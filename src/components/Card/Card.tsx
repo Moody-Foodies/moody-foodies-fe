@@ -1,5 +1,5 @@
 import './Card.css';
-import { useState } from 'react';
+import { useState, KeyboardEvent } from 'react';
 import Delete from '../../assets/delete.png';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -56,7 +56,7 @@ export default function Card({name, image, id, getRatings, allRatings}: ItemProp
       getRatings(id, newRating)
     }
 
-    function deleteRecipe(event) {
+    function deleteRecipe(event: KeyboardEvent<HTMLImageElement>) {
       event.preventDefault()
     }
 
@@ -66,19 +66,7 @@ console.log(rating)
         <div className='favorite-recipe'>
           <div className='star-rating-container'>
                <p className='rating'>My Rating:</p>
-                {/* <ReactStars 
-                     className='star-rating'
-                     count={4}
-                     color1={'#36454F'}
-                    color2={'#ece8d9'}
-                    // value={rating}
-                    value={allRatings[id]}
-                     half={true}
-                    edit={true} 
-                    size={15}
-                   onChange={handleRating}
-                /> */}
-               <Rating value={allRatings[id]} onChange={(event) => handleRating(event.target.value)} cancel={false} /> 
+               <Rating value={allRatings[id]} onChange={(event) => handleRating(Number(event.target.value))} cancel={false} /> 
           </div>
           
             <h4 className='grid-recipe-name'>{name}</h4>

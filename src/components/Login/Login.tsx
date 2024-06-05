@@ -32,6 +32,12 @@ export default function Login(){
     const [password, setPassword] = useState<string>('')
     const [name, setName] = useState<string>('')
     const [show, setShow] = useState<boolean>(false)
+    const [signUpEmail, setSignUpEmail] = useState<string>('')
+    const [signUpPassword, setSignUpPassword] = useState<string>('')
+    const [user, setUser] = useState<string>('')
+    const [emailError, setEmailError] = useState<string>('')
+    const [error, setError] = useState<string>('')
+    const [invalidError, setInvalidError] = useState<string>('')
 
     const navigate = useNavigate()
 
@@ -41,18 +47,33 @@ export default function Login(){
 
     function handleClose() {
       setOpen(false)
+      setSignUpEmail('')
+      setName('')
+      setSignUpPassword('')
+      setEmailError('')
     }
 
     function postLogin () {
-        fetch('/api/v1/login', {
+        fetch('https://brain-food-501b641e50fb.herokuapp.com/api/v1/login', {
             method: 'POST', 
             body: JSON.stringify({
                 email: email,
                 password: password
             }),
             headers: {
-                'Content-type': 'application/json'
+                'Content-Type': 'application/json'
             }
+        })
+        .then(res => {
+          return res.json()
+        })
+        .then(data => {
+          if(data.errors) {
+            setInvalidError(data.errors[0].detail)
+          } else {
+            setUser(data.data.id)
+            navigate('/home')
+          }
         })
     }
 
@@ -62,25 +83,33 @@ export default function Login(){
     }
 
     function postSignUp() {
-        fetch('/api/v1/users', {
+        fetch('https://brain-food-501b641e50fb.herokuapp.com/api/v1/users', {
             method: 'POST', 
             body: JSON.stringify({
                 name: name,
-                email: email,
-                password: password
+                email: signUpEmail,
+                password: signUpPassword
             }),
             headers: {
-                'Content-type': 'application/json'
+                'Content-Type': 'application/json'
             }
         })
-    }
+        .then(res => {
+          return res.json()
+        })
+        .then(data => {
+          if(data.errors) {
+            // setEmailError(data.errors.details[0])
+            console.log('there has been an error')
+            setEmailError(data.errors[0].detail[0])
+            setSignUpEmail('')
+          } else {
+            setUser(data.data.id)
+          }
+        })
+        .catch(error => console.log(error))
+        }
 
-    function handleSignUp(){
-        // if(data.user) {}
-        navigate('/home')
-    }
-
-console.log(show)
     return (
         <main className='form-container'>
             <motion.section initial={{ y: -1000 }} animate={{ y: 0 }} transition={{ duration: 2, type: "spring", stiffness: 100, damping: 12 }} className='login-container'>
@@ -97,7 +126,8 @@ console.log(show)
                 {(show) ? <img tabIndex={0} className='hide' alt='Icon of an eye with a slash through it' src={Hide} onClick={() => setShow(!show)} onKeyDown={() => setShow(!show)} /> : <img tabIndex={0} className='show' alt='Icon of an eye' src={Show} onKeyDown={() => setShow(!show)} onClick={() => setShow(!show)}/>}  
                 </div>
             </form>
-            <button className='sign-in' onClick={() => console.log('sign in')}>Sign in</button> 
+            {invalidError && <p className='invalid-error'>{invalidError}</p>}
+            <button className='sign-in' onClick={() => postLogin()}>Sign in</button> 
             <div className='account-styling'> 
             <h2 className='account-message'>Don't have an account?</h2>
             <Button sx={{color: '#79c2d0'}}onClick={handleOpen}>Create one</Button>
@@ -114,15 +144,16 @@ console.log(show)
                 <label htmlFor='name'>Name:</label>
                 <input placeholder='Enter your name here' type='text' id='name' value={name} className='login' onChange={(event) => setName(event.target.value)}/>
                 <label htmlFor='email-signup'>Email:</label>
-                <input placeholder='Enter your email address here' id='email-signup' value={email} className='login' type='text' onChange={(event) => setEmail(event.target.value)}></input>
+                <input placeholder='Enter your email address here' id='email-signup' value={signUpEmail} className='login' type='text' onChange={(event) => setSignUpEmail(event.target.value)}></input>
                 <label htmlFor='password-signup'>Password:</label>
                 <div className='password-icon'>
-                  <input placeholder='Enter your password here'  id='password-signup' value={password} onChange={(event) => setPassword(event.target.value)} className='login' type={(show) ? 'text' : 'password'}></input> 
+                  <input placeholder='Enter your password here'  id='password-signup' value={signUpPassword} onChange={(event) => setSignUpPassword(event.target.value)} className='login' type={(show) ? 'text' : 'password'}></input> 
                 {(show) ? <img className='hide' tabIndex={0} alt='Icon of an eye with a slash through it' src={Hide} onClick={() => setShow(!show)} onKeyDown={() => setShow(!show)} /> : <img tabIndex={0} className='show' alt='Icon of an eye' src={Show} onClick={() => setShow(!show)} onKeyDown={() => setShow(!show)} />}  
                 </div>
                 
             </form>
-            <button className='sign-in' onClick={() => handleSignUp()}>Sign up</button> 
+            {emailError && <p className='email-error'>{emailError}</p>}
+            <button className='sign-in' onClick={() => postSignUp()}>Sign up</button> 
           </Typography>
           <img src={Exit} alt='A black X icon' onKeyDown={(event) => test(event)} onClick={handleClose} tabIndex={0} className='exit' />
         </Box>

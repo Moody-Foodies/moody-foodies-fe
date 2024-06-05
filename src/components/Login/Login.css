@@ -37,6 +37,18 @@ input {
     cursor: pointer;
 }
 
+.email-error, 
+.invalid-error {
+    text-align: center;
+    font-size: 1.2em;
+    font-style: italic;
+    color: #800000;
+}
+
+.invalid-error {
+    color: #79c2d0;
+}
+
 .account-message {
     font-size: 1.2em;
     margin-bottom: 0; 

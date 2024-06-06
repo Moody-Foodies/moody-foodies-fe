@@ -21,7 +21,7 @@ export default function Home() {
   const [timeValue, setTimeValue] = useState<number>(15)
   const [timeOfDay, setTimeOfDay] = useState<string>('')
   const [loading, setLoading] = useState(false)
-  const [value, setValue] = useState<string>(getValue())
+  const [value, setValue] = useState<string>('')
   const [error, setError] = useState('')
   const [user, setUser] = useState(getUser())
   // const location = useLocation();
@@ -29,7 +29,7 @@ export default function Home() {
   console.log(token)
   // let user = location.state.user
   // let token = location.state.token
-
+console.log(sessionStorage.length)
   const navigate = useNavigate()
   // useEffect(() => {
   //   localStorage.setItem('value', JSON.stringify(value))
@@ -38,21 +38,21 @@ export default function Home() {
     sessionStorage.setItem('value', JSON.stringify(value))
   }, [value])
 
-  function getValue(){
-    const value = sessionStorage.getItem('value') || '';
-    const initialValue = JSON.parse(value);
-    return initialValue || "";
-  }
+  // function getValue(){
+  //   const value = sessionStorage.getItem('value') || '';
+  //   const initialValue = JSON.parse(value);
+  //   return initialValue || "";
+  // }
       
 function getToken(){
     const token = sessionStorage.getItem('token') || '';
-    const initialValue = JSON.parse(token);
+    const initialValue = token ? JSON.parse(token) : null;
     return initialValue || "";
     }
 
   function getUser(){
     const user = sessionStorage.getItem('user') || '';
-    const initialValue = JSON.parse(user);
+    const initialValue = user ? JSON.parse(user) : null;
     return initialValue || "";
   }
 
@@ -111,7 +111,12 @@ console.log('ERROR:', error)
   //     .then(data => console.log('ALLFAVS:', data))
   //     navigate('/dashboard', {state: { value: value} })
   // }
-console.log(value)
+  if(sessionStorage.length < 2) {
+    return (
+      <Error />
+    )
+  }
+
   return (
 
     <main 

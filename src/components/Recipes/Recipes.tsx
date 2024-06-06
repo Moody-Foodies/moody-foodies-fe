@@ -238,7 +238,7 @@ export default function Recipes() {
       <header className='recipeGrid'>
         <h1 className='title'>Food for Your Mood</h1>
         <div className='link-container'>
-          <button className='menu' onClick={() => getFavoriteRecipes()}>Mood Board</button>
+          <Link to='/dashboard' className='menu' onClick={() => getFavoriteRecipes()}>Mood Board</Link>
           <Link to='/home' className='menu' onClick={() => navigate('/', {state: {value: value, user: user, token: token}})}>Home</Link>
           <Link to='/' className='menu'>Logout</Link>
         </div>

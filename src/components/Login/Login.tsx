@@ -96,6 +96,8 @@ export default function Login(){
     function clearForm() {
       setEmail('')
       setPassword('')
+      setEmailError('')
+      setInvalidError('')
     }
 
     function postSignUp() {
@@ -124,7 +126,8 @@ export default function Login(){
         })
         .catch(error => console.log(error))
         }
-
+console.log(token)
+console.log(user)
     return (
         <main className='form-container'>
             <motion.section initial={{ y: -1000 }} animate={{ y: 0 }} transition={{ duration: 2, type: "spring", stiffness: 100, damping: 12 }} className='login-container'>

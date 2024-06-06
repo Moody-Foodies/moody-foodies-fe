@@ -1,3 +1,5 @@
+import cypress from 'cypress';
+
 describe('Login page', () => {
   beforeEach(() => {
     cy.intercept('POST', 'https://brain-food-501b641e50fb.herokuapp.com/api/v1/login', {
@@ -21,18 +23,12 @@ describe('Login page', () => {
     cy.get('label').first().contains('Email:')
     cy.get('label').last().contains('Password:')
     cy.get('#email').type('email@gmail.com').should('have.value', 'email@gmail.com')
+    cy.get('.reset').click()
+    cy.get('#email').should('have.value', '')
+    cy.get('#email').type('email@gmail.com').should('have.value', 'email@gmail.com')
     cy.get('#password').type('password').should('have.value', 'password')
     cy.get('button').first().contains('Sign in')
     cy.get('.sign-in').click()
     cy.url().should('eq', 'http://127.0.0.1:5173/home')
-    // cy.get('h2').contains('Don\'t have an account?')
-    // cy.get('.MuiButtonBase-root').contains('Create one').click({force: true})
-    // cy.get('.MuiBox-root').should('exist')
-    // cy.get('h2').contains('Create a Brain Food Account')
-    // cy.get('h3').contains('Let\'s get cookin\'!')
-    // cy.get('form').should('exist')
-    // cy.get('#name').should('have.attr', 'placeholder', 'Enter your name here')
-    // // cy.get('button).click()
-    // cy.get('.exit').click()
   })
 })

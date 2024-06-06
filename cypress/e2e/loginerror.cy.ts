@@ -18,6 +18,6 @@ describe('Login page', () => {
       cy.get('#email').type('email@gmail.com').should('have.value', 'email@gmail.com')
       cy.get('button').first().contains('Sign in')
       cy.get('.sign-in').click()
-        // invalid email or password error 
+      cy.get('.invalid-error').contains('Invalid email or password')
     })
   })

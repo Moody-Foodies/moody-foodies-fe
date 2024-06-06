@@ -80,7 +80,7 @@ export default function Test({name, image, ingredients, id, instructions, cookTi
     <div className='name-container'><h2 className='recipe-carousel-name'>{name}</h2></div>
        {/* <div className='image-container' style={{ 'backgroundImage': `url(${image})`, 'backgroundSize': 'cover',
     'backgroundPosition': 'center'}}></div>  */}
-        {(Number(cookTime) > 0) && <div className='clock-container'><img className='clock' src={Clock} /><h3 className='cook-time-board'>{cookTime} minutes</h3></div>}
+        {(Number(cookTime) > 0) && <div className='clock-container'><img alt='A clock icon' className='clock' src={Clock} /><h3 className='cook-time-board'>{cookTime} minutes</h3></div>}
         <p className='recipe-page-descrip'>{healthBenefits}</p>
           <Button sx={{'position': 'absolute', 'bottom': 0, 'left': 10, 'color': '#390400' }}onClick={handleOpen}>Ingredients & Instructions</Button>
         <Modal

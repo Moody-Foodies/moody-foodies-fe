@@ -11,18 +11,18 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import Exit from '../../assets/exit.png';
 import Filler from '../../assets/filler.jpg';
+import Clock from '../../assets/clock.png';
 
 const style = {
   position: 'absolute' as 'absolute',
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 400,
-  height: 500,
+  width: 600,
+  height: 700,
   bgcolor: '#8F9779',
   overflowY: "auto",
   boxShadow: 24,
-  borderRadius: 10,
   p: 4,
 };
 
@@ -72,10 +72,10 @@ export default function Test({name, image, ingredients, id, instructions, cookTi
        {(image === '') ? <div className='image-container' style={{ 'backgroundImage': `url(${Filler})`, 'backgroundSize': 'cover',
     'backgroundPosition': 'center'}}></div> : <div className='image-container' style={{ 'backgroundImage': `url(${image})`, 'backgroundSize': 'cover',
     'backgroundPosition': 'center'}}></div>}
-    <h2 className='recipe-carousel-name'>{name}</h2>
+    <div className='name-container'><h2 className='recipe-carousel-name'>{name}</h2></div>
        {/* <div className='image-container' style={{ 'backgroundImage': `url(${image})`, 'backgroundSize': 'cover',
     'backgroundPosition': 'center'}}></div>  */}
-        {(Number(cookTime) > 0) && <h3 className='cook-time-board'>Cook time: {cookTime} minutes</h3>}
+        {(Number(cookTime) > 0) && <div className='clock-container'><img className='clock' src={Clock} /><h3 className='cook-time-board'>{cookTime} minutes</h3></div>}
         <p className='recipe-page-descrip'>{description}</p>
           <Button sx={{'position': 'absolute', 'bottom': 0, 'left': 10, 'color': '#390400' }}onClick={handleOpen}>Ingredients & Instructions</Button>
         <Modal
@@ -87,11 +87,15 @@ export default function Test({name, image, ingredients, id, instructions, cookTi
           <Typography id="modal-modal-description" sx={{ mt: 2}}>
             <div>
                 <h2 className='modal-text'>Ingredients</h2>
-                <p className='modal-text'>{ingredients}</p>
+                {ingredients.map(ingredient => {
+                  return (
+                    <li>{ingredient}</li>
+                  )
+                })}
             </div>
             <div>
-                <h2 className='modal-text'>Instructions</h2>
-                <p className='modal-text'>{instructions}</p>
+                <h2 className='modal-text' id='instructions'>Instructions</h2>
+                {(instructions.length === 1) ? <a className='link-instructions' href={instructions}>Click here for instructions.</a> : instructions.map((instruction, index) => <p className='modal-text'>{(index + 1)}: {instruction}</p>)}
                 <img onClick={handleClose} onKeyDown={(event) => accessibleExit(event)} tabIndex={0} src={Exit} alt='A black X icon' className='exit' />
             </div>
           </Typography>

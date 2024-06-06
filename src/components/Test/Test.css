@@ -1,24 +1,65 @@
 .slick-slide > div {
     background-color: rgb(192, 108, 132, .95);
-    height: 65vh; 
+    height: 75vh; 
     margin-right: 15px;
     margin-left: 15px;
     margin-top: 40px; 
-    /* border-radius: 20px;  */
     position: relative; 
-    box-shadow: rgba(0, 0, 0, 0.15) 3px 3px 4.5px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    font-family: "DM Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    &:hover {
+        border: solid 2px #1B4D3E;
+    }
+}
+
+.link-instructions {
+    color: #390400;
+    font-size: 1.2em;
+}
+
+.name-container {
+    height: 100px;
+}
+
+li {
+    color: #390400;
+    font-size: 1.2em;
+    margin-bottom: 8px;
 }
 
 .slick-slider {
     width: 90vw;
 }
 
+#instructions {
+    margin-top: 20px;
+}
+
 .recipe-carousel-name {
     font-size: 1.5em;
+    font-weight: bold;
+    text-align: left;
+    margin-top: 10px;
+    margin-left: 10px;
 }
 
 .modal-text {
     color: #390400;
+    text-align: left;
+    margin-top: 10px;
+}
+
+.clock-container {
+    display: flex;
+    align-items: center; 
+}
+
+.clock {
+    height: 25px;
+    margin-right: 10px;
+    margin-left: 10px;
 }
 
 .recipe-page-descrip {
@@ -28,6 +69,7 @@
 
 .cook-time-board {
     font-size: 1.5em; 
+    margin-top: 0;
 }
 
 .heart {
@@ -61,10 +103,10 @@
 .exit {
     height: 20px;
     position: absolute; 
-    bottom: 0;
-    margin-bottom: 20px; 
+    top: 0;
+    margin-top: 20px; 
     right: 0;
-    margin-right: 30px;
+    margin-right: 20px;
     cursor: pointer;
     &:hover {
         transform: scale(1.1)
@@ -76,6 +118,6 @@
         font-size: 2.5;
         position: absolute; 
         left: 0; 
-        margin-left: 10px;
+        margin-left: 20px;
     }
 }

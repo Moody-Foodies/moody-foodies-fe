@@ -111,7 +111,7 @@ if(sessionStorage.length < 2){
       <h2 className="average-mood-score">Average mood score: 7.5</h2>
       <h3 className="affirmation">{quote}</h3>
       </div>
-  <RecipeGrid items={filteredRecipes} /> 
+ {(!allFavorites.length) ? <h3 className='no-favorites'>You currently do not have any favorites recipes stored.</h3> : <RecipeGrid items={filteredRecipes} /> }
     </section>
   )
 }

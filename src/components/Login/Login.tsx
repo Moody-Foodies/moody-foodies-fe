@@ -38,6 +38,8 @@ export default function Login(){
     const [emailError, setEmailError] = useState<string>('')
     const [error, setError] = useState<string>('')
     const [invalidError, setInvalidError] = useState<string>('')
+    const [token, setToken] = useState<string>('')
+
 
     const navigate = useNavigate()
 
@@ -70,9 +72,10 @@ export default function Login(){
         .then(data => {
           if(data.errors) {
             setInvalidError(data.errors[0].detail)
+            console.log(data)
           } else {
-            setUser(data.data.id)
-            navigate('/home')
+            // setUser(data.data.id)
+            navigate('/home', {state: {user: data.data.id, token: data.data.attributes.token}})
           }
         })
     }
@@ -99,12 +102,9 @@ export default function Login(){
         })
         .then(data => {
           if(data.errors) {
-            // setEmailError(data.errors.details[0])
-            console.log('there has been an error')
             setEmailError(data.errors[0].detail[0])
-            setSignUpEmail('')
           } else {
-            setUser(data.data.id)
+            navigate('/home', {state: {user: data.data.id, token: data.data.attributes.token}})
           }
         })
         .catch(error => console.log(error))
@@ -153,7 +153,7 @@ export default function Login(){
                 
             </form>
             {emailError && <p className='email-error'>{emailError}</p>}
-            <button className='sign-in' onClick={() => postSignUp()}>Sign up</button> 
+            <button className='sign-in-button' onClick={() => postSignUp()}>Sign up</button> 
           </Typography>
           <img src={Exit} alt='A black X icon' onKeyDown={(event) => test(event)} onClick={handleClose} tabIndex={0} className='exit' />
         </Box>

@@ -96,7 +96,8 @@ label {
     height: 10vh;
 }
 
-.sign-in {
+.sign-in, 
+.sign-in-button {
     width: 350px; 
     border-radius: 30px; 
     cursor: pointer;

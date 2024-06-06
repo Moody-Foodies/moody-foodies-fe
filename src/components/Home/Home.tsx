@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import './Home.css'
-import { useNavigate, Link, useLocation } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import Box from '@mui/material/Box'
 import Slider from '@mui/material/Slider'
 import Sad from '../../assets/sad.jpeg'
@@ -21,15 +21,11 @@ export default function Home() {
   const [timeValue, setTimeValue] = useState<number>(15)
   const [timeOfDay, setTimeOfDay] = useState<string>('')
   const [loading, setLoading] = useState(false)
-  const [value, setValue] = useState<string>('')
+  const [value, setValue] = useState<string>('calm')
   const [error, setError] = useState('')
   const [user, setUser] = useState(getUser())
-  // const location = useLocation();
   const [token, setToken] = useState(getToken())
-  console.log(token)
-  // let user = location.state.user
-  // let token = location.state.token
-console.log(sessionStorage.length)
+  console.log(setUser, setToken)
   const navigate = useNavigate()
   // useEffect(() => {
   //   localStorage.setItem('value', JSON.stringify(value))
@@ -87,23 +83,45 @@ useEffect(() => {
       .then(res => {
         if(!res.ok){
           setError(`${res.status}: ${res.statusText}`)
+          setLoading(false)
         } else {
           return res.json()
         }
       })
       .then((data) => {
-        navigate('/recipes', {
-          state: { data: data.data, mood: moodValue, time: timeValue, value: value, token: token, user: user},
-        })
+ 
+      navigate('/recipes', {state: { data: data.data, token: token, value: value, mood: moodValue, time: timeValue}})
+       console.log(data.data)
+       if(!data) {
+        console.log('error')
+       }
         setLoading(false)
       })
       .catch(error => setError(error.message))
+     if(error) {
+      setLoading(false)
+     }
       
   }
-console.log('ERROR:', error)
+
  function getFavoriteRecipes(){
   console.log('get favorite recipes')
  }
+
+ useEffect(() => {
+if(error) {
+  setLoading(false)
+}
+ }, [])
+console.log(loading)
+
+//  useEffect(() => {
+//   if(!allRecipes.length){
+//     sessionStorage.setItem('allRecipes', JSON.stringify(allRecipes))
+//   } else {
+//     setLoading(true)
+//   }
+// }, [allRecipes])
 
   // function getFavoriteRecipes() {
   //   fetch('https://brain-food-501b641e50fb.herokuapp.com/api/v1/recipes/favorites?user_id=1') 
@@ -116,6 +134,7 @@ console.log('ERROR:', error)
       <Error />
     )
   }
+
 
   return (
 
@@ -131,7 +150,7 @@ console.log('ERROR:', error)
      Relaxation})` , 
       backgroundSize: 'cover', 
       backgroundPosition: 'center', 
-      minHeight: '100vh', 
+      minHeight: '130vh', 
       width: '100vw',
       backgroundAttachment: 'fixed', 
       overflow: 'auto'
@@ -206,7 +225,8 @@ console.log('ERROR:', error)
       <button className="cook" onClick={() => {postUserData()}}>
         Let's cook!
       </button>
-      {loading && <p className='loading'>Loading Recipes ...</p>}
+      {loading && <p className='loading'>Loading Recipes ...</p>} 
+      {error && <p className='post-error'>Oh no! Looks like something went wrong. Please refresh the page or try again later.</p> }
         </section>
 
     </main>

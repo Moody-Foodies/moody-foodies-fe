@@ -10,7 +10,7 @@ import Enthus from '../../assets/enthus.jpeg';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Test from '../Test/Test'
+import RecipeCard from '../RecipeCard/RecipeCard'
 
 interface Recipe {
   id: string,
@@ -23,55 +23,64 @@ interface Recipe {
     nutrient: string;
     ingredients: string[];
     instructions: string[];
+    health_benefits: string
   };
 }
-
-// interface LocationState {
-//   mood: string;
-//   value: string; 
-//   time: string;
-//   data: Recipe[];
-// }
 
 export default function Recipes() {
 
   const [recipes, setRecipes] = useState<Recipe[]>([]);
-  // const [value, setValue] = useState<string>('')
+  const [value, setValue] = useState<string>(getValue())
+  const [tokens, setToken] = useState(getToken())
+  const [error, setError] = useState(null)
+  let recipeByMood: Recipe[], token: string, user: number;
   const navigate = useNavigate();
   const location = useLocation();
-  let recipeByMood = location.state.data
-  let token = location.state.token
-  let user = location.state.user
-  let value = location.state.value
+  if(location.state){
+     recipeByMood = location.state.data 
+    token = location.state.token 
+    user = location.state.user 
+  } else {
+    return (
+      <Error />
+    )
+  }
+ console.log('TOKEN:', tokens)
 
-  // const [favorite, setFavorite] = useState(false)
+function getValue(){
+  const value = sessionStorage.getItem('value') || '';
+  const initialValue = value ? JSON.parse(value) : null;
+  return initialValue || "";
+}
+// function getAllRecipes(){
+//   const allRecipes = sessionStorage.getItem('allRecipes') || '';
+//   const initialValue = allRecipes ? JSON.parse(allRecipes) : null;
+//   return initialValue || "";
+// }
+function getToken(){
+  const tokens = sessionStorage.getItem('token') || '';
+  const initialValue = tokens ? JSON.parse(tokens) : null;
+  return initialValue || "";
+}
+
   const [favorites, setFavorites] = useState(getFavorites());
-  const [favoriteRecipe, setFavoriteRecipe] = useState([])
-  // const [favorite, setFavorite] = useState(false)
-  // useEffect(() => {
-  //   const savedFavorites = JSON.parse(localStorage.getItem('favorites')) || {};
-  //   setFavorites(savedFavorites);
-  // }, []);
 
-  // function toggleFavorite (id: number) {
-  //   if(!favorites.includes(id)){
-  //     setFavorites([...favorites, id])
-  //   }
-  // }
-
-  function toggleFavorite (id: number) {
+  function toggleFavorite (id: string) {
     if(!favorites.includes(id)){
       setFavorites([...favorites, id])
     }
     let favoriteRecipe = recipes.find(recipe => {
       return recipe.id === id
     })
-    console.log(favoriteRecipe)
+console.log('FAV RECIPEEEE:', typeof favoriteRecipe.id)
+// if(!favoriteRecipe?.attributes.image){
+//   let imageDetails = 'x'
+// }
     fetch('https://brain-food-501b641e50fb.herokuapp.com/api/v1/recipes/favorites', {
       method: 'POST', 
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
+        'Authorization': `Bearer ${tokens}`
       },
       body: JSON.stringify({
         id: favoriteRecipe?.id, 
@@ -90,37 +99,26 @@ export default function Recipes() {
       })
     })
     .then(res => res.json())
-    .then(data => console.log(data))
-     }
-//     useEffect(() => {
-// fetch('https://brain-food-501b641e50fb.herokuapp.com/api/v1/recipes/favorites', {
-//       method: 'POST', 
-//       headers: {
-//         'Content-Type': 'application/json',
-//         'Authorization': `Bearer ${token}`
-//       },
-//       body: JSON.stringify({
-//         favoriteRecipe, 
-//         user_id: user
-//       })
-//     })
-//     .then(res => res.json())
-//     .then(data => console.log(data))
-//     }, [favoriteRecipe])
-    
-     
+    .then(data => {
+      console.log(data)
+    if(data.errors) {
+      console.log(data.errors)
+      setError(data.errors[0].detail)
+  }
+     })
+    }
 
-     function removeFavorite(id: number){
-      let newFavorites = favorites.filter((fav: number) => fav !== id)
+     function removeFavorite(id: string){
+      let newFavorites = favorites.filter((fav: string) => fav !== id)
       setFavorites(newFavorites)
-      console.log('removing this guy:', id)
       fetch(`https://brain-food-501b641e50fb.herokuapp.com/api/v1/recipes/favorites`, {
         method: 'DELETE',
         body: JSON.stringify({
-          recipe_id: id
+          recipe_id: id,
+          user_id: user
         }),
         headers: {
-          "Authorization": `Bearer ${token}`,
+          "Authorization": `Bearer ${tokens}`,
           "Content-Type": 'application/json'
         }
       })
@@ -176,8 +174,8 @@ export default function Recipes() {
     return initialValue || "";
   }
 
-  function getFavoriteRecipes() {
-
+  function getFavoriteRecipes(event: any) {
+    event.preventDefault()
     fetch(`https://brain-food-501b641e50fb.herokuapp.com/api/v1/recipes/favorites?user_id=${user}`, {
       method: 'GET', 
       headers: {
@@ -185,8 +183,13 @@ export default function Recipes() {
       }
     }) 
       .then(res => res.json())
-      .then(data => console.log('ALLFAVS:', data))
-      // navigate('/dashboard', {state: { value: value} })
+      .then(data => {
+        console.log(data.data.recipes)
+        navigate('/dashboard', {
+          state: { currentFavorites: data.data.recipes},
+        })
+
+      })
   }
 
   var settings = {
@@ -238,7 +241,7 @@ export default function Recipes() {
       <header className='recipeGrid'>
         <h1 className='title'>Food for Your Mood</h1>
         <div className='link-container'>
-          <Link to='/dashboard' className='menu' onClick={() => getFavoriteRecipes()}>Mood Board</Link>
+          <Link to='/dashboard' className='menu' onClick={(event) => getFavoriteRecipes(event)}>Mood Board</Link>
           <Link to='/home' className='menu' onClick={() => navigate('/', {state: {value: value, user: user, token: token}})}>Home</Link>
           <Link to='/' className='menu'>Logout</Link>
         </div>
@@ -247,7 +250,7 @@ export default function Recipes() {
       <Slider {...settings}>
         {recipes.map(recipe => {
           return (
-            <Test
+            <RecipeCard
               name={recipe.attributes.name}
               key={recipe.id}
               id={recipe.id}
@@ -259,6 +262,7 @@ export default function Recipes() {
               removeFavorite={() => removeFavorite(recipe.id)}
               toggleFavorite={() => toggleFavorite(recipe.id)}
               favorites={favorites}
+              error={error}
             />
           )
         })}

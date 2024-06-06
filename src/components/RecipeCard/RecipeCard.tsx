@@ -1,7 +1,7 @@
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import './Test.css';
+import './RecipeCard.css';
 import { useState, KeyboardEvent } from 'react';
 import Favorite from '../../assets/favorite.png';
 import Unfavorite from '../../assets/unfavorite.png';
@@ -12,7 +12,6 @@ import Modal from '@mui/material/Modal';
 import Exit from '../../assets/exit.png';
 import Filler from '../../assets/filler.jpg';
 import Clock from '../../assets/clock.png';
-import ReactCardFlip from 'react-card-flip';
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -35,22 +34,18 @@ interface RecipeProps {
   cookTime: string, 
   description: string, 
   id: number,
+  error: string,
   favorites: number[],
   toggleFavorite: (id: number) => void,
   removeFavorite: (id: number) => void
 }
 
-export default function Test({name, image, ingredients, id, instructions, cookTime, description, healthBenefits, favorites, removeFavorite, toggleFavorite}: RecipeProps){
+export default function RecipeCard({name, image, ingredients, id, error, instructions, cookTime, healthBenefits, favorites, removeFavorite, toggleFavorite}: RecipeProps){
     const [open, setOpen] = useState<boolean>(false);
     const [favorite, setFavorite] = useState(false);
-    const [isFlipped, setIsFlipped] = useState<boolean>(true);
-  
+
     function handleOpen() {
       setOpen(true)
-    }
-
-    function handleClick(){
-      setIsFlipped(!isFlipped)
     }
 
     function handleClose() {

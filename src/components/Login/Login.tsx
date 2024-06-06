@@ -9,6 +9,7 @@ import Modal from '@mui/material/Modal';
 import Hide from '../../assets/hide.png';
 import Show from '../../assets/show.png';
 import Exit from '../../assets/exit.png';
+import Error from '../Error/Error';
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -85,7 +86,15 @@ export default function Login(){
             navigate('/home')
           }
         })
-        .catch(error => setError(error.message))
+        .catch(error => {
+          setError(error.message)
+        })
+    }
+
+    if(error) {
+      return (
+        <Error />
+      )
     }
 
     function test(event: KeyboardEvent<HTMLImageElement>) {
@@ -126,8 +135,7 @@ export default function Login(){
         })
         .catch(error => console.log(error))
         }
-console.log(token)
-console.log(user)
+
     return (
         <main className='form-container'>
             <motion.section initial={{ y: -1000 }} animate={{ y: 0 }} transition={{ duration: 2, type: "spring", stiffness: 100, damping: 12 }} className='login-container'>

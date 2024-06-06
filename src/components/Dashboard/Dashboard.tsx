@@ -8,24 +8,45 @@ import Calm from '../../assets/calm.jpeg';
 import HappyTheme from '../../assets/happy.jpeg';
 import Energy from '../../assets/energy.jpeg'
 import Enthus from '../../assets/enthus.jpeg';
+import Error from '../Error/Error';
 
 interface Affirmation {
   quote: string
-}
-
-interface LocationState {
-  value: string; 
 }
 
 export default function Dashboard() {
   const [quote, setQuote] = useState<string>('')
   const navigate = useNavigate()
   const location = useLocation();
-  const state = location.state as LocationState;
-  const [value, setValue] = useState<string>('')
+  console.log(location)
+  const currentFavorites = location.state.currentFavorites
+  console.log(currentFavorites)
+  // const state = location.state as LocationState;
+  const [value, setValue] = useState<string>(getValue())
   const [search, setSearch] = useState<string>('')
+  const [allFavorites, setAllFavorites] = useState([])
+  const [token, setToken] = useState<string>(getToken())
+  const [user, setUser] = useState(getUser())
 
+function getUser(){
+    const user = sessionStorage.getItem('user') || '';
+    const initialValue = user ? JSON.parse(user) : null;
+    return initialValue || "";
+  }
 
+  function getValue(){
+    const value = sessionStorage.getItem('value') || '';
+    const initialValue = value ? JSON.parse(value) : null;
+    return initialValue || "";
+  }
+
+ function getToken(){
+  const token = sessionStorage.getItem('token') || '';
+  const initialValue = token ? JSON.parse(token) : null;
+  return initialValue || "";
+ }
+
+  console.log(value)
   function getRandomAffirmation(affirmations: Affirmation[]) {
     let randomQuote =
       affirmations[Math.floor(Math.random() * affirmations.length)]
@@ -34,63 +55,26 @@ export default function Dashboard() {
 
   useEffect(() => {
     getRandomAffirmation(affirmations)
-    if(!state){
-      setValue('relaxed')
-    } else {
-      setValue(state.value)
-    }
-    
   }, [])
 
-  // const recipeGridItems: RecipeGridItem[] = [
-  //   //this is fake data, replace with real data... 
-  const recipes = [
-    {
-      id: 1,
-      name: 'Item 1',
-      image: 'https://www.howsweeteats.com/wp-content/uploads/2023/09/chickpea-salad-bowl-6.jpg',
-      details: 'Detail 1',
-      favoriteIcon: 'https://example.com/icon1.png',
-      frontButtonText: 'Recipe Details',
-      backButtonText: 'More Info',
-      description: 'Description 1',
-      cookTime: '30',
-      nutrient: 'Nutrient 1',
-      ingredients: ['Ingredient 1', 'Ingredient 2'],
-      instructions: ['Step 1', 'Step 2']
-    },
-    {
-      id: 2,
-      name: 'Item 2',
-      image: 'https://www.inspiredtaste.net/wp-content/uploads/2021/03/Vegetable-Quesadilla-Recipe-1-1200-1200x800.jpg',
-      details: 'Detail 2',
-      favoriteIcon: 'https://example.com/icon2.png',
-      frontButtonText: 'Recipe Details',
-      backButtonText: 'More Info',
-      description: 'Description 2',
-      cookTime: '45',
-      nutrient: 'Nutrient 2',
-      ingredients: ['Ingredient 1', 'Ingredient 2'],
-      instructions: ['Step 1', 'Step 2']
-    },
-    {
-      id: 3,
-      name: 'Item 3',
-      image: 'https://fraicheliving.com/wp-content/uploads/2021/01/fraiche-living-tropical-green-smoothie.jpg',
-      details: 'Detail 3',
-      favoriteIcon: 'https://example.com/icon3.png',
-      frontButtonText: 'Recipe Details',
-      backButtonText: 'More Info',
-      description: 'Description 3',
-      cookTime: '60',
-      nutrient: 'Nutrient 3',
-      ingredients: ['Ingredient 1', 'Ingredient 2'],
-      instructions: ['Step 1', 'Step 2'],
-    }
+  useEffect(() => {
     
-  ]
+    fetch(`https://brain-food-501b641e50fb.herokuapp.com/api/v1/recipes/favorites?user_id=${user}`, {
+      method: 'GET', 
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    }) 
+    .then(res => res.json())
+    .then(data => setAllFavorites(data.data.recipes))
+  }, [allFavorites])
 
-let filteredRecipes = recipes.filter(recipe => recipe.name.toLowerCase().includes(search.toLowerCase()))
+let filteredRecipes = allFavorites.filter(favorite => favorite.attributes.name.toLowerCase().includes(search.toLowerCase()))
+if(sessionStorage.length < 2){
+  return (
+    <Error />
+  )
+}
 
   return (
     <section className="container"
@@ -114,7 +98,7 @@ let filteredRecipes = recipes.filter(recipe => recipe.name.toLowerCase().include
 <header className="dashboard-container">
         <h1 className="dashboard">Mood Board</h1>
         <div className='link-container'>
-           <Link to='/' className='menu' onClick={() => navigate('/recipes')}>Login Page</Link>
+           <Link to='/' className='menu' onClick={() => navigate('/recipes')}>Logout</Link>
           <Link to='/home' className='menu' onClick={() => navigate('/')}>Home</Link>
         </div>
        

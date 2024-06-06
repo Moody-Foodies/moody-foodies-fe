@@ -171,9 +171,10 @@ label {
     border-radius: 20px; 
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1110px) {
     .login-container {
         width: 60vw;
+        height: 500px;
     }
 
     .logo-header {
@@ -184,6 +185,7 @@ label {
 @media screen and (max-width: 767px) {
     .login-container {
         width: 90vw;
+        height: 500px;
     }
 
     .logo-header {

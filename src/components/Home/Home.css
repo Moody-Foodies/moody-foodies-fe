@@ -101,6 +101,12 @@ input {
   margin-right: 10px;
 }
 
+.post-error {
+  text-align: center; 
+  width: 400px;
+  margin-top: 12px;
+}
+
 .main-page {
   display: flex;
   flex-direction: column;
@@ -111,6 +117,7 @@ input {
   top: 100px;
   color: #390400;
   margin-right: 20px;
+  min-height: 100vh;
 }
 
 .enthus,
@@ -124,7 +131,12 @@ input {
   left: 10px;
   top: 100px;
   color: #390400;
+  min-height: 100vh;
 }
+
+/* .landing-page {
+  min-height: 130vh;
+} */
 
 .label {
   font-style: italic;

@@ -1,6 +1,6 @@
 import './Login.css';
 import { motion } from 'framer-motion';
-import { useState, KeyboardEvent } from 'react';
+import { useState, KeyboardEvent, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -41,6 +41,16 @@ export default function Login(){
     const [token, setToken] = useState<string>('')
 
 
+    useEffect(() => {
+      sessionStorage.setItem('token', JSON.stringify(token))
+    }, [token])
+    
+    // function getToken(){
+    //   const token = sessionStorage.getItem('token') || '';
+    //   const initialValue = JSON.parse(token);
+    //   return initialValue || "";
+    // }
+
     const navigate = useNavigate()
 
     function handleOpen() {
@@ -74,12 +84,12 @@ export default function Login(){
             setInvalidError(data.errors[0].detail)
             console.log(data)
           } else {
-            // setUser(data.data.id)
+            setToken(data.data.attributes.token)
             navigate('/home', {state: {user: data.data.id, token: data.data.attributes.token}})
           }
         })
     }
-
+console.log(token)
     function test(event: KeyboardEvent<HTMLImageElement>) {
         event.preventDefault()
        handleClose()

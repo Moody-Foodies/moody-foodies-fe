@@ -26,37 +26,105 @@ interface Recipe {
   };
 }
 
-interface LocationState {
-  mood: string;
-  value: string; 
-  time: string;
-  data: Recipe[];
-}
+// interface LocationState {
+//   mood: string;
+//   value: string; 
+//   time: string;
+//   data: Recipe[];
+// }
 
 export default function Recipes() {
 
-  // const [recipes, setRecipes] = useState<Recipe[]>(getRecipes());
+  const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [value, setValue] = useState<string>('')
   const navigate = useNavigate();
   const location = useLocation();
-  const state = location.state as LocationState;
+  let recipeByMood = location.state.data
+  let token = location.state.token
+  let user = location.state.user
+  console.log('recipebymood:', recipeByMood)
   // const [favorite, setFavorite] = useState(false)
   const [favorites, setFavorites] = useState(getFavorites());
+  const [favoriteRecipe, setFavoriteRecipe] = useState([])
   // const [favorite, setFavorite] = useState(false)
   // useEffect(() => {
   //   const savedFavorites = JSON.parse(localStorage.getItem('favorites')) || {};
   //   setFavorites(savedFavorites);
   // }, []);
 
+  // function toggleFavorite (id: number) {
+  //   if(!favorites.includes(id)){
+  //     setFavorites([...favorites, id])
+  //   }
+  // }
+
   function toggleFavorite (id: number) {
     if(!favorites.includes(id)){
       setFavorites([...favorites, id])
     }
-    
+    let favoriteRecipe = recipes.find(recipe => {
+      return recipe.id === id
+    })
+    console.log(favoriteRecipe)
+    fetch('https://brain-food-501b641e50fb.herokuapp.com/api/v1/recipes/favorites', {
+      method: 'POST', 
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        id: favoriteRecipe?.id, 
+        type: favoriteRecipe?.type, 
+        attributes: {
+          name: favoriteRecipe?.attributes.name, 
+          description: favoriteRecipe?.attributes.description, 
+          time_to_cook: favoriteRecipe?.attributes.time_to_cook,
+          nutrient: favoriteRecipe?.attributes.nutrient,
+          health_benefits: favoriteRecipe?.attributes.health_benefits,
+          image: favoriteRecipe?.attributes.image,
+          ingredients: favoriteRecipe?.attributes.ingredients, 
+          instructions: favoriteRecipe?.attributes.instructions
+        },
+        user_id: user
+      })
+    })
+    .then(res => res.json())
+    .then(data => console.log(data))
      }
+//     useEffect(() => {
+// fetch('https://brain-food-501b641e50fb.herokuapp.com/api/v1/recipes/favorites', {
+//       method: 'POST', 
+//       headers: {
+//         'Content-Type': 'application/json',
+//         'Authorization': `Bearer ${token}`
+//       },
+//       body: JSON.stringify({
+//         favoriteRecipe, 
+//         user_id: user
+//       })
+//     })
+//     .then(res => res.json())
+//     .then(data => console.log(data))
+//     }, [favoriteRecipe])
+    
+     
+
      function removeFavorite(id: number){
       let newFavorites = favorites.filter((fav: number) => fav !== id)
       setFavorites(newFavorites)
+      console.log('removing this guy:', id)
+      fetch(`https://brain-food-501b641e50fb.herokuapp.com/api/v1/recipes/favorites`, {
+        method: 'DELETE',
+        body: JSON.stringify({
+          recipe_id: id
+        }),
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": 'application/json'
+        }
+      })
+      .then(res => res.json())
+      .then(data => console.log(data))
      }
 
 
@@ -68,15 +136,15 @@ export default function Recipes() {
 //   };
  
 
-if(!state){
-  return (
-    <Error />
-  )
-}
+// if(!state){
+//   return (
+//     <Error />
+//   )
+// }
   useEffect(() => {
-    // setRecipes(state.data);
-    setValue(state.value)
-  }, [state.data]);
+    setRecipes(recipeByMood);
+    // setValue(state.value)
+  }, []);
 
   // useEffect(() => {
   //   localStorage.setItem('value', JSON.stringify(value))
@@ -107,58 +175,17 @@ if(!state){
     return initialValue || "";
   }
 
-  
-  let recipes = [
-    {
-      id: 1,
-      name: 'Item 1',
-      image: 'https://www.howsweeteats.com/wp-content/uploads/2023/09/chickpea-salad-bowl-6.jpg',
-      details: 'Detail 1',
-      favoriteIcon: 'https://example.com/icon1.png',
-      frontButtonText: 'Recipe Details',
-      backButtonText: 'More Info',
-      description: 'Description 1 sdafsdafsdfsd fasdfasdfsdfsd ',
-      cookTime: '30',
-      nutrient: 'Nutrient 1',
-      ingredients: ['Ingredient 1', 'Ingredient 2'],
-      instructions: ['Step 1', 'Step 2']
-    },
-    {
-      id: 2,
-      name: 'Item 2',
-      image: 'https://www.inspiredtaste.net/wp-content/uploads/2021/03/Vegetable-Quesadilla-Recipe-1-1200-1200x800.jpg',
-      details: 'Detail 2',
-      favoriteIcon: 'https://example.com/icon2.png',
-      frontButtonText: 'Recipe Details',
-      backButtonText: 'More Info',
-      description: 'Description 2 asdfasdfasdfas dfasdfasdfasdfas ',
-      cookTime: '45',
-      nutrient: 'Nutrient 2',
-      ingredients: ['Ingredient 1', 'Ingredient 2'],
-      instructions: ['Step 1', 'Step 2']
-    },
-    {
-      id: 3,
-      name: 'Item 3',
-      image: 'https://fraicheliving.com/wp-content/uploads/2021/01/fraiche-living-tropical-green-smoothie.jpg',
-      details: 'Detail 3',
-      favoriteIcon: 'https://example.com/icon3.png',
-      frontButtonText: 'Recipe Details',
-      backButtonText: 'More Info',
-      description: 'Description 3 asdfsdaf asdfasdfasdfsa',
-      cookTime: '60',
-      nutrient: 'Nutrient 3',
-      ingredients: ['Ingredient 1', 'Ingredient 2'],
-      instructions: ['Step 1', 'Step 2'],
-    }
-    ]
-
   function getFavoriteRecipes() {
 
-    fetch('https://brain-food-501b641e50fb.herokuapp.com/api/v1/recipes/favorites?user_id=1') 
+    fetch(`https://brain-food-501b641e50fb.herokuapp.com/api/v1/recipes/favorites?user_id=${user}`, {
+      method: 'GET', 
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    }) 
       .then(res => res.json())
       .then(data => console.log('ALLFAVS:', data))
-      navigate('/dashboard', {state: { value: value} })
+      // navigate('/dashboard', {state: { value: value} })
   }
 
   var settings = {
@@ -210,25 +237,24 @@ if(!state){
       <header className='recipeGrid'>
         <h1 className='title'>Food for Your Mood</h1>
         <div className='link-container'>
-          <Link to='/dashboard' className='menu' onClick={() => getFavoriteRecipes()}>Mood Board</Link>
+          <button className='menu' onClick={() => getFavoriteRecipes()}>Mood Board</button>
           <Link to='/home' className='menu' onClick={() => navigate('/', {state: {value: value}})}>Home</Link>
           <Link to='/' className='menu'>Login Page</Link>
         </div>
     
       </header>
       <Slider {...settings}>
-      
         {recipes.map(recipe => {
           return (
             <Test
-              name={recipe.name}
+              name={recipe.attributes.name}
               key={recipe.id}
               id={recipe.id}
-              image={recipe.image}
-              ingredients={recipe.ingredients}
-              instructions={recipe.instructions}
-              cookTime={recipe.cookTime}
-              description={recipe.description}
+              image={recipe.attributes.image}
+              ingredients={recipe.attributes.ingredients}
+              instructions={recipe.attributes.instructions}
+              cookTime={recipe.attributes.time_to_cook}
+              description={recipe.attributes.description}
               removeFavorite={() => removeFavorite(recipe.id)}
               toggleFavorite={() => toggleFavorite(recipe.id)}
               favorites={favorites}

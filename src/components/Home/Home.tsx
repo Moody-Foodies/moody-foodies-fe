@@ -69,7 +69,6 @@ useEffect(() => {
         }),
       }
     )
-      .then((res) => res.json())
       .then(res => {
         if(!res.ok){
           throw new Error()
@@ -78,23 +77,15 @@ useEffect(() => {
         }
       })
       .then((data) => {
-        // navigate('/recipes', {
-        //   state: { data: data.data, mood: moodValue, time: timeValue, value: value },
-        // })
-        // setLoading(false)
-        console.log(data)
+        navigate('/recipes', {
+          state: { data: data.data, mood: moodValue, time: timeValue, value: value, token: token, user: user},
+        })
+        setLoading(false)
       })
       .catch(error => setError(error))
       
   }
 
-  // function goToPage(){
-  //   navigate('/recipes', {
-  //     state: { mood: moodValue, time: timeValue, value: value },
-      
-  //   })
-//     setLoading(true)
-//   }
 //  if(error) {
 //   return (
 //     <Error />

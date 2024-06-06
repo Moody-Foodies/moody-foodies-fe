@@ -9,7 +9,8 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import Exit from '../../assets/exit.png'
+import Exit from '../../assets/exit.png';
+import Filler from '../../assets/filler.jpg';
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -41,7 +42,7 @@ interface RecipeProps {
 export default function Test({name, image, ingredients, id, instructions, cookTime, description, favorites, removeFavorite, toggleFavorite}: RecipeProps){
     const [open, setOpen] = useState<boolean>(false);
     const [favorite, setFavorite] = useState(false)
-
+  
     function handleOpen() {
       setOpen(true)
     }
@@ -67,10 +68,14 @@ export default function Test({name, image, ingredients, id, instructions, cookTi
 
       return (
       <div className='recipe-carousel'>
-        <h2>{name}</h2>
-       <div className='image-container' style={{ 'backgroundImage': `url(${image})`, 'backgroundSize': 'cover',
-    'backgroundPosition': 'center'}}></div> 
-        <h3 className='cook-time-board'>Cook time: {cookTime} minutes</h3>
+        
+       {(image === '') ? <div className='image-container' style={{ 'backgroundImage': `url(${Filler})`, 'backgroundSize': 'cover',
+    'backgroundPosition': 'center'}}></div> : <div className='image-container' style={{ 'backgroundImage': `url(${image})`, 'backgroundSize': 'cover',
+    'backgroundPosition': 'center'}}></div>}
+    <h2 className='recipe-carousel-name'>{name}</h2>
+       {/* <div className='image-container' style={{ 'backgroundImage': `url(${image})`, 'backgroundSize': 'cover',
+    'backgroundPosition': 'center'}}></div>  */}
+        {(Number(cookTime) > 0) && <h3 className='cook-time-board'>Cook time: {cookTime} minutes</h3>}
         <p className='recipe-page-descrip'>{description}</p>
           <Button sx={{'position': 'absolute', 'bottom': 0, 'left': 10, 'color': '#390400' }}onClick={handleOpen}>Ingredients & Instructions</Button>
         <Modal

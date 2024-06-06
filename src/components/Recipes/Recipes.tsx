@@ -36,13 +36,14 @@ interface Recipe {
 export default function Recipes() {
 
   const [recipes, setRecipes] = useState<Recipe[]>([]);
-  const [value, setValue] = useState<string>('')
+  // const [value, setValue] = useState<string>('')
   const navigate = useNavigate();
   const location = useLocation();
   let recipeByMood = location.state.data
   let token = location.state.token
   let user = location.state.user
-  console.log('recipebymood:', recipeByMood)
+  let value = location.state.value
+
   // const [favorite, setFavorite] = useState(false)
   const [favorites, setFavorites] = useState(getFavorites());
   const [favoriteRecipe, setFavoriteRecipe] = useState([])
@@ -238,11 +239,11 @@ export default function Recipes() {
         <h1 className='title'>Food for Your Mood</h1>
         <div className='link-container'>
           <button className='menu' onClick={() => getFavoriteRecipes()}>Mood Board</button>
-          <Link to='/home' className='menu' onClick={() => navigate('/', {state: {value: value}})}>Home</Link>
-          <Link to='/' className='menu'>Login Page</Link>
+          <Link to='/home' className='menu' onClick={() => navigate('/', {state: {value: value, user: user, token: token}})}>Home</Link>
+          <Link to='/' className='menu'>Logout</Link>
         </div>
-    
       </header>
+     <section className='benefit-container'><p className='health-benefit'><span>💡 Did you know?</span> {recipeByMood[0].attributes.health_benefits}</p></section>
       <Slider {...settings}>
         {recipes.map(recipe => {
           return (

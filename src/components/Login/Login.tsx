@@ -20,7 +20,7 @@ const style = {
     bgcolor: '#8F9779',
     overflowY: "auto",
     boxShadow: 24,
-    borderRadius: 10,
+    borderRadius: 5,
     p: 4,
     display: 'flex',
     justifyContent: 'center'
@@ -40,17 +40,14 @@ export default function Login(){
     const [invalidError, setInvalidError] = useState<string>('')
     const [token, setToken] = useState<string>('')
 
-
     useEffect(() => {
       sessionStorage.setItem('token', JSON.stringify(token))
     }, [token])
-    
-    // function getToken(){
-    //   const token = sessionStorage.getItem('token') || '';
-    //   const initialValue = JSON.parse(token);
-    //   return initialValue || "";
-    // }
 
+    useEffect(() => {
+      sessionStorage.setItem('user', JSON.stringify(user))
+    }, [user])
+    
     const navigate = useNavigate()
 
     function handleOpen() {
@@ -65,7 +62,7 @@ export default function Login(){
       setEmailError('')
     }
 
-    function postLogin () {
+    function postLogin() {
         fetch('https://brain-food-501b641e50fb.herokuapp.com/api/v1/login', {
             method: 'POST', 
             body: JSON.stringify({
@@ -77,22 +74,28 @@ export default function Login(){
             }
         })
         .then(res => {
-          return res.json()
+              return res.json()
         })
         .then(data => {
           if(data.errors) {
             setInvalidError(data.errors[0].detail)
-            console.log(data)
           } else {
+            setUser(data.data.id)
             setToken(data.data.attributes.token)
-            navigate('/home', {state: {user: data.data.id, token: data.data.attributes.token}})
+            navigate('/home')
           }
         })
+        .catch(error => setError(error.message))
     }
-console.log(token)
+
     function test(event: KeyboardEvent<HTMLImageElement>) {
         event.preventDefault()
        handleClose()
+    }
+
+    function clearForm() {
+      setEmail('')
+      setPassword('')
     }
 
     function postSignUp() {
@@ -114,7 +117,9 @@ console.log(token)
           if(data.errors) {
             setEmailError(data.errors[0].detail[0])
           } else {
-            navigate('/home', {state: {user: data.data.id, token: data.data.attributes.token}})
+            setUser(data.data.id)
+            setToken(data.data.attributes.token)
+            navigate('/home')
           }
         })
         .catch(error => console.log(error))
@@ -130,14 +135,14 @@ console.log(token)
                 <label htmlFor='email'>Email:</label>
                 <input id='email' className='login' value={email} type='text' placeholder='Enter your email address here' onChange={(event) => setEmail(event.target.value)}></input>
                 <label htmlFor='password'>Password:</label>
-                {/* <input id='password' className='login' value={password} type={(show) ? 'text' : 'password'} placeholder='Enter your password here' onChange={(event) => setPassword(event.target.value)}></input>  */}
                 <div className='password-icon'>
                   <input placeholder='Enter your password here'  id='password' value={password} onChange={(event) => setPassword(event.target.value)} className='login' type={(show) ? 'text' : 'password'}></input> 
-                {(show) ? <img tabIndex={0} className='hide' alt='Icon of an eye with a slash through it' src={Hide} onClick={() => setShow(!show)} onKeyDown={() => setShow(!show)} /> : <img tabIndex={0} className='show' alt='Icon of an eye' src={Show} onKeyDown={() => setShow(!show)} onClick={() => setShow(!show)}/>}  
+                {(show) ? <img tabIndex={0} className='hide' aria-label='Hide password' alt='Icon of an eye with a slash through it' src={Hide} onClick={() => setShow(!show)} onKeyDown={() => setShow(!show)} /> : <img tabIndex={0} className='show' alt='Icon of an eye' aria-label='Show password' src={Show} onKeyDown={() => setShow(!show)} onClick={() => setShow(!show)}/>}  
                 </div>
             </form>
             {invalidError && <p className='invalid-error'>{invalidError}</p>}
             <button className='sign-in' onClick={() => postLogin()}>Sign in</button> 
+            <button className='reset' onClick={() => clearForm()}>Reset form</button>
             <div className='account-styling'> 
             <h2 className='account-message'>Don't have an account?</h2>
             <Button sx={{color: '#79c2d0'}}onClick={handleOpen}>Create one</Button>
@@ -158,7 +163,7 @@ console.log(token)
                 <label htmlFor='password-signup'>Password:</label>
                 <div className='password-icon'>
                   <input placeholder='Enter your password here'  id='password-signup' value={signUpPassword} onChange={(event) => setSignUpPassword(event.target.value)} className='login' type={(show) ? 'text' : 'password'}></input> 
-                {(show) ? <img className='hide' tabIndex={0} alt='Icon of an eye with a slash through it' src={Hide} onClick={() => setShow(!show)} onKeyDown={() => setShow(!show)} /> : <img tabIndex={0} className='show' alt='Icon of an eye' src={Show} onClick={() => setShow(!show)} onKeyDown={() => setShow(!show)} />}  
+                {(show) ? <img className='hide' aria-label='Hide password' tabIndex={0} alt='Icon of an eye with a slash through it' src={Hide} onClick={() => setShow(!show)} onKeyDown={() => setShow(!show)} /> : <img tabIndex={0} className='show' alt='Icon of an eye' aria-label='Show password' src={Show} onClick={() => setShow(!show)} onKeyDown={() => setShow(!show)} />}  
                 </div>
                 
             </form>

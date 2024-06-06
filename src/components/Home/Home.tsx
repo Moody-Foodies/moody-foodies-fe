@@ -14,32 +14,47 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
-// import FormLabel from '@mui/material/FormLabel';
-// import Error from '../Error/Error';
+import Error from '../Error/Error';
 
 export default function Home() {
   const [moodValue, setMoodValue] = useState<number>(1)
   const [timeValue, setTimeValue] = useState<number>(15)
   const [timeOfDay, setTimeOfDay] = useState<string>('')
   const [loading, setLoading] = useState(false)
-  const [value, setValue] = useState<string>('')
-  const [error, setError] = useState(null)
-  const location = useLocation();
-  let user = location.state.user
-  let token = location.state.token
-  console.log('user:', typeof token)
+  const [value, setValue] = useState<string>(getValue())
+  const [error, setError] = useState('')
+  const [user, setUser] = useState(getUser())
+  // const location = useLocation();
+  const [token, setToken] = useState(getToken())
+  console.log(token)
+  // let user = location.state.user
+  // let token = location.state.token
 
   const navigate = useNavigate()
+  // useEffect(() => {
+  //   localStorage.setItem('value', JSON.stringify(value))
+  // }, [value])
   useEffect(() => {
-    localStorage.setItem('value', JSON.stringify(value))
+    sessionStorage.setItem('value', JSON.stringify(value))
   }, [value])
-  
-  // function getValue(){
-  //   const value = localStorage.getItem('value') || '';
-  //   const initialValue = JSON.parse(value);
-  //   return initialValue || "";
-  // }
 
+  function getValue(){
+    const value = sessionStorage.getItem('value') || '';
+    const initialValue = JSON.parse(value);
+    return initialValue || "";
+  }
+      
+function getToken(){
+    const token = sessionStorage.getItem('token') || '';
+    const initialValue = JSON.parse(token);
+    return initialValue || "";
+    }
+
+  function getUser(){
+    const user = sessionStorage.getItem('user') || '';
+    const initialValue = JSON.parse(user);
+    return initialValue || "";
+  }
 
 const time = new Date().getHours()
 useEffect(() => {
@@ -71,7 +86,7 @@ useEffect(() => {
     )
       .then(res => {
         if(!res.ok){
-          throw new Error()
+          setError(`${res.status}: ${res.statusText}`)
         } else {
           return res.json()
         }
@@ -82,16 +97,10 @@ useEffect(() => {
         })
         setLoading(false)
       })
-      .catch(error => setError(error))
+      .catch(error => setError(error.message))
       
   }
-
-//  if(error) {
-//   return (
-//     <Error />
-//   )
-//  }
-
+console.log('ERROR:', error)
  function getFavoriteRecipes(){
   console.log('get favorite recipes')
  }
@@ -102,8 +111,7 @@ useEffect(() => {
   //     .then(data => console.log('ALLFAVS:', data))
   //     navigate('/dashboard', {state: { value: value} })
   // }
-
-
+console.log(value)
   return (
 
     <main 
@@ -147,7 +155,7 @@ useEffect(() => {
     </FormControl>
     <div className='link-cont'>
       <Link to='/dashboard' className='menu' onClick={()=> getFavoriteRecipes()}>Mood Board</Link>
-      <Link to='/' className='menu'>Login Page</Link>
+      <Link to='/' className='menu'>Logout</Link>
     </div>
         </header>
         <section id='main-section'

@@ -12,6 +12,7 @@ import Modal from '@mui/material/Modal';
 import Exit from '../../assets/exit.png';
 import Filler from '../../assets/filler.jpg';
 import Clock from '../../assets/clock.png';
+import ReactCardFlip from 'react-card-flip';
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -39,12 +40,17 @@ interface RecipeProps {
   removeFavorite: (id: number) => void
 }
 
-export default function Test({name, image, ingredients, id, instructions, cookTime, description, favorites, removeFavorite, toggleFavorite}: RecipeProps){
+export default function Test({name, image, ingredients, id, instructions, cookTime, description, healthBenefits, favorites, removeFavorite, toggleFavorite}: RecipeProps){
     const [open, setOpen] = useState<boolean>(false);
-    const [favorite, setFavorite] = useState(false)
+    const [favorite, setFavorite] = useState(false);
+    const [isFlipped, setIsFlipped] = useState<boolean>(true);
   
     function handleOpen() {
       setOpen(true)
+    }
+
+    function handleClick(){
+      setIsFlipped(!isFlipped)
     }
 
     function handleClose() {
@@ -68,7 +74,6 @@ export default function Test({name, image, ingredients, id, instructions, cookTi
 
       return (
       <div className='recipe-carousel'>
-        
        {(image === '') ? <div className='image-container' style={{ 'backgroundImage': `url(${Filler})`, 'backgroundSize': 'cover',
     'backgroundPosition': 'center'}}></div> : <div className='image-container' style={{ 'backgroundImage': `url(${image})`, 'backgroundSize': 'cover',
     'backgroundPosition': 'center'}}></div>}
@@ -76,7 +81,7 @@ export default function Test({name, image, ingredients, id, instructions, cookTi
        {/* <div className='image-container' style={{ 'backgroundImage': `url(${image})`, 'backgroundSize': 'cover',
     'backgroundPosition': 'center'}}></div>  */}
         {(Number(cookTime) > 0) && <div className='clock-container'><img className='clock' src={Clock} /><h3 className='cook-time-board'>{cookTime} minutes</h3></div>}
-        <p className='recipe-page-descrip'>{description}</p>
+        <p className='recipe-page-descrip'>{healthBenefits}</p>
           <Button sx={{'position': 'absolute', 'bottom': 0, 'left': 10, 'color': '#390400' }}onClick={handleOpen}>Ingredients & Instructions</Button>
         <Modal
         open={open}
@@ -102,6 +107,8 @@ export default function Test({name, image, ingredients, id, instructions, cookTi
         </Box>
       </Modal>
         {(!favorites.includes(id)) ? <div className='heart-container'><img tabIndex={0} className='heart' alt='White heart icon with a black outline' src={Unfavorite} onKeyDown={() => test(id)} onClick={() => test(id)} /></div> : <div className='heart-container'><img className='heart' tabIndex={0} alt='Red heart icon' src={Favorite} onKeyDown={() => test(id)} onClick={() => test(id)} /></div> }
-     </div>
+     
+     </div> 
+
         )
 }

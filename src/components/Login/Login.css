@@ -15,6 +15,7 @@
 
 input {
     text-decoration: none;
+    text-align: center;
 }
 
 .hide {
@@ -26,6 +27,19 @@ input {
 .show {
     height: 30px;
     width: 30px;
+}
+
+.reset {
+    position: absolute; 
+    bottom: 0;
+    margin-bottom: 150px;
+    background-color: #d4ebd0;
+    border: none;
+    color: #390400;
+    cursor: pointer;
+    width: 350px; 
+    border-radius: 30px; 
+    height: 30px;
 }
 
 .hide, 
@@ -43,6 +57,10 @@ input {
     font-size: 1.2em;
     font-style: italic;
     color: #800000;
+    font-family: "DM Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    margin-top: 5px;
 }
 
 .invalid-error {
@@ -59,6 +77,9 @@ form {
     display: flex; 
     flex-direction: column;
     margin-top: 50px;
+    font-family: "DM Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
 }
 
 .name {
@@ -106,8 +127,21 @@ label {
     margin-top: 30px;
     background-color: bisque;
     &:hover {
-        transform: scale(1.1)
+        transform: scale(1.1);
+        background-color: #fad3cf;
     }
+}
+
+.sign-in-button {
+    position: absolute; 
+    bottom: 0; 
+    margin-bottom: 65px;
+}
+
+.sign-in {
+    position: absolute; 
+    bottom: 0; 
+    margin-bottom: 200px;
 }
 
 .create-account {
@@ -156,8 +190,15 @@ label {
         width: 90vw; 
     }
 
+    #name, 
+    #email-signup, 
+    #password-signup {
+        width: 360px;
+    }
+
     .login, 
-    .sign-in {
+    .sign-in, 
+    .reset {
         width: 280px;
     }
 }

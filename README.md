@@ -13,8 +13,9 @@ Brain Food is a fullstack responsive web application that allows users to login,
 ## App Preview
 
 ## Deployed Link 
+[Brain Food] (https://jade-lebkuchen-46144d.netlify.app/)
 
-## Installation and Setup
+## Local Installation and Setup
 1. Clone this repository to your local machine:
    ```sh
    git clone git@github.com:Moody-Foodies/moody-foodies-fe.git
@@ -35,11 +36,25 @@ Brain Food is a fullstack responsive web application that allows users to login,
    npm run dev
    ```
 
-5. Open the app at [http://http://localhost:5173/](http://http://localhost:5173/) in your browser.
+5. Open the app at [http://127.0.0.1:5173/) in your browser.
 
 ## Context
 - Goals
+   - Build a fullstack application over a four-week period.
+   - Successfully implement a stretch technology into the application. 
+   - Collaborate on a team utilizing the SCRUM/Agile methodology, holding daily standups, sprints, frequent communication, and check-ins with our project manager.
+   - Utilize CI/CD to ensure seamless integration, streamline workflow, and maintain clean, quality code. 
 - Wins
+  - Setting up CirclCI with Netlifly for continuous integration/continous deployment.
+  - Leaning and utilizing TypeScript through the codebase.
+  - Working with backend developers to build a fullstack application!
+  - Making the application responsive across all major breakpoints.
+  - Developing a highly accessible application, verified with Chrome DevTools Lighthouse and Chrome WAVE extension. 
 - Challenges
+  - 
 
 ## Future Improvements 
+- Create a save password feature for the login form and allow users to login in with Google or Facebook.
+- Document the date and save user mood level for the day to more extensively be able to track mood level over time and view trends.
+- Implement more recipes and allow users to choose recipes based on breakfast, lunch, or dinner suggestions.
+- Allow users to add notes to recipes as they are made or chosen. 

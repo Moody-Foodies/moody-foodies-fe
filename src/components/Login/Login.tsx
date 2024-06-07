@@ -83,6 +83,8 @@ export default function Login(){
           } else {
             setUser(data.data.id)
             setToken(data.data.attributes.token)
+            sessionStorage.setItem('user', JSON.stringify(data.data.id))
+            sessionStorage.setItem('token', JSON.stringify(data.data.attributes.token))
             navigate('/home')
           }
         })

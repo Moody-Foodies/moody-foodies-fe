@@ -57,9 +57,9 @@ useEffect(() => {
 } else {
   setTimeOfDay('Good evening')
 }
-
 }, [])
 
+console.log('USER:', user)
   function postUserData() {
     setLoading(true)
     fetch('https://brain-food-501b641e50fb.herokuapp.com/api/v1/recipes',
@@ -115,9 +115,7 @@ if(error) {
     )
   }
 
-
   return (
-
     <main 
     style=
     {{ 

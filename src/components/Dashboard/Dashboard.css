@@ -1,10 +1,19 @@
 .dashboard-container {
     position: relative;
     height: 12vh; 
+    justify-content: center;
 }
 
 .favorite-recipes {
     width: 33vw;
+}
+
+.dashboard-greeting {
+    position: absolute; 
+    left: 0; 
+    margin-left: 30px;
+    margin-top: 0; 
+    margin-bottom: 0;
 }
 
 .search {

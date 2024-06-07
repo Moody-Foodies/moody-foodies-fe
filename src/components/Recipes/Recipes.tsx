@@ -32,10 +32,19 @@ export default function Recipes() {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [value, setValue] = useState<string>(getValue())
   const [tokens, setToken] = useState(getToken())
-  const [error, setError] = useState(null)
-  let recipeByMood: Recipe[], token: string, user: number;
+  const [error, setError] = useState('')
+  const [users, setUser] = useState(getUser())
   const navigate = useNavigate();
   const location = useLocation();
+
+  useEffect(() => {
+    console.log(setValue)
+    console.log(setToken)
+    console.log(setUser)
+  }, [])
+  
+  let recipeByMood: any, token: string, user: number
+
   if(location.state){
      recipeByMood = location.state.data 
     token = location.state.token 
@@ -45,24 +54,24 @@ export default function Recipes() {
       <Error />
     )
   }
- console.log('TOKEN:', tokens)
 
 function getValue(){
   const value = sessionStorage.getItem('value') || '';
   const initialValue = value ? JSON.parse(value) : null;
   return initialValue || "";
 }
-// function getAllRecipes(){
-//   const allRecipes = sessionStorage.getItem('allRecipes') || '';
-//   const initialValue = allRecipes ? JSON.parse(allRecipes) : null;
-//   return initialValue || "";
-// }
+
 function getToken(){
   const tokens = sessionStorage.getItem('token') || '';
   const initialValue = tokens ? JSON.parse(tokens) : null;
   return initialValue || "";
 }
-
+function getUser(){
+  const users = sessionStorage.getItem('user') || '';
+  const initialValue = users ? JSON.parse(users) : null;
+  return initialValue || "";
+}
+console.log(users)
   const [favorites, setFavorites] = useState(getFavorites());
 
   function toggleFavorite (id: string) {
@@ -72,10 +81,7 @@ function getToken(){
     let favoriteRecipe = recipes.find(recipe => {
       return recipe.id === id
     })
-console.log('FAV RECIPEEEE:', typeof favoriteRecipe.id)
-// if(!favoriteRecipe?.attributes.image){
-//   let imageDetails = 'x'
-// }
+
     fetch('https://brain-food-501b641e50fb.herokuapp.com/api/v1/recipes/favorites', {
       method: 'POST', 
       headers: {
@@ -102,7 +108,6 @@ console.log('FAV RECIPEEEE:', typeof favoriteRecipe.id)
     .then(data => {
       console.log(data)
     if(data.errors) {
-      console.log(data.errors)
       setError(data.errors[0].detail)
   }
      })
@@ -126,43 +131,10 @@ console.log('FAV RECIPEEEE:', typeof favoriteRecipe.id)
       .then(data => console.log(data))
      }
 
-
-// console.log(id, favorite)
-//     // setFavorite(toggle[!favorite])
-//     // // const newFavorites = { ...favorites, [id]: !favorites[id] };
-//     // setFavorites([...favorites, id]);
-//     // localStorage.setItem('favorites', JSON.stringify(newFavorites));
-//   };
- 
-
-// if(!state){
-//   return (
-//     <Error />
-//   )
-// }
   useEffect(() => {
     setRecipes(recipeByMood);
-    // setValue(state.value)
-  }, []);
 
-  // useEffect(() => {
-  //   localStorage.setItem('value', JSON.stringify(value))
-  // }, [value])
-  
-  // function getValue(){
-  //   const value = localStorage.getItem('value') || '';
-  //   const initialValue = JSON.parse(value);
-  //   return initialValue || "";
-  // // }
-  // useEffect(() => {
-  //   localStorage.setItem('recipes', JSON.stringify(recipes))
-  // }, [recipes])
-  
-  // function getRecipes(){
-  //   const recipes = localStorage.getItem('recipes') || '[]';
-  //   const initialValue = JSON.parse(recipes);
-  //   return initialValue || "";
-  // }
+  }, []);
 
     useEffect(() => {
     localStorage.setItem('favorites', JSON.stringify(favorites))
@@ -176,19 +148,16 @@ console.log('FAV RECIPEEEE:', typeof favoriteRecipe.id)
 
   function getFavoriteRecipes(event: any) {
     event.preventDefault()
-    fetch(`https://brain-food-501b641e50fb.herokuapp.com/api/v1/recipes/favorites?user_id=${user}`, {
+    fetch(`https://brain-food-501b641e50fb.herokuapp.com/api/v1/recipes/favorites?user_id=${users}`, {
       method: 'GET', 
       headers: {
-        "Authorization": `Bearer ${token}`
+        "Authorization": `Bearer ${tokens}`
       }
     }) 
       .then(res => res.json())
       .then(data => {
         console.log(data.data.recipes)
-        navigate('/dashboard', {
-          state: { currentFavorites: data.data.recipes},
-        })
-
+        navigate('/dashboard')
       })
   }
 
@@ -246,7 +215,7 @@ console.log('FAV RECIPEEEE:', typeof favoriteRecipe.id)
           <Link to='/' className='menu'>Logout</Link>
         </div>
       </header>
-     <section className='benefit-container'><p className='health-benefit'><span>💡 Did you know?</span> {recipeByMood[0].attributes.health_benefits}</p></section>
+     {(recipeByMood.length > 0) && <section className='benefit-container'><p className='health-benefit'><span>💡 Did you know?</span> {recipeByMood[0].attributes.health_benefits}</p></section>}
       <Slider {...settings}>
         {recipes.map(recipe => {
           return (
@@ -263,6 +232,7 @@ console.log('FAV RECIPEEEE:', typeof favoriteRecipe.id)
               toggleFavorite={() => toggleFavorite(recipe.id)}
               favorites={favorites}
               error={error}
+              healthBenefits={recipe.attributes.health_benefits}
             />
           )
         })}

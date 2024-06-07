@@ -33,14 +33,15 @@ interface RecipeProps {
   instructions: string[],
   cookTime: string, 
   description: string, 
-  id: number,
+  id: string,
   error: string,
-  favorites: number[],
-  toggleFavorite: (id: number) => void,
-  removeFavorite: (id: number) => void
+  favorites: string[],
+  healthBenefits: string,
+  toggleFavorite: (id: string) => void,
+  removeFavorite: (id: string) => void
 }
 
-export default function RecipeCard({name, image, ingredients, id, error, instructions, cookTime, healthBenefits, favorites, removeFavorite, toggleFavorite}: RecipeProps){
+export default function RecipeCard({name, image, ingredients, id, instructions, cookTime, favorites, removeFavorite, toggleFavorite}: RecipeProps){
     const [open, setOpen] = useState<boolean>(false);
     const [favorite, setFavorite] = useState(false);
 
@@ -52,13 +53,12 @@ export default function RecipeCard({name, image, ingredients, id, error, instruc
       setOpen(false)
     }
 
-    function test(id: number){
+    function test(id: string){
       setFavorite(!favorite)
       if(!favorite){
         toggleFavorite(id)
       } else {
         removeFavorite(id)
-        console.log('this will be removed.')
       }
     }
 
@@ -73,10 +73,7 @@ export default function RecipeCard({name, image, ingredients, id, error, instruc
     'backgroundPosition': 'center'}}></div> : <div className='image-container' style={{ 'backgroundImage': `url(${image})`, 'backgroundSize': 'cover',
     'backgroundPosition': 'center'}}></div>}
     <div className='name-container'><h2 className='recipe-carousel-name'>{name}</h2></div>
-       {/* <div className='image-container' style={{ 'backgroundImage': `url(${image})`, 'backgroundSize': 'cover',
-    'backgroundPosition': 'center'}}></div>  */}
         {(Number(cookTime) > 0) && <div className='clock-container'><img alt='A clock icon' className='clock' src={Clock} /><h3 className='cook-time-board'>{cookTime} minutes</h3></div>}
-        <p className='recipe-page-descrip'>{healthBenefits}</p>
           <Button sx={{'position': 'absolute', 'bottom': 0, 'left': 10, 'color': '#390400' }}onClick={handleOpen}>Ingredients & Instructions</Button>
         <Modal
         open={open}
@@ -95,7 +92,7 @@ export default function RecipeCard({name, image, ingredients, id, error, instruc
             </div>
             <div>
                 <h2 className='modal-text' id='instructions'>Instructions</h2>
-                {(instructions.length === 1) ? <a className='link-instructions' href={instructions}>Click here for instructions.</a> : instructions.map((instruction, index) => <p className='modal-text'>{(index + 1)}: {instruction}</p>)}
+                {(instructions.length === 1) ? <a className='link-instructions' href={instructions[0]}>Click here for instructions.</a> : instructions.map((instruction, index) => <p className='modal-text'>{(index + 1)}: {instruction}</p>)}
                 <img onClick={handleClose} onKeyDown={(event) => accessibleExit(event)} tabIndex={0} src={Exit} alt='A black X icon' className='exit' />
             </div>
           </Typography>

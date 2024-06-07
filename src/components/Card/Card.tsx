@@ -1,5 +1,5 @@
 import './Card.css';
-import { useState, KeyboardEvent, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Delete from '../../assets/delete.png';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -13,10 +13,13 @@ import Filler from '../../assets/filler.jpg';
 
 interface ItemProps {
   name: string, 
-  id: number, 
+  id: string, 
   image: string,
-  getRatings: (id: number, newRating: number) => void,
-  allRatings: any
+  getRatings: (id: string, newRating: number) => void,
+  allRatings: any,
+  ingredients: string[],
+  instructions: string[],
+  attributes: {}
 }
 
 const style = {
@@ -43,13 +46,17 @@ export default function Card({name, image, id, ingredients, instructions, getRat
     const [user, setUser] = useState<number>(getUser())
     const [favorites, setFavorites] = useState(getFavorites())
 
+    useEffect(() => {
+         console.log(rating)
+        console.log(setToken)
+        console.log(setUser)
+    }, [])
+ 
     function getToken(){
       const token = sessionStorage.getItem('token') || '';
       const initialValue = token ? JSON.parse(token) : null;
       return initialValue || "";
     }
-    console.log(token)
-    console.log(user)
 
     function handleOpen() {
       setOpen(true)
@@ -81,7 +88,7 @@ export default function Card({name, image, id, ingredients, instructions, getRat
       return initialValue || "";
     }
 
-    function deleteRecipe(event: KeyboardEvent<HTMLImageElement>, id) {
+    function deleteRecipe(event: any, id: string) {
       event.preventDefault()
           
       fetch(`https://brain-food-501b641e50fb.herokuapp.com/api/v1/recipes/favorites`, {
@@ -97,10 +104,9 @@ export default function Card({name, image, id, ingredients, instructions, getRat
       })
       handleClose()
       let newFavorites = favorites.filter((fav: string) => fav !== id)
-      setFavorites(newFavorites)
-  
-    
+      setFavorites(newFavorites)  
      }
+
      useEffect(() => {
       localStorage.setItem('favorites', JSON.stringify(favorites))
         fetch(`https://brain-food-501b641e50fb.herokuapp.com/api/v1/recipes/favorites?user_id=${user}`, {
@@ -115,7 +121,6 @@ export default function Card({name, image, id, ingredients, instructions, getRat
         })
     }, [favorites])
 
-console.log('FAVS:', favorites)
     return (
       <ReactCardFlip isFlipped={!isFlipped} flipDirection="horizontal">
         <div className='favorite-recipe'>
@@ -129,12 +134,10 @@ console.log('FAVS:', favorites)
     'backgroundPosition': 'center'}}></div> : <div className='image' style={{ 'backgroundImage': `url(${Filler})`, 'backgroundSize': 'cover',
     'backgroundPosition': 'center'}}></div> }
     <button className='recipe-btn' onClick={handleClick}>Details</button>
-            <img className='delete' onClick={handleOpen} src={Delete} tabIndex={0} onKeyDown={(event) => deleteRecipe(event)} alt='Icon of a trash bin'/>
+            <img className='delete' onClick={handleOpen} src={Delete} tabIndex={0} onKeyDown={(event) => deleteRecipe(event, id)} alt='Icon of a trash bin'/>
         <Modal
         open={open}
         onClose={handleClose}
-        // aria-labelledby="modal-modal-title"
-        // aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
           <Typography id="modal-modal-description" sx={{ mt: 2, 'textAlign': 'center'}}>
@@ -155,7 +158,7 @@ console.log('FAVS:', favorites)
             </div>
             <div>
                 <h2 className='modal-text' id='instructions'>Instructions</h2>
-                {(instructions.length === 1) ? <a className='link-instructions' href={instructions}>Click here for instructions.</a> : instructions.map((instruction, index) => <p className='modal-text'>{(index + 1)}: {instruction}</p>)}
+                {(instructions.length === 1) ? <a className='link-instructions' href={instructions[0]}>Click here for instructions.</a> : instructions.map((instruction, index) => <p className='modal-text'>{(index + 1)}: {instruction}</p>)}
                 
             </div>
           <button className='recipe-btn' onClick={handleClick}>Go Back</button>

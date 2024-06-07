@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useNavigate, useLocation, Link } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import affirmations from '../../Quotes/quotes'
 import RecipeGrid from '../RecipeGrid/RecipeGrid'
 import './Dashboard.css'
@@ -17,16 +17,22 @@ interface Affirmation {
 export default function Dashboard() {
   const [quote, setQuote] = useState<string>('')
   const navigate = useNavigate()
-  const location = useLocation();
-  console.log(location)
-  const currentFavorites = location.state.currentFavorites
-  console.log(currentFavorites)
-  // const state = location.state as LocationState;
   const [value, setValue] = useState<string>(getValue())
   const [search, setSearch] = useState<string>('')
   const [allFavorites, setAllFavorites] = useState([])
   const [token, setToken] = useState<string>(getToken())
   const [user, setUser] = useState(getUser())
+  const [userName, setUserName] = useState('')
+  const [averageMood, setAverageMood] = useState<number>(0)
+  const [filteredRecipes, setFilteredRecipes] = useState([])
+
+
+  useEffect(() => {
+    console.log(setValue)
+    console.log(setToken)
+    console.log(setUser)
+  }, [])
+  
 
 function getUser(){
     const user = sessionStorage.getItem('user') || '';
@@ -46,7 +52,6 @@ function getUser(){
   return initialValue || "";
  }
 
-  console.log(value)
   function getRandomAffirmation(affirmations: Affirmation[]) {
     let randomQuote =
       affirmations[Math.floor(Math.random() * affirmations.length)]
@@ -67,14 +72,38 @@ function getUser(){
     }) 
     .then(res => res.json())
     .then(data => setAllFavorites(data.data.recipes))
+
   }, [allFavorites])
 
-let filteredRecipes = allFavorites.filter(favorite => favorite.attributes.name.toLowerCase().includes(search.toLowerCase()))
+  
+  useEffect(() => {
+    if(allFavorites){
+      setFilteredRecipes(allFavorites.filter(favorite => favorite.attributes.name.toLowerCase().includes(search.toLowerCase())))
+    }
+      //@ts-ignore
+    
+  }, [allFavorites])
+  
+
 if(sessionStorage.length < 2){
   return (
     <Error />
   )
 }
+
+useEffect(() => {
+  fetch('https://brain-food-501b641e50fb.herokuapp.com/api/v1/users', {
+    method: 'GET', 
+    headers: {
+      "Authorization": `Bearer ${token}`
+    }
+  })
+  .then(res => res.json())
+  .then(data => {
+    setUserName(data.data.attributes.name)
+    setAverageMood(data.data.attributes.moods.avg_mood.toFixed(1))
+  })
+}, [])
 
   return (
     <section className="container"
@@ -96,22 +125,22 @@ if(sessionStorage.length < 2){
      }} >
 
 <header className="dashboard-container">
+        <h2 className='dashboard-greeting'>Hi there, {userName}!</h2>
         <h1 className="dashboard">Mood Board</h1>
         <div className='link-container'>
            <Link to='/' className='menu' onClick={() => navigate('/recipes')}>Logout</Link>
           <Link to='/home' className='menu' onClick={() => navigate('/')}>Home</Link>
         </div>
-       
       </header>
     <div className='quote-container'>
      <div className='search-container'>
         <label className='time-label' htmlFor='search'>Search recipe by name</label>
         <input id='search' className='search' type='text' placeholder='Search recipe by name' onChange={(event) => setSearch(event.target.value)} />
       </div>
-      <h2 className="average-mood-score">Average mood score: 7.5</h2>
+      <h2 className="average-mood-score">Average mood score: {averageMood}</h2>
       <h3 className="affirmation">{quote}</h3>
       </div>
- {(!allFavorites.length) ? <h3 className='no-favorites'>You currently do not have any favorites recipes stored.</h3> : <RecipeGrid items={filteredRecipes} /> }
+ {(!allFavorites || !allFavorites.length) ? <h3 className='no-favorites'>You currently do not have any favorites recipes stored.</h3> : <RecipeGrid items={filteredRecipes} /> }
     </section>
   )
 }

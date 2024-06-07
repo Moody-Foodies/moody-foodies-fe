@@ -5,13 +5,15 @@ import Recipes from '../Recipes/Recipes'
 import { useLocation, Routes, Route } from 'react-router-dom'
 import NotFound from '../NotFound/NotFound';
 import Login from '../Login/Login';
-import { AnimatePresence } from "framer-motion"
+import { AnimatePresence } from "framer-motion";
+import { PrimeReactProvider } from 'primereact/api';
 
 export default function App() {
   const location = useLocation();
 
   return (
-    <div className="App">
+    <PrimeReactProvider>
+       <div className="App">
       <AnimatePresence>
           <Routes location={location} key={location.pathname}>
             <Route path="/" element={<Login />} />
@@ -22,5 +24,7 @@ export default function App() {
           </Routes>
       </AnimatePresence>
     </div>
+    </PrimeReactProvider>
+   
   )
 }

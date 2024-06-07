@@ -3,7 +3,7 @@ import Card from '../Card/Card';
 import { useState, useEffect } from 'react';
 
 interface AllRecipe {
-  id: number;
+  id: string;
   name: string;
   image: string;
   details: string;
@@ -15,6 +15,8 @@ interface AllRecipe {
   nutrient: string;
   ingredients: string[];
   instructions: string[];
+  attributes: any,
+  getRatings: (id: string, rating: number) => void
 }
 
 interface ItemProps {
@@ -24,7 +26,8 @@ interface ItemProps {
 export default function RecipeGrid({ items }: ItemProps) {
   const [allRatings, setAllRatings] = useState(getStarRatings())
 
-  function getRatings(id: number, rating: number){
+
+  function getRatings(id: string, rating: number){
     setAllRatings({...allRatings, [id]: rating})
   }
 
@@ -38,18 +41,19 @@ export default function RecipeGrid({ items }: ItemProps) {
   return initialValue || "";
   }
   
-
-
   return (
     <div className='recipe-grid'>
       {items.map(item => (
         <Card
-         name={item.name}
+         name={item.attributes.name}
          id={item.id}
          key={item.id}
-         image={item.image}
+         image={item.attributes.image}
          getRatings={getRatings}
          allRatings={allRatings}
+         ingredients={item.attributes.ingredients}
+         instructions={item.attributes.instructions}
+         attributes={item.attributes}
         />
 
       ))}

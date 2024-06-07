@@ -1,7 +1,10 @@
 import './NotFound.css';
 import Sad from '../../assets/sad.jpeg';
+import { useNavigate } from 'react-router-dom';
 
 export default function NotFound(){
+    const navigate = useNavigate()
+    
     return (
 
         <section 
@@ -15,6 +18,7 @@ export default function NotFound(){
            }} 
         className='notfound-container'>
             <h1 className='error-message'>Oh no! Looks like something went wrong. Please try again later.</h1>
+            <button className='back-home' onClick={() => navigate('/')}>Click here for the login page</button>
         </section>
 
     )

@@ -101,6 +101,12 @@ input {
   margin-right: 10px;
 }
 
+.post-error {
+  text-align: center; 
+  width: 400px;
+  margin-top: 12px;
+}
+
 .main-page {
   display: flex;
   flex-direction: column;
@@ -111,6 +117,7 @@ input {
   top: 100px;
   color: #390400;
   margin-right: 20px;
+  min-height: 100vh;
 }
 
 .enthus,
@@ -124,7 +131,12 @@ input {
   left: 10px;
   top: 100px;
   color: #390400;
+  min-height: 100vh;
 }
+
+/* .landing-page {
+  min-height: 130vh;
+} */
 
 .label {
   font-style: italic;
@@ -145,6 +157,12 @@ input {
   font-size: 2em;
 }
 
+@media screen and (max-width: 1300px) {
+h2 {
+  margin-top: 30px;
+}
+}
+
 @media screen and (max-width: 900px) {
   .slider-container {
     width: 200px;
@@ -152,7 +170,7 @@ input {
     /* background-color: transparent; */
   }
 
-  .link-container {
+  .link-cont {
     display: flex;
     flex-direction: column;
   }

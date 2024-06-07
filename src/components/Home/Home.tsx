@@ -14,29 +14,39 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
-// import FormLabel from '@mui/material/FormLabel';
-// import Error from '../Error/Error';
-
+import Error from '../Error/Error';
 
 export default function Home() {
   const [moodValue, setMoodValue] = useState<number>(1)
   const [timeValue, setTimeValue] = useState<number>(15)
   const [timeOfDay, setTimeOfDay] = useState<string>('')
-  // const [loading, setLoading] = useState(false)
-  const [value, setValue] = useState<string>('')
-  // const [error, setError] = useState(null)
-
+  const [loading, setLoading] = useState(false)
+  const [value, setValue] = useState<string>('calm')
+  const [error, setError] = useState('')
+  const [user, setUser] = useState(getUser())
+  const [token, setToken] = useState(getToken())
   const navigate = useNavigate()
-  useEffect(() => {
-    localStorage.setItem('value', JSON.stringify(value))
-  }, [value])
-  
-  // function getValue(){
-  //   const value = localStorage.getItem('value') || '';
-  //   const initialValue = JSON.parse(value);
-  //   return initialValue || "";
-  // }
 
+  useEffect(() => {
+    console.log(setUser)
+  console.log(setToken)
+  }, [])
+
+  useEffect(() => {
+    sessionStorage.setItem('value', JSON.stringify(value))
+  }, [value])
+      
+function getToken(){
+    const token = sessionStorage.getItem('token') || '';
+    const initialValue = token ? JSON.parse(token) : null;
+    return initialValue || "";
+    }
+
+  function getUser(){
+    const user = sessionStorage.getItem('user') || '';
+    const initialValue = user ? JSON.parse(user) : null;
+    return initialValue || "";
+  }
 
 const time = new Date().getHours()
 useEffect(() => {
@@ -50,64 +60,60 @@ useEffect(() => {
 
 }, [])
 
-  // function postUserData() {
-  //   setLoading('true')
-  //   fetch(
-  //     'https://7a97657d-b4dd-468a-960b-563f46161622.mock.pstmn.io/api/v1/recipes',
-  //     // 'https://brain-food-501b641e50fb.herokuapp.com/api/v1/recipes',
-  //     {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-type': 'application/json',
-  //       },
-  //       body: JSON.stringify({
-  //         mood: moodValue,
-  //         time_available: timeValue,
-  //         user_id: 1
-  //       }),
-  //     }
-  //   )
-  //     .then((res) => res.json())
-  //     .then(res => {
-  //       if(!res.ok){
-  //         throw new Error()
-  //       } else {
-  //         return res.json()
-  //       }
-  //     })
-  //     .then((data) => {
-  //       navigate('/recipes', {
-  //         state: { data: data.data, mood: moodValue, time: timeValue, value: value },
-  //       })
-  //       setLoading('false')
-  //     })
-  //     .catch(error => setError(error))
+  function postUserData() {
+    setLoading(true)
+    fetch('https://brain-food-501b641e50fb.herokuapp.com/api/v1/recipes',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          mood: moodValue,
+          time_available: timeValue,
+          user_id: Number(user)
+        }),
+      }
+    )
+      .then(res => {
+        if(!res.ok){
+          setError(`${res.status}: ${res.statusText}`)
+          setLoading(false)
+        } else {
+          return res.json()
+        }
+      })
+      .then((data) => {
+      navigate('/recipes', {state: { data: data.data, token: token, value: value, mood: moodValue, time: timeValue}})
+       console.log(data.data)
+       if(!data) {
+        console.log('error')
+       }
+        setLoading(false)
+      })
+      .catch(error => setError(error.message))
+     if(error) {
+      setLoading(false)
+     }
       
-  // }
-
-  function goToPage(){
-    navigate('/recipes', {
-      state: { mood: moodValue, time: timeValue, value: value },
-      
-    })
-//     setLoading(true)
-//   }
-//  if(error) {
-//   return (
-//     <Error />
-//   )
- }
+  }
 
  function getFavoriteRecipes(){
   console.log('get favorite recipes')
  }
 
-  // function getFavoriteRecipes() {
-  //   fetch('https://brain-food-501b641e50fb.herokuapp.com/api/v1/recipes/favorites?user_id=1') 
-  //     .then(res => res.json())
-  //     .then(data => console.log('ALLFAVS:', data))
-  //     navigate('/dashboard', {state: { value: value} })
-  // }
+ useEffect(() => {
+if(error) {
+  setLoading(false)
+}
+ }, [])
+
+  if(sessionStorage.length < 2) {
+    return (
+      <Error />
+    )
+  }
 
 
   return (
@@ -124,7 +130,7 @@ useEffect(() => {
      Relaxation})` , 
       backgroundSize: 'cover', 
       backgroundPosition: 'center', 
-      minHeight: '100vh', 
+      minHeight: '130vh', 
       width: '100vw',
       backgroundAttachment: 'fixed', 
       overflow: 'auto'
@@ -151,9 +157,9 @@ useEffect(() => {
         <FormControlLabel value="enthus" control={<Radio />} label="Enthusiastic" />
       </RadioGroup>
     </FormControl>
-    <div className='link-container'>
+    <div className='link-cont'>
       <Link to='/dashboard' className='menu' onClick={()=> getFavoriteRecipes()}>Mood Board</Link>
-      <Link to='/' className='menu'>Login Page</Link>
+      <Link to='/' className='menu'>Logout</Link>
     </div>
         </header>
         <section id='main-section'
@@ -196,10 +202,11 @@ useEffect(() => {
         minutes to cook.
       </h2>
 
-      <button className="cook" onClick={() => {goToPage()}}>
+      <button className="cook" onClick={() => {postUserData()}}>
         Let's cook!
       </button>
-      {/* {loading && <p className='loading'>Loading Recipes ...</p>} */}
+      {loading && <p className='loading'>Loading Recipes ...</p>} 
+      {error && <p className='post-error'>Oh no! Looks like something went wrong. Please refresh the page or try again later.</p> }
         </section>
 
     </main>

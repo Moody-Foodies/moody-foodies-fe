@@ -8,12 +8,21 @@
 
 .recipe-details {
     overflow-y: auto; 
+    font-family: "DM Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    padding-left: 15px;
 }
 
 .rating {
     font-size: 1em; 
     margin-left: 15px;
     margin-bottom: 0; 
+    margin-right: 10px;
+}
+
+.favorite-name-container {
+    height: 70px;
 }
 
 .star-rating-container {
@@ -41,9 +50,12 @@
 .grid-recipe-name {
     text-align: center;
     text-decoration: none;
-    font-size: 2.2em;
-    margin-top: 8px;
-    margin-bottom: 8px;
+    font-size: 1.5em;
+    margin-top: 15px;
+    margin-bottom: 0px;
+    font-family: "DM Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
 }
 
 .image {
@@ -61,6 +73,9 @@
     background-color: bisque;
     border: none; 
     width: 100px;
+    font-family: "DM Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
     &:hover {
         transform: scale(1.1)
     }

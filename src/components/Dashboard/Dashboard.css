@@ -1,10 +1,19 @@
 .dashboard-container {
     position: relative;
     height: 12vh; 
+    justify-content: center;
 }
 
 .favorite-recipes {
     width: 33vw;
+}
+
+.dashboard-greeting {
+    position: absolute; 
+    left: 0; 
+    margin-left: 30px;
+    margin-top: 0; 
+    margin-bottom: 0;
 }
 
 .search {
@@ -42,12 +51,20 @@
     text-align: center;
     color: #390400;
     margin-bottom: 0;
+    margin-top: 10px;
 }
 
 .affirmation {
     font-style: italic;
     font-size: 1.5em;
     margin-bottom: 10px;
+}
+
+.no-favorites {
+    text-align: center; 
+    font-family: "DM Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
 }
 
 .dashboard {

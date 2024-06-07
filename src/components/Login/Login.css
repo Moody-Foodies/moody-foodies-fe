@@ -8,14 +8,91 @@
     align-items: center; 
 }
 
+.password-icon {
+    position: relative;
+    height: 30px;
+}
+
+input {
+    text-decoration: none;
+    text-align: center;
+}
+
+.hide {
+    height: 18px;
+    width: 28px;
+    margin-bottom: 5px;
+}
+
+.show {
+    height: 30px;
+    width: 30px;
+}
+
+.reset {
+   margin-top: 20px;
+    background-color: #d4ebd0;
+    border: none;
+    color: #390400;
+    cursor: pointer;
+    width: 350px; 
+    border-radius: 30px; 
+    height: 30px;
+}
+
+.hide, 
+.show {
+    position: absolute;
+    bottom: 0; 
+    right: 0;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.email-error, 
+.invalid-error {
+    text-align: center;
+    font-size: 1.2em;
+    font-style: italic;
+    color: #800000;
+    font-family: "DM Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    margin-top: 5px;
+    position: relative; 
+    z-index: 1; 
+    margin-bottom: -30px;
+}
+
+.invalid-error {
+    color: #79c2d0;
+}
+
+.account-message {
+    font-size: 1.2em;
+    margin-bottom: 0; 
+    margin-top: 0; 
+}
+
 form {
     display: flex; 
     flex-direction: column;
     margin-top: 50px;
+    font-family: "DM Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
 }
 
 .name {
     margin-bottom: 0;
+}
+
+.account-styling {
+    display: flex; 
+    position: absolute; 
+    bottom: 0; 
+    margin-bottom: 15px;
+    align-items: center; 
 }
 
 .login {
@@ -41,22 +118,52 @@ label {
     height: 10vh;
 }
 
-.sign-in {
+.sign-in, 
+.sign-in-button {
     width: 350px; 
     border-radius: 30px; 
     cursor: pointer;
     border: none; 
     height: 30px;
+    margin-top: 30px;
     background-color: bisque;
     &:hover {
-        transform: scale(1.1)
+        transform: scale(1.1);
+        background-color: #fad3cf;
     }
+}
+
+.sign-in-button {
+    position: absolute; 
+    bottom: 0; 
+    margin-bottom: 65px;
+}
+
+.sign-in {
+   margin-top: 70px;
+
+}
+
+.create-account {
+    margin-top: 0; 
+    margin-bottom: 0; 
+    font-size: 1.7em;
+}
+
+.cook-header {
+    text-align: center;
+    font-family: "Poetsen One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color:	#800000;
+    font-size: 1.5em;
 }
 
 .login-container {
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative; 
     height: 70vh; 
     background-color: rgb(151, 90, 94, .6);
     width: 35vw;
@@ -64,9 +171,10 @@ label {
     border-radius: 20px; 
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1110px) {
     .login-container {
         width: 60vw;
+        height: 500px;
     }
 
     .logo-header {
@@ -77,14 +185,22 @@ label {
 @media screen and (max-width: 767px) {
     .login-container {
         width: 90vw;
+        height: 500px;
     }
 
     .logo-header {
         width: 90vw; 
     }
 
+    #name, 
+    #email-signup, 
+    #password-signup {
+        width: 360px;
+    }
+
     .login, 
-    .sign-in {
+    .sign-in, 
+    .reset {
         width: 280px;
     }
 }

@@ -10,7 +10,7 @@ import Enthus from '../../assets/enthus.jpeg';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Test from '../Test/Test'
+import RecipeCard from '../RecipeCard/RecipeCard'
 
 interface Recipe {
   id: string,
@@ -23,79 +23,118 @@ interface Recipe {
     nutrient: string;
     ingredients: string[];
     instructions: string[];
+    health_benefits: string
   };
-}
-
-interface LocationState {
-  mood: string;
-  value: string; 
-  time: string;
-  data: Recipe[];
 }
 
 export default function Recipes() {
 
-  // const [recipes, setRecipes] = useState<Recipe[]>(getRecipes());
-  const [value, setValue] = useState<string>('')
+  const [recipes, setRecipes] = useState<Recipe[]>([]);
+  const [value, setValue] = useState<string>(getValue())
+  const [tokens, setToken] = useState(getToken())
+  const [error, setError] = useState('')
+  const [users, setUser] = useState(getUser())
   const navigate = useNavigate();
   const location = useLocation();
-  const state = location.state as LocationState;
-  // const [favorite, setFavorite] = useState(false)
-  const [favorites, setFavorites] = useState(getFavorites());
-  // const [favorite, setFavorite] = useState(false)
-  // useEffect(() => {
-  //   const savedFavorites = JSON.parse(localStorage.getItem('favorites')) || {};
-  //   setFavorites(savedFavorites);
-  // }, []);
 
-  function toggleFavorite (id: number) {
+  useEffect(() => {
+    console.log(setValue)
+    console.log(setToken)
+    console.log(setUser)
+  }, [])
+  
+  let recipeByMood: any, token: string, user: number
+
+  if(location.state){
+     recipeByMood = location.state.data 
+    token = location.state.token 
+    user = location.state.user 
+  } else {
+    return (
+      <Error />
+    )
+  }
+
+function getValue(){
+  const value = sessionStorage.getItem('value') || '';
+  const initialValue = value ? JSON.parse(value) : null;
+  return initialValue || "";
+}
+
+function getToken(){
+  const tokens = sessionStorage.getItem('token') || '';
+  const initialValue = tokens ? JSON.parse(tokens) : null;
+  return initialValue || "";
+}
+function getUser(){
+  const users = sessionStorage.getItem('user') || '';
+  const initialValue = users ? JSON.parse(users) : null;
+  return initialValue || "";
+}
+console.log(users)
+  const [favorites, setFavorites] = useState(getFavorites());
+
+  function toggleFavorite (id: string) {
     if(!favorites.includes(id)){
       setFavorites([...favorites, id])
     }
-    
-     }
-     function removeFavorite(id: number){
-      let newFavorites = favorites.filter((fav: number) => fav !== id)
+    let favoriteRecipe = recipes.find(recipe => {
+      return recipe.id === id
+    })
+
+    fetch('https://brain-food-501b641e50fb.herokuapp.com/api/v1/recipes/favorites', {
+      method: 'POST', 
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${tokens}`
+      },
+      body: JSON.stringify({
+        id: favoriteRecipe?.id, 
+        type: favoriteRecipe?.type, 
+        attributes: {
+          name: favoriteRecipe?.attributes.name, 
+          description: favoriteRecipe?.attributes.description, 
+          time_to_cook: favoriteRecipe?.attributes.time_to_cook,
+          nutrient: favoriteRecipe?.attributes.nutrient,
+          health_benefits: favoriteRecipe?.attributes.health_benefits,
+          image: favoriteRecipe?.attributes.image,
+          ingredients: favoriteRecipe?.attributes.ingredients, 
+          instructions: favoriteRecipe?.attributes.instructions
+        },
+        user_id: user
+      })
+    })
+    .then(res => res.json())
+    .then(data => {
+      console.log(data)
+    if(data.errors) {
+      setError(data.errors[0].detail)
+  }
+     })
+    }
+
+     function removeFavorite(id: string){
+      let newFavorites = favorites.filter((fav: string) => fav !== id)
       setFavorites(newFavorites)
+      fetch(`https://brain-food-501b641e50fb.herokuapp.com/api/v1/recipes/favorites`, {
+        method: 'DELETE',
+        body: JSON.stringify({
+          recipe_id: id,
+          user_id: user
+        }),
+        headers: {
+          "Authorization": `Bearer ${tokens}`,
+          "Content-Type": 'application/json'
+        }
+      })
+      .then(res => res.json())
+      .then(data => console.log(data))
      }
 
-
-// console.log(id, favorite)
-//     // setFavorite(toggle[!favorite])
-//     // // const newFavorites = { ...favorites, [id]: !favorites[id] };
-//     // setFavorites([...favorites, id]);
-//     // localStorage.setItem('favorites', JSON.stringify(newFavorites));
-//   };
- 
-
-if(!state){
-  return (
-    <Error />
-  )
-}
   useEffect(() => {
-    // setRecipes(state.data);
-    setValue(state.value)
-  }, [state.data]);
+    setRecipes(recipeByMood);
 
-  // useEffect(() => {
-  //   localStorage.setItem('value', JSON.stringify(value))
-  // }, [value])
-  
-  // function getValue(){
-  //   const value = localStorage.getItem('value') || '';
-  //   const initialValue = JSON.parse(value);
-  //   return initialValue || "";
-  // // }
-  // useEffect(() => {
-  //   localStorage.setItem('recipes', JSON.stringify(recipes))
-  // }, [recipes])
-  
-  // function getRecipes(){
-  //   const recipes = localStorage.getItem('recipes') || '[]';
-  //   const initialValue = JSON.parse(recipes);
-  //   return initialValue || "";
-  // }
+  }, []);
 
     useEffect(() => {
     localStorage.setItem('favorites', JSON.stringify(favorites))
@@ -107,58 +146,19 @@ if(!state){
     return initialValue || "";
   }
 
-  
-  let recipes = [
-    {
-      id: 1,
-      name: 'Item 1',
-      image: 'https://www.howsweeteats.com/wp-content/uploads/2023/09/chickpea-salad-bowl-6.jpg',
-      details: 'Detail 1',
-      favoriteIcon: 'https://example.com/icon1.png',
-      frontButtonText: 'Recipe Details',
-      backButtonText: 'More Info',
-      description: 'Description 1 sdafsdafsdfsd fasdfasdfsdfsd ',
-      cookTime: '30',
-      nutrient: 'Nutrient 1',
-      ingredients: ['Ingredient 1', 'Ingredient 2'],
-      instructions: ['Step 1', 'Step 2']
-    },
-    {
-      id: 2,
-      name: 'Item 2',
-      image: 'https://www.inspiredtaste.net/wp-content/uploads/2021/03/Vegetable-Quesadilla-Recipe-1-1200-1200x800.jpg',
-      details: 'Detail 2',
-      favoriteIcon: 'https://example.com/icon2.png',
-      frontButtonText: 'Recipe Details',
-      backButtonText: 'More Info',
-      description: 'Description 2 asdfasdfasdfas dfasdfasdfasdfas ',
-      cookTime: '45',
-      nutrient: 'Nutrient 2',
-      ingredients: ['Ingredient 1', 'Ingredient 2'],
-      instructions: ['Step 1', 'Step 2']
-    },
-    {
-      id: 3,
-      name: 'Item 3',
-      image: 'https://fraicheliving.com/wp-content/uploads/2021/01/fraiche-living-tropical-green-smoothie.jpg',
-      details: 'Detail 3',
-      favoriteIcon: 'https://example.com/icon3.png',
-      frontButtonText: 'Recipe Details',
-      backButtonText: 'More Info',
-      description: 'Description 3 asdfsdaf asdfasdfasdfsa',
-      cookTime: '60',
-      nutrient: 'Nutrient 3',
-      ingredients: ['Ingredient 1', 'Ingredient 2'],
-      instructions: ['Step 1', 'Step 2'],
-    }
-    ]
-
-  function getFavoriteRecipes() {
-
-    fetch('https://brain-food-501b641e50fb.herokuapp.com/api/v1/recipes/favorites?user_id=1') 
+  function getFavoriteRecipes(event: any) {
+    event.preventDefault()
+    fetch(`https://brain-food-501b641e50fb.herokuapp.com/api/v1/recipes/favorites?user_id=${users}`, {
+      method: 'GET', 
+      headers: {
+        "Authorization": `Bearer ${tokens}`
+      }
+    }) 
       .then(res => res.json())
-      .then(data => console.log('ALLFAVS:', data))
-      navigate('/dashboard', {state: { value: value} })
+      .then(data => {
+        console.log(data.data.recipes)
+        navigate('/dashboard')
+      })
   }
 
   var settings = {
@@ -210,28 +210,29 @@ if(!state){
       <header className='recipeGrid'>
         <h1 className='title'>Food for Your Mood</h1>
         <div className='link-container'>
-          <Link to='/dashboard' className='menu' onClick={() => getFavoriteRecipes()}>Mood Board</Link>
-          <Link to='/home' className='menu' onClick={() => navigate('/', {state: {value: value}})}>Home</Link>
-          <Link to='/' className='menu'>Login Page</Link>
+          <Link to='/dashboard' className='menu' onClick={(event) => getFavoriteRecipes(event)}>Mood Board</Link>
+          <Link to='/home' className='menu' onClick={() => navigate('/', {state: {value: value, user: user, token: token}})}>Home</Link>
+          <Link to='/' className='menu'>Logout</Link>
         </div>
-    
       </header>
+     {(recipeByMood.length > 0) && <section className='benefit-container'><p className='health-benefit'><span>💡 Did you know?</span> {recipeByMood[0].attributes.health_benefits}</p></section>}
       <Slider {...settings}>
-      
         {recipes.map(recipe => {
           return (
-            <Test
-              name={recipe.name}
+            <RecipeCard
+              name={recipe.attributes.name}
               key={recipe.id}
               id={recipe.id}
-              image={recipe.image}
-              ingredients={recipe.ingredients}
-              instructions={recipe.instructions}
-              cookTime={recipe.cookTime}
-              description={recipe.description}
+              image={recipe.attributes.image}
+              ingredients={recipe.attributes.ingredients}
+              instructions={recipe.attributes.instructions}
+              cookTime={recipe.attributes.time_to_cook}
+              description={recipe.attributes.description}
               removeFavorite={() => removeFavorite(recipe.id)}
               toggleFavorite={() => toggleFavorite(recipe.id)}
               favorites={favorites}
+              error={error}
+              healthBenefits={recipe.attributes.health_benefits}
             />
           )
         })}

@@ -47,6 +47,21 @@
     text-align: center; 
 }
 
+.link-container {
+    position: absolute; 
+    right: 50px; 
+}
+
+.benefit-container {
+    background-color: #eed9c4;
+    margin-top: 20px;
+}
+
+span {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
 h4 {
     text-decoration: underline;
 }
@@ -119,6 +134,17 @@ h3 {
 
 }
 
+.health-benefit {
+    text-align: center;
+    font-family: "DM Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-size: .95em;
+    padding-right: 20px;
+    padding-left: 20px;
+    color:  #390400;
+}
+
 p {
     font-size: 1.5em;
     margin-bottom: 5px;
@@ -140,14 +166,19 @@ p {
     width: 250px;
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 900px) {
     .title {
         font-size: 2em;
         margin-left: 5px;
     }
 
-    .link-styling {
+    /* .link-styling {
         right: 15px
+    } */
+
+    .link-container {
+        display: flex;
+        flex-direction: column;
     }
 
     .recipeGrid {

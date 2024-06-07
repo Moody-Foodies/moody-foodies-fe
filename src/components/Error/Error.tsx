@@ -1,13 +1,12 @@
 import './Error.css';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Sad from '../../assets/sad.jpeg';
-import { motion } from 'framer-motion';
+
 
 export default function Error(){
-    // const navigate = useNavigate()
+    const navigate = useNavigate()
 
     return (
-        <motion.div initial={{scaleX:0}} animate={{scaleX:1}} exit={{scaleX:0}} transition={{duration: 0.5}}>
         <section 
         style={{ 
             backgroundImage: 
@@ -19,8 +18,8 @@ export default function Error(){
            }} 
         className='notfound-container'>
             <h1 className='error-message'>Oh no! Looks like something went wrong. Please try again later.</h1>
-            {/* <button className='back-home' onClick={() => navigate('/')}>Return Home</button> */}
+            <button className='back-home' onClick={() => navigate('/')}>Click here for the login page</button>
         </section>
-        </motion.div>
+
     )
 }

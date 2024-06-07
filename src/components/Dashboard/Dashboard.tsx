@@ -78,10 +78,9 @@ function getUser(){
   
   useEffect(() => {
     if(allFavorites){
+      //@ts-ignore
       setFilteredRecipes(allFavorites.filter(favorite => favorite.attributes.name.toLowerCase().includes(search.toLowerCase())))
     }
-      //@ts-ignore
-    
   }, [allFavorites])
   
 

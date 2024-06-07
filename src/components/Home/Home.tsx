@@ -48,6 +48,7 @@ function getToken(){
     return initialValue || "";
   }
 
+
 const time = new Date().getHours()
 useEffect(() => {
   if (time < 12) {
@@ -60,6 +61,7 @@ useEffect(() => {
 
 }, [])
 
+console.log('USER:', user)
   function postUserData() {
     setLoading(true)
     fetch('https://brain-food-501b641e50fb.herokuapp.com/api/v1/recipes',

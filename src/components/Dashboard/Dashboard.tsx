@@ -136,7 +136,7 @@ useEffect(() => {
         <label className='time-label' htmlFor='search'>Search recipe by name</label>
         <input id='search' className='search' type='text' placeholder='Search recipe by name' onChange={(event) => setSearch(event.target.value)} />
       </div>
-      <h2 className="average-mood-score">Average mood score: {averageMood}</h2>
+      <h2 className="average-mood-score">Average mood score: {averageMood}/5</h2>
       <h3 className="affirmation">{quote}</h3>
       </div>
  {(!allFavorites || !allFavorites.length) ? <h3 className='no-favorites'>You currently do not have any favorites recipes stored.</h3> : <RecipeGrid items={filteredRecipes} /> }

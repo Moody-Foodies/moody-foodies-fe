@@ -233,6 +233,7 @@ console.log(users)
               favorites={favorites}
               error={error}
               healthBenefits={recipe.attributes.health_benefits}
+              nutrient={recipe.attributes.nutrient}
             />
           )
         })}

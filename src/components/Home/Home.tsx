@@ -141,7 +141,6 @@ if(error) {
       <h1 className='name'>Brain Food</h1>
 
           <FormControl>
-          {/* <FormLabel className='label' sx={{color: '#390400'}} component="legend">I want to feel ...</FormLabel> */}
           <p className='label'>I want to feel ...</p>
           <RadioGroup
           row

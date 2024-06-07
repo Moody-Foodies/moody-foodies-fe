@@ -55,6 +55,8 @@
 .benefit-container {
     background-color: #eed9c4;
     margin-top: 20px;
+    width: 85vw;
+    border-radius: 20px;
 }
 
 span {

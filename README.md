@@ -2,7 +2,7 @@
 # Brain Food / Frontend Repository
 
 ## Abstract
-Brain Food is a fullstack responsive web application that allows users to login, enter a mood level for the day on a sadness to happiness scale from 1-5, and time allotted to cook. Users can choose a color theme for the application dependent how they want to feel. When a mood level and time to cook input is entered, recipes will then populate based on nutritional value meant to either boost or maintain mood levels. Users have the option to favorite recipes and view details, such as cook time, nutritional content, ingredients needed to make the meal, and instructions on how to do so. A personal dashboard is available to view favorited recipes, delete recipes, view recipe details, search for recipes by name, and personally rate recipes on a star rating system. Brain Food was created using React Vite + TypeScript and tested with Cypress. Acccessibilty ... Happy cooking! 
+Brain Food is a fullstack responsive web application that allows users to signup for an account, login, enter a mood level for the day on a sadness to happiness scale from 1-5, and time allotted to cook. Users can choose a color theme for the application dependent how they want to feel. When a mood level and time to cook input is entered, recipes will then populate based on nutritional value meant to either boost or maintain mood levels. Users have the option to favorite recipes and view details, such as cook time, nutritional content, ingredients needed to make the meal, and instructions on how to do so. A personal dashboard is available to view favorited recipes, delete recipes, view recipe details, search for recipes by name, view average mood level, and personally rate recipes on a star rating system. Brain Food was created using React Vite + TypeScript and tested with Cypress. Accessibility was assessed via Chrome DevTools Lighthouse and Chrome WAVE extension. Happy cooking! 
 
 ## Contributors
 [Erin Kelley](https://github.com/kelleyej) [Jack Sweeney](https://github.com/JackCSweeney) [Faisal Nazari](https://github.com/mfaisalnazari) [Igor Magalhaes](https://github.com/IgorrMagalhaess) [Laura Long](https://github.com/lalonggone/)
@@ -13,7 +13,7 @@ Brain Food is a fullstack responsive web application that allows users to login,
 ## App Preview
 
 ## Deployed Link 
-[Brain Food] (https://jade-lebkuchen-46144d.netlify.app/)
+[Brain Food](https://jade-lebkuchen-46144d.netlify.app/)
 
 ## Local Installation and Setup
 1. Clone this repository to your local machine:
@@ -43,15 +43,18 @@ Brain Food is a fullstack responsive web application that allows users to login,
    - Build a fullstack application over a four-week period.
    - Successfully implement a stretch technology into the application. 
    - Collaborate on a team utilizing the SCRUM/Agile methodology, holding daily standups, sprints, frequent communication, and check-ins with our project manager.
-   - Utilize CI/CD to ensure seamless integration, streamline workflow, and maintain clean, quality code. 
+   - Utilize CI/CD to ensure seamless integration, streamline workflow, and maintain clean, quality code.
+     
 - Wins
   - Setting up CirclCI with Netlifly for continuous integration/continous deployment.
   - Leaning and utilizing TypeScript through the codebase.
   - Working with backend developers to build a fullstack application!
   - Making the application responsive across all major breakpoints.
-  - Developing a highly accessible application, verified with Chrome DevTools Lighthouse and Chrome WAVE extension. 
+  - Developing a highly accessible application, verified with Chrome DevTools Lighthouse and Chrome WAVE extension.
+     
 - Challenges
-  - 
+  - Setting up the config.yml file for CI/CD implementation and troubleshooting pipeline errors. 
+  - Navigating user error handling and proper user feedback with missing pieces of data, to ensure a strong and positive user experience. 
 
 ## Future Improvements 
 - Create a save password feature for the login form and allow users to login in with Google or Facebook.

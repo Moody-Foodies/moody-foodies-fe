@@ -178,7 +178,7 @@ console.log(users)
         }
       },
       {
-        breakpoint: 900,
+        breakpoint: 700,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
@@ -233,6 +233,7 @@ console.log(users)
               favorites={favorites}
               error={error}
               healthBenefits={recipe.attributes.health_benefits}
+              nutrient={recipe.attributes.nutrient}
             />
           )
         })}

@@ -134,10 +134,6 @@ input {
   min-height: 100vh;
 }
 
-/* .landing-page {
-  min-height: 130vh;
-} */
-
 .label {
   font-style: italic;
   margin-top: 5px;
@@ -167,7 +163,6 @@ h2 {
   .slider-container {
     width: 200px;
     justify-content: center;
-    /* background-color: transparent; */
   }
 
   .link-cont {
@@ -183,9 +178,11 @@ h2 {
   h1 {
     font-size: 3em; 
     margin-top: 50px;
+    margin-left: 10px;
   }
+  
   input {
-    width: 50px
+    width: 60px
   }
 
   h2 {

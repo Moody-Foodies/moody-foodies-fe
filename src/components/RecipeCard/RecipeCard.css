@@ -1,6 +1,6 @@
 .slick-slide > div {
-    background-color: rgb(192, 108, 132, .95);
-    height: 60vh; 
+    background-color: #cf7979;
+    height: 55vh; 
     margin-right: 15px;
     margin-left: 15px;
     margin-top: 40px; 
@@ -9,6 +9,23 @@
     font-family: "DM Sans", sans-serif;
     font-optical-sizing: auto;
     font-style: normal;
+}
+
+.nutrient {
+    position: absolute; 
+    top: 0; 
+    right: 0;
+    background-color: #fdffcd;
+    color: #390400;
+    display: flex;
+    justify-content: center;
+}
+
+.nutrient-header {
+    font-size: 1.2em;
+    margin-bottom: 0;
+    padding: 5px;
+    margin-top: 0;
 }
 
 .link-instructions {
@@ -95,6 +112,7 @@ li {
 .image-container {
     height: 270px;
     width: 100%;
+    position: relative;
 }
 
 .exit {
@@ -111,10 +129,17 @@ li {
 }
 
 @media screen and (max-width: 1350px) {
-    .title {
-        font-size: 2.5;
-        position: absolute; 
-        left: 0; 
-        margin-left: 20px;
+
+    .slick-slide > div {
+        height: 60vh;
+        margin-bottom: 30px;
+    }
+
+    .link-container {
+        position: none;
+    }
+
+    .name-container {
+        height: 80px;
     }
 }

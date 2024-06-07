@@ -29,7 +29,7 @@ const style = {
     transform: 'translate(-50%, -50%)',
     width: 400,
     height: 200,
-    bgcolor: '#ffc0d0',
+    bgcolor: '#f5e1da',
     overflowY: "auto",
     boxShadow: 24,
     borderRadius: 10,
@@ -134,7 +134,7 @@ export default function Card({name, image, id, ingredients, instructions, getRat
     'backgroundPosition': 'center'}}></div> : <div className='image' style={{ 'backgroundImage': `url(${Filler})`, 'backgroundSize': 'cover',
     'backgroundPosition': 'center'}}></div> }
     <button className='recipe-btn' onClick={handleClick}>Details</button>
-            <img className='delete' onClick={handleOpen} src={Delete} tabIndex={0} onKeyDown={(event) => deleteRecipe(event, id)} alt='Icon of a trash bin'/>
+            <img className='delete' onClick={handleOpen} src={Delete} aria-label='delete' tabIndex={0} onKeyDown={(event) => deleteRecipe(event, id)} alt='Icon of a trash bin'/>
         <Modal
         open={open}
         onClose={handleClose}

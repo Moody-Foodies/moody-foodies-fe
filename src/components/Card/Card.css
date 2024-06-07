@@ -4,6 +4,7 @@
     height: 420px;
     position: relative;
     border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .recipe-details {
@@ -23,6 +24,9 @@
 
 .favorite-name-container {
     height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .star-rating-container {
@@ -43,8 +47,12 @@
     cursor: pointer;
     border-radius: 20px; 
     margin-top: 20px;
-    background-color: #fff6f6;
+    background-color: #73b1c1;
     border: none;
+    color: #390400;
+    font-family: "DM Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
 }
 
 .grid-recipe-name {

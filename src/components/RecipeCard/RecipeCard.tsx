@@ -34,6 +34,7 @@ interface RecipeProps {
   cookTime: string, 
   description: string, 
   id: string,
+  nutrient: string,
   error: string,
   favorites: string[],
   healthBenefits: string,
@@ -41,7 +42,7 @@ interface RecipeProps {
   removeFavorite: (id: string) => void
 }
 
-export default function RecipeCard({name, image, ingredients, id, instructions, cookTime, favorites, removeFavorite, toggleFavorite}: RecipeProps){
+export default function RecipeCard({name, image, ingredients, id, instructions, nutrient, cookTime, favorites, removeFavorite, toggleFavorite}: RecipeProps){
     const [open, setOpen] = useState<boolean>(false);
     const [favorite, setFavorite] = useState(false);
 
@@ -72,6 +73,7 @@ export default function RecipeCard({name, image, ingredients, id, instructions, 
        {(image === '') ? <div className='image-container' style={{ 'backgroundImage': `url(${Filler})`, 'backgroundSize': 'cover',
     'backgroundPosition': 'center'}}></div> : <div className='image-container' style={{ 'backgroundImage': `url(${image})`, 'backgroundSize': 'cover',
     'backgroundPosition': 'center'}}></div>}
+    <div className='nutrient'><h2 className='nutrient-header' >Rich in {nutrient}</h2></div>
     <div className='name-container'><h2 className='recipe-carousel-name'>{name}</h2></div>
         {(Number(cookTime) > 0) && <div className='clock-container'><img alt='A clock icon' className='clock' src={Clock} /><h3 className='cook-time-board'>{cookTime} minutes</h3></div>}
           <Button sx={{'position': 'absolute', 'bottom': 0, 'left': 10, 'color': '#390400' }}onClick={handleOpen}>Ingredients & Instructions</Button>
@@ -93,12 +95,12 @@ export default function RecipeCard({name, image, ingredients, id, instructions, 
             <div>
                 <h2 className='modal-text' id='instructions'>Instructions</h2>
                 {(instructions.length === 1) ? <a className='link-instructions' href={instructions[0]}>Click here for instructions.</a> : instructions.map((instruction, index) => <p className='modal-text'>{(index + 1)}: {instruction}</p>)}
-                <img onClick={handleClose} onKeyDown={(event) => accessibleExit(event)} tabIndex={0} src={Exit} alt='A black X icon' className='exit' />
+                <img onClick={handleClose} onKeyDown={(event) => accessibleExit(event)} tabIndex={0} aria-label='exit modal' src={Exit} alt='A black X icon' className='exit' />
             </div>
           </Typography>
         </Box>
       </Modal>
-        {(!favorites.includes(id)) ? <div className='heart-container'><img tabIndex={0} className='heart' alt='White heart icon with a black outline' src={Unfavorite} onKeyDown={() => test(id)} onClick={() => test(id)} /></div> : <div className='heart-container'><img className='heart' tabIndex={0} alt='Red heart icon' src={Favorite} onKeyDown={() => test(id)} onClick={() => test(id)} /></div> }
+        {(!favorites.includes(id)) ? <div className='heart-container'><img tabIndex={0} aria-label='unfavorite' className='heart' alt='White heart icon with a black outline' src={Unfavorite} onKeyDown={() => test(id)} onClick={() => test(id)} /></div> : <div className='heart-container'><img className='heart' aria-label='favorite' tabIndex={0} alt='Red heart icon' src={Favorite} onKeyDown={() => test(id)} onClick={() => test(id)} /></div> }
      
      </div> 
 

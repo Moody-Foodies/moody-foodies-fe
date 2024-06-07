@@ -48,7 +48,6 @@ function getToken(){
     return initialValue || "";
   }
 
-
 const time = new Date().getHours()
 useEffect(() => {
   if (time < 12) {
@@ -58,7 +57,6 @@ useEffect(() => {
 } else {
   setTimeOfDay('Good evening')
 }
-
 }, [])
 
 console.log('USER:', user)
@@ -117,9 +115,7 @@ if(error) {
     )
   }
 
-
   return (
-
     <main 
     style=
     {{ 

@@ -139,7 +139,7 @@ useEffect(() => {
       <h2 className="average-mood-score">Average mood score: {averageMood}/5</h2>
       <h3 className="affirmation">{quote}</h3>
       </div>
- {(!allFavorites || !allFavorites.length) ? <h3 className='no-favorites'>You currently do not have any favorites recipes stored.</h3> : <RecipeGrid items={filteredRecipes} /> }
+ {(!allFavorites || !allFavorites.length) ? <h3 className='no-favorites'>You currently do not have any favorite recipes stored.</h3> : <RecipeGrid items={filteredRecipes} /> }
     </section>
   )
 }

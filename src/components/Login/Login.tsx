@@ -132,12 +132,14 @@ export default function Login(){
           } else {
             setUser(data.data.id)
             setToken(data.data.attributes.token)
+            sessionStorage.setItem('user', JSON.stringify(data.data.id))
+            sessionStorage.setItem('token', JSON.stringify(data.data.attributes.token))
             navigate('/home')
           }
         })
         .catch(error => console.log(error))
         }
-
+        
     return (
         <main className='form-container'>
             <motion.section initial={{ y: -1000 }} animate={{ y: 0 }} transition={{ duration: 2, type: "spring", stiffness: 100, damping: 12 }} className='login-container'>
@@ -177,8 +179,7 @@ export default function Login(){
                 <div className='password-icon'>
                   <input placeholder='Enter your password here'  id='password-signup' value={signUpPassword} onChange={(event) => setSignUpPassword(event.target.value)} className='login' type={(show) ? 'text' : 'password'}></input> 
                 {(show) ? <img className='hide' aria-label='Hide password' tabIndex={0} alt='Icon of an eye with a slash through it' src={Hide} onClick={() => setShow(!show)} onKeyDown={() => setShow(!show)} /> : <img tabIndex={0} className='show' alt='Icon of an eye' aria-label='Show password' src={Show} onClick={() => setShow(!show)} onKeyDown={() => setShow(!show)} />}  
-                </div>
-                
+                </div>     
             </form>
             {emailError && <p className='email-error'>{emailError}</p>}
             <button className='sign-in-button' onClick={() => postSignUp()}>Sign up</button> 

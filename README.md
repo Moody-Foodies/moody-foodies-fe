@@ -50,7 +50,7 @@ Brain Food is a fullstack responsive web application that allows users to signup
    - Utilize CI/CD to ensure seamless integration, streamline workflow, and maintain clean, quality code.
      
 - Wins
-  - Setting up CirclCI with Netlifly for continuous integration/continous deployment.
+  - Setting up CircleCI with Netlifly for continuous integration/continous deployment.
   - Leaning and utilizing TypeScript through the codebase.
   - Working with backend developers to build a fullstack application!
   - Making the application responsive across all major breakpoints.

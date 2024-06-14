@@ -40,7 +40,7 @@ Brain Food is a fullstack responsive web application that allows users to signup
    npm run dev
    ```
 
-5. Open the app at [http://127.0.0.1:5173/) in your browser.
+5. Open the app at http://127.0.0.1:5173/ in your browser.
 
 ## Context
 - Goals

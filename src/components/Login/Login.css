@@ -11,6 +11,7 @@
 .password-icon {
     position: relative;
     height: 30px;
+    margin-bottom: 22px;
 }
 
 input {
@@ -136,7 +137,7 @@ label {
 .sign-in-button {
     position: absolute; 
     bottom: 0; 
-    margin-bottom: 65px;
+    margin-bottom: 28px;
 }
 
 .sign-in {

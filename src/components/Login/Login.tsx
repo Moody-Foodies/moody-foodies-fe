@@ -17,7 +17,7 @@ const style = {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: 450,
-    height: 520,
+    height: 600,
     bgcolor: '#8F9779',
     overflowY: "auto",
     boxShadow: 24,
@@ -33,13 +33,16 @@ export default function Login(){
     const [password, setPassword] = useState<string>('')
     const [name, setName] = useState<string>('')
     const [show, setShow] = useState<boolean>(false)
+    const [confirmShow, setConfirmShow] = useState<boolean>(false)
     const [signUpEmail, setSignUpEmail] = useState<string>('')
     const [signUpPassword, setSignUpPassword] = useState<string>('')
+    const [signUpConfirm, setSignUpConfirm] = useState('')
     const [user, setUser] = useState<string>('')
     const [emailError, setEmailError] = useState<string>('')
     const [error, setError] = useState<string>('')
     const [invalidError, setInvalidError] = useState<string>('')
     const [token, setToken] = useState<string>('')
+    const [confirmation, setConfirmation] = useState<boolean>(true)
 
     useEffect(() => {
       sessionStorage.setItem('token', JSON.stringify(token))
@@ -129,6 +132,8 @@ export default function Login(){
         .then(data => {
           if(data.errors) {
             setEmailError(data.errors[0].detail[0])
+          } else if(signUpPassword !== signUpConfirm) {
+            setConfirmation(false)
           } else {
             setUser(data.data.id)
             setToken(data.data.attributes.token)
@@ -137,6 +142,7 @@ export default function Login(){
             navigate('/home')
           }
         })
+        
         .catch(error => console.log(error))
         }
         
@@ -179,9 +185,15 @@ export default function Login(){
                 <div className='password-icon'>
                   <input placeholder='Enter your password here'  id='password-signup' value={signUpPassword} onChange={(event) => setSignUpPassword(event.target.value)} className='login' type={(show) ? 'text' : 'password'}></input> 
                 {(show) ? <img className='hide' aria-label='Hide password' tabIndex={0} alt='Icon of an eye with a slash through it' src={Hide} onClick={() => setShow(!show)} onKeyDown={() => setShow(!show)} /> : <img tabIndex={0} className='show' alt='Icon of an eye' aria-label='Show password' src={Show} onClick={() => setShow(!show)} onKeyDown={() => setShow(!show)} />}  
+                </div> 
+                <label htmlFor='password-signup'>Confirm Password:</label>
+                <div className='password-icon'>
+                  <input placeholder='Enter your password again here'  id='password-signup' value={signUpConfirm} onChange={(event) => setSignUpConfirm(event.target.value)} className='login' type={(confirmShow) ? 'text' : 'password'}></input> 
+                {(confirmShow) ? <img className='hide' aria-label='Hide password' tabIndex={0} alt='Icon of an eye with a slash through it' src={Hide} onClick={() => setConfirmShow(!confirmShow)} onKeyDown={() => setConfirmShow(!confirmShow)} /> : <img tabIndex={0} className='show' alt='Icon of an eye' aria-label='Show password' src={Show} onClick={() => setConfirmShow(!confirmShow)} onKeyDown={() => setConfirmShow(!confirmShow)} />}  
                 </div>     
             </form>
             {emailError && <p className='email-error'>{emailError}</p>}
+            {!confirmation && <p className='email-error'>Passwords do not match</p>}
             <button className='sign-in-button' onClick={() => postSignUp()}>Sign up</button> 
           </Typography>
           <img src={Exit} alt='A black X icon' onKeyDown={(event) => test(event)} onClick={handleClose} tabIndex={0} className='exit' />

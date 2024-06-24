@@ -64,6 +64,7 @@ export default function Login(){
       setName('')
       setSignUpPassword('')
       setEmailError('')
+      setSignUpConfirm('')
     }
 
     function postLogin() {
@@ -134,6 +135,7 @@ export default function Login(){
             setEmailError(data.errors[0].detail[0])
           } else if(signUpPassword !== signUpConfirm) {
             setConfirmation(false)
+            setEmailError('')
           } else {
             setUser(data.data.id)
             setToken(data.data.attributes.token)
@@ -177,8 +179,8 @@ export default function Login(){
             <h2 className='create-account'>Create a Brain Food Account</h2>
             <h3 className='cook-header'>Let's get cookin'!</h3>
           <form>
-                <label htmlFor='name'>Name:</label>
-                <input placeholder='Enter your name here' type='text' id='name' value={name} className='login' onChange={(event) => setName(event.target.value)}/>
+                <label htmlFor='name'>First Name:</label>
+                <input placeholder='Enter your first name here' type='text' id='name' value={name} className='login' onChange={(event) => setName(event.target.value)}/>
                 <label htmlFor='email-signup'>Email:</label>
                 <input placeholder='Enter your email address here' id='email-signup' value={signUpEmail} className='login' type='text' onChange={(event) => setSignUpEmail(event.target.value)}></input>
                 <label htmlFor='password-signup'>Password:</label>

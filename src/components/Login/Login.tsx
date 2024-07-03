@@ -151,6 +151,19 @@ export default function Login(){
             setEmailError('')
       }
         }
+
+    function togglePasswordVisibility(event) {
+      if(event.key === 'Enter' || event.key === ' ') {
+        setShow(!show)
+        console.log('enter')
+      }
+    }
+
+    function togglePasswordConfirmationVisibility(event) {
+      if(event.key === 'Enter' || event.key === ' ') {
+        setConfirmShow(!confirmShow)
+      }
+    }
         
     return (
         <main className='form-container'>
@@ -164,7 +177,7 @@ export default function Login(){
                 <label htmlFor='password'>Password:</label>
                 <div className='password-icon'>
                   <input placeholder='Enter your password here'  id='password' value={password} onChange={(event) => setPassword(event.target.value)} className='login' type={(show) ? 'text' : 'password'}></input> 
-                {(show) ? <img tabIndex={0} className='hide' aria-label='Hide password' alt='Icon of an eye with a slash through it' src={Hide} onClick={() => setShow(!show)} onKeyDown={() => setShow(!show)} /> : <img tabIndex={0} className='show' alt='Icon of an eye' aria-label='Show password' src={Show} onKeyDown={() => setShow(!show)} onClick={() => setShow(!show)}/>}  
+                {(show) ? <img tabIndex={0} className='hide' aria-label='Hide password' alt='Icon of an eye with a slash through it' src={Hide} onClick={() => setShow(!show)} onKeyDown={(event) => togglePasswordVisibility(event)} /> : <img tabIndex={0} className='show' alt='Icon of an eye' aria-label='Show password' src={Show} onKeyDown={(event) => togglePasswordVisibility(event)} onClick={() => setShow(!show)}/>}  
                 </div>
             </form>
             {invalidError && <p className='invalid-error'>{invalidError}</p>}
@@ -190,12 +203,12 @@ export default function Login(){
                 <label htmlFor='password-signup'>Password:</label>
                 <div className='password-icon'>
                   <input placeholder='Enter your password here'  id='password-signup' value={signUpPassword} onChange={(event) => setSignUpPassword(event.target.value)} className='login' type={(show) ? 'text' : 'password'}></input> 
-                {(show) ? <img className='hide' aria-label='Hide password' tabIndex={0} alt='Icon of an eye with a slash through it' src={Hide} onClick={() => setShow(!show)} onKeyDown={() => setShow(!show)} /> : <img tabIndex={0} className='show' alt='Icon of an eye' aria-label='Show password' src={Show} onClick={() => setShow(!show)} onKeyDown={() => setShow(!show)} />}  
+                {(show) ? <img className='hide' aria-label='Hide password' tabIndex={0} alt='Icon of an eye with a slash through it' src={Hide} onClick={() => setShow(!show)} onKeyDown={(event) => togglePasswordVisibility(event)} /> : <img tabIndex={0} className='show' alt='Icon of an eye' aria-label='Show password' src={Show} onClick={() => setShow(!show)} onKeyDown={(event) => togglePasswordVisibility(event)} />}  
                 </div> 
                 <label htmlFor='password-signup'>Confirm Password:</label>
                 <div className='password-icon'>
                   <input placeholder='Enter your password again here'  id='password-signup' value={signUpConfirm} onChange={(event) => setSignUpConfirm(event.target.value)} className='login' type={(confirmShow) ? 'text' : 'password'}></input> 
-                {(confirmShow) ? <img className='hide' aria-label='Hide password' tabIndex={0} alt='Icon of an eye with a slash through it' src={Hide} onClick={() => setConfirmShow(!confirmShow)} onKeyDown={() => setConfirmShow(!confirmShow)} /> : <img tabIndex={0} className='show' alt='Icon of an eye' aria-label='Show password' src={Show} onClick={() => setConfirmShow(!confirmShow)} onKeyDown={() => setConfirmShow(!confirmShow)} />}  
+                {(confirmShow) ? <img className='hide' aria-label='Hide password' tabIndex={0} alt='Icon of an eye with a slash through it' src={Hide} onClick={() => setConfirmShow(!confirmShow)} onKeyDown={(event) => togglePasswordConfirmationVisibility(event)} /> : <img tabIndex={0} className='show' alt='Icon of an eye' aria-label='Show password' src={Show} onClick={() => setConfirmShow(!confirmShow)} onKeyDown={(event) => togglePasswordConfirmationVisibility(event)} />}  
                 </div>     
             </form>
             {emailError && <p className='email-error'>{emailError}</p>}

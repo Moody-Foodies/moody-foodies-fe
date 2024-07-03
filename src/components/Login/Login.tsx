@@ -116,6 +116,7 @@ export default function Login(){
     }
 
     function postSignUp() {
+      setConfirmation(true)
       if(signUpPassword === signUpConfirm) {
         fetch('https://brain-food-501b641e50fb.herokuapp.com/api/v1/users', {
             method: 'POST', 

@@ -28,7 +28,7 @@ export default function Home() {
   const navigate = useNavigate()
   const [loadingMessage, setLoadingMessage] = useState<string>('Loading Recipes ...')
 
-const array = ['Loading Recipes...', 'Cookin up something good!']
+const array = ['Loading Recipes...', 'We\'re cooking up something good...']
 let index = 1
 
 function displayMessages() {

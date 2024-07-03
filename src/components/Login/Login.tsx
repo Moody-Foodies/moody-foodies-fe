@@ -116,6 +116,7 @@ export default function Login(){
     }
 
     function postSignUp() {
+      if(signUpPassword === signUpConfirm) {
         fetch('https://brain-food-501b641e50fb.herokuapp.com/api/v1/users', {
             method: 'POST', 
             body: JSON.stringify({
@@ -127,15 +128,13 @@ export default function Login(){
                 'Content-Type': 'application/json'
             }
         })
+      
         .then(res => {
           return res.json()
         })
         .then(data => {
           if(data.errors) {
             setEmailError(data.errors[0].detail[0])
-          } else if(signUpPassword !== signUpConfirm) {
-            setConfirmation(false)
-            setEmailError('')
           } else {
             setUser(data.data.id)
             setToken(data.data.attributes.token)
@@ -146,6 +145,10 @@ export default function Login(){
         })
         
         .catch(error => console.log(error))
+      } else {
+        setConfirmation(false)
+            setEmailError('')
+      }
         }
         
     return (

@@ -170,10 +170,10 @@ console.log('LOADING:', loading)
             </div>
             <form>
                 <label htmlFor='email'>Email:</label>
-                <input id='email' className='login' value={email} type='text' placeholder='Enter your email address here' onChange={(event) => setEmail(event.target.value)}></input>
+                <input id='email' className='login' value={email} type='text' placeholder='Enter your email address' onChange={(event) => setEmail(event.target.value)}></input>
                 <label htmlFor='password'>Password:</label>
                 <div className='password-icon'>
-                  <input placeholder='Enter your password here'  id='password' value={password} onChange={(event) => setPassword(event.target.value)} className='login' type={(showLogin) ? 'text' : 'password'}></input> 
+                  <input placeholder='Enter your password'  id='password' value={password} onChange={(event) => setPassword(event.target.value)} className='login' type={(showLogin) ? 'text' : 'password'}></input> 
                 {(showLogin) ? <img tabIndex={0} className='hide' aria-label='Hide password' alt='Icon of an eye with a slash through it' src={Hide} onClick={() => setShowLogin(!showLogin)} onKeyDown={(event) => toggleVisibility(event)} /> : <img tabIndex={0} className='show' alt='Icon of an eye' aria-label='Show password' src={Show} onKeyDown={(event) => toggleVisibility(event)} onClick={() => setShowLogin(!showLogin)}/>}  
                 </div>
             </form>
@@ -195,17 +195,17 @@ console.log('LOADING:', loading)
             <h3 className='cook-header'>Let's get cookin'!</h3>
           <form>
                 <label htmlFor='name'>First Name:</label>
-                <input placeholder='Enter your first name here' type='text' id='name' value={name} className='login' onChange={(event) => setName(event.target.value)}/>
+                <input placeholder='Enter your first name' type='text' id='name' value={name} className='login' onChange={(event) => setName(event.target.value)}/>
                 <label htmlFor='email-signup'>Email:</label>
-                <input placeholder='Enter your email address here' id='email-signup' value={signUpEmail} className='login' type='text' onChange={(event) => setSignUpEmail(event.target.value)}></input>
+                <input placeholder='Enter your email address' id='email-signup' value={signUpEmail} className='login' type='text' onChange={(event) => setSignUpEmail(event.target.value)}></input>
                 <label htmlFor='password-signup'>Password:</label>
                 <div className='password-icon'>
-                  <input placeholder='Enter your password here'  id='password-signup' value={signUpPassword} onChange={(event) => setSignUpPassword(event.target.value)} className='login' type={(show) ? 'text' : 'password'}></input> 
+                  <input placeholder='Enter your password'  id='password-signup' value={signUpPassword} onChange={(event) => setSignUpPassword(event.target.value)} className='login' type={(show) ? 'text' : 'password'}></input> 
                 {(show) ? <img className='hide' aria-label='Hide password' tabIndex={0} alt='Icon of an eye with a slash through it' src={Hide} onClick={() => setShow(!show)} onKeyDown={(event) => togglePasswordVisibility(event)} /> : <img tabIndex={0} className='show' alt='Icon of an eye' aria-label='Show password' src={Show} onClick={() => setShow(!show)} onKeyDown={(event) => togglePasswordVisibility(event)} />}  
                 </div> 
                 <label htmlFor='password-signup-confirm'>Confirm Password:</label>
                 <div className='password-icon'>
-                  <input placeholder='Enter your password again here'  id='password-signup-confirm' value={signUpConfirm} onChange={(event) => setSignUpConfirm(event.target.value)} className='login' type={(confirmShow) ? 'text' : 'password'}></input> 
+                  <input placeholder='Confirm your password'  id='password-signup-confirm' value={signUpConfirm} onChange={(event) => setSignUpConfirm(event.target.value)} className='login' type={(confirmShow) ? 'text' : 'password'}></input> 
                 {(confirmShow) ? <img className='hide' aria-label='Hide password' tabIndex={0} alt='Icon of an eye with a slash through it' src={Hide} onClick={() => setConfirmShow(!confirmShow)} onKeyDown={(event) => togglePasswordConfirmationVisibility(event)} /> : <img tabIndex={0} className='show' alt='Icon of an eye' aria-label='Show password' src={Show} onClick={() => setConfirmShow(!confirmShow)} onKeyDown={(event) => togglePasswordConfirmationVisibility(event)} />}  
                 </div>     
             </form>

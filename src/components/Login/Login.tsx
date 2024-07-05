@@ -1,6 +1,6 @@
 import './Login.css';
 import { motion } from 'framer-motion';
-import { useState, KeyboardEvent, useEffect } from 'react';
+import { useState, KeyboardEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -10,6 +10,7 @@ import Hide from '../../assets/hide.png';
 import Show from '../../assets/show.png';
 import Exit from '../../assets/exit.png';
 import Error from '../Error/Error';
+import Loading from '../../assets/loading.gif';
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -44,15 +45,9 @@ export default function Login(){
     const [token, setToken] = useState<string>('')
     const [confirmation, setConfirmation] = useState<boolean>(true)
     const [showLogin, setShowLogin] = useState<boolean>(false)
+    const [loading, setLoading] = useState<boolean>(false)
+    const [signUpLoading, setSignUpLoading] = useState<boolean>(false)
 
-    useEffect(() => {
-      sessionStorage.setItem('token', JSON.stringify(token))
-    }, [token])
-
-    useEffect(() => {
-      sessionStorage.setItem('user', JSON.stringify(user))
-    }, [user])
-    
     const navigate = useNavigate()
 
     function handleOpen() {
@@ -86,10 +81,11 @@ export default function Login(){
           if(data.errors) {
             setInvalidError(data.errors[0].detail)
           } else {
+            setLoading(true)
             setUser(data.data.id)
             setToken(data.data.attributes.token)
-            sessionStorage.setItem('user', JSON.stringify(data.data.id))
-            sessionStorage.setItem('token', JSON.stringify(data.data.attributes.token))
+            localStorage.setItem('user', JSON.stringify(data.data.id))
+            localStorage.setItem('token', JSON.stringify(data.data.attributes.token))
             navigate('/home')
           }
         })
@@ -97,7 +93,7 @@ export default function Login(){
           setError(error.message)
         })
     }
-
+console.log('LOADING:', loading)
     if(error) {
       return (
         <Error />
@@ -138,10 +134,11 @@ export default function Login(){
           if(data.errors) {
             setEmailError(data.errors[0].detail[0])
           } else {
+            setSignUpLoading(true)
             setUser(data.data.id)
             setToken(data.data.attributes.token)
-            sessionStorage.setItem('user', JSON.stringify(data.data.id))
-            sessionStorage.setItem('token', JSON.stringify(data.data.attributes.token))
+            localStorage.setItem('user', JSON.stringify(data.data.id))
+            localStorage.setItem('token', JSON.stringify(data.data.attributes.token))
             navigate('/home')
           }
         })
@@ -156,7 +153,6 @@ export default function Login(){
     function togglePasswordVisibility(event: KeyboardEvent) {
       if(event.key === 'Enter' || event.key === ' ') {
         setShow(!show)
-        console.log('enter')
       }
     }
 
@@ -171,10 +167,10 @@ export default function Login(){
         setConfirmShow(!confirmShow)
       }
     }
-        
+
     return (
         <main className='form-container'>
-            <motion.section initial={{ y: -1000 }} animate={{ y: 0 }} transition={{ duration: 2, type: "spring", stiffness: 100, damping: 12 }} className='login-container'>
+            <motion.section initial={{ y: 50 }} animate={{ y: 0 }} transition={{ duration: 1 }} className='login-container'>
             <div className='logo-header'>
               <h1 className='name'>Brain Food</h1>  
             </div>
@@ -188,6 +184,7 @@ export default function Login(){
                 </div>
             </form>
             {invalidError && <p className='invalid-error'>{invalidError}</p>}
+            {(loading) && <img className='loading' src={Loading} />}
             <button className='sign-in' onClick={() => postLogin()}>Sign in</button> 
             <button className='reset' onClick={() => clearForm()}>Reset form</button>
             <div className='account-styling'> 
@@ -220,6 +217,7 @@ export default function Login(){
             </form>
             {emailError && <p className='email-error'>{emailError}</p>}
             {!confirmation && <p className='email-error'>Passwords do not match</p>}
+            {(signUpLoading) && <img className='loading-sign-up' src={Loading} />}
             <button className='sign-in-button' onClick={() => postSignUp()}>Sign up</button> 
           </Typography>
           <img src={Exit} alt='A black X icon' onKeyDown={(event) => test(event)} onClick={handleClose} tabIndex={0} className='exit' />

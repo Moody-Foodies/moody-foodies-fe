@@ -40,27 +40,29 @@ function displayMessages() {
   index++
 }
 
-
-  useEffect(() => {
-    console.log(setUser)
-  console.log(setToken)
-  }, [])
-
   useEffect(() => {
     sessionStorage.setItem('value', JSON.stringify(value))
   }, [value])
       
 function getToken(){
-    const token = sessionStorage.getItem('token') || '';
+    const token = localStorage.getItem('token') || '';
     const initialValue = token ? JSON.parse(token) : null;
     return initialValue || "";
     }
 
   function getUser(){
-    const user = sessionStorage.getItem('user') || '';
+    const user = localStorage.getItem('user') || '';
     const initialValue = user ? JSON.parse(user) : null;
     return initialValue || "";
   }
+
+  useEffect(() => {
+    setToken(token)
+    setUser(user)
+  }, [])
+
+  console.log('TOKEN:', token)
+  console.log('USER:', user)
 
 const time = new Date().getHours()
 useEffect(() => {

@@ -209,7 +209,8 @@ label {
 
     #name, 
     #email-signup, 
-    #password-signup {
+    #password-signup, 
+    #password-signup-confirm {
         width: 360px;
     }
 

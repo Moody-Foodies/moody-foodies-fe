@@ -43,6 +43,7 @@ export default function Login(){
     const [invalidError, setInvalidError] = useState<string>('')
     const [token, setToken] = useState<string>('')
     const [confirmation, setConfirmation] = useState<boolean>(true)
+    const [showLogin, setShowLogin] = useState<boolean>(false)
 
     useEffect(() => {
       sessionStorage.setItem('token', JSON.stringify(token))
@@ -152,14 +153,20 @@ export default function Login(){
       }
         }
 
-    function togglePasswordVisibility(event) {
+    function togglePasswordVisibility(event: KeyboardEvent) {
       if(event.key === 'Enter' || event.key === ' ') {
         setShow(!show)
         console.log('enter')
       }
     }
 
-    function togglePasswordConfirmationVisibility(event) {
+    function toggleVisibility(event: KeyboardEvent) {
+      if(event.key === 'Enter' || event.key === ' ') {
+        setShowLogin(!showLogin)
+      }
+    }
+
+    function togglePasswordConfirmationVisibility(event: KeyboardEvent) {
       if(event.key === 'Enter' || event.key === ' ') {
         setConfirmShow(!confirmShow)
       }
@@ -176,8 +183,8 @@ export default function Login(){
                 <input id='email' className='login' value={email} type='text' placeholder='Enter your email address here' onChange={(event) => setEmail(event.target.value)}></input>
                 <label htmlFor='password'>Password:</label>
                 <div className='password-icon'>
-                  <input placeholder='Enter your password here'  id='password' value={password} onChange={(event) => setPassword(event.target.value)} className='login' type={(show) ? 'text' : 'password'}></input> 
-                {(show) ? <img tabIndex={0} className='hide' aria-label='Hide password' alt='Icon of an eye with a slash through it' src={Hide} onClick={() => setShow(!show)} onKeyDown={(event) => togglePasswordVisibility(event)} /> : <img tabIndex={0} className='show' alt='Icon of an eye' aria-label='Show password' src={Show} onKeyDown={(event) => togglePasswordVisibility(event)} onClick={() => setShow(!show)}/>}  
+                  <input placeholder='Enter your password here'  id='password' value={password} onChange={(event) => setPassword(event.target.value)} className='login' type={(showLogin) ? 'text' : 'password'}></input> 
+                {(showLogin) ? <img tabIndex={0} className='hide' aria-label='Hide password' alt='Icon of an eye with a slash through it' src={Hide} onClick={() => setShowLogin(!showLogin)} onKeyDown={(event) => toggleVisibility(event)} /> : <img tabIndex={0} className='show' alt='Icon of an eye' aria-label='Show password' src={Show} onKeyDown={(event) => toggleVisibility(event)} onClick={() => setShowLogin(!showLogin)}/>}  
                 </div>
             </form>
             {invalidError && <p className='invalid-error'>{invalidError}</p>}

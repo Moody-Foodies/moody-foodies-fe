@@ -1,6 +1,6 @@
 import './Login.css';
 import { motion } from 'framer-motion';
-import { useState, KeyboardEvent, useEffect } from 'react';
+import { useState, KeyboardEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -10,6 +10,7 @@ import Hide from '../../assets/hide.png';
 import Show from '../../assets/show.png';
 import Exit from '../../assets/exit.png';
 import Error from '../Error/Error';
+import Loading from '../../assets/loading.gif';
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -17,7 +18,7 @@ const style = {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: 450,
-    height: 520,
+    height: 600,
     bgcolor: '#8F9779',
     overflowY: "auto",
     boxShadow: 24,
@@ -33,22 +34,20 @@ export default function Login(){
     const [password, setPassword] = useState<string>('')
     const [name, setName] = useState<string>('')
     const [show, setShow] = useState<boolean>(false)
+    const [confirmShow, setConfirmShow] = useState<boolean>(false)
     const [signUpEmail, setSignUpEmail] = useState<string>('')
     const [signUpPassword, setSignUpPassword] = useState<string>('')
-    const [user, setUser] = useState<string>('')
+    const [signUpConfirm, setSignUpConfirm] = useState('')
+    // const [user, setUser] = useState<string>('')
     const [emailError, setEmailError] = useState<string>('')
     const [error, setError] = useState<string>('')
     const [invalidError, setInvalidError] = useState<string>('')
-    const [token, setToken] = useState<string>('')
+    // const [token, setToken] = useState<string>('')
+    const [confirmation, setConfirmation] = useState<boolean>(true)
+    const [showLogin, setShowLogin] = useState<boolean>(false)
+    const [loading, setLoading] = useState<boolean>(false)
+    const [signUpLoading, setSignUpLoading] = useState<boolean>(false)
 
-    useEffect(() => {
-      sessionStorage.setItem('token', JSON.stringify(token))
-    }, [token])
-
-    useEffect(() => {
-      sessionStorage.setItem('user', JSON.stringify(user))
-    }, [user])
-    
     const navigate = useNavigate()
 
     function handleOpen() {
@@ -61,6 +60,7 @@ export default function Login(){
       setName('')
       setSignUpPassword('')
       setEmailError('')
+      setSignUpConfirm('')
     }
 
     function postLogin() {
@@ -81,10 +81,11 @@ export default function Login(){
           if(data.errors) {
             setInvalidError(data.errors[0].detail)
           } else {
-            setUser(data.data.id)
-            setToken(data.data.attributes.token)
-            sessionStorage.setItem('user', JSON.stringify(data.data.id))
-            sessionStorage.setItem('token', JSON.stringify(data.data.attributes.token))
+            setLoading(true)
+            // setUser(data.data.id)
+            // setToken(data.data.attributes.token)
+            localStorage.setItem('user', JSON.stringify(data.data.id))
+            localStorage.setItem('token', JSON.stringify(data.data.attributes.token))
             navigate('/home')
           }
         })
@@ -92,7 +93,7 @@ export default function Login(){
           setError(error.message)
         })
     }
-
+console.log('LOADING:', loading)
     if(error) {
       return (
         <Error />
@@ -112,6 +113,8 @@ export default function Login(){
     }
 
     function postSignUp() {
+      setConfirmation(true)
+      if(signUpPassword === signUpConfirm) {
         fetch('https://brain-food-501b641e50fb.herokuapp.com/api/v1/users', {
             method: 'POST', 
             body: JSON.stringify({
@@ -123,6 +126,7 @@ export default function Login(){
                 'Content-Type': 'application/json'
             }
         })
+      
         .then(res => {
           return res.json()
         })
@@ -130,19 +134,43 @@ export default function Login(){
           if(data.errors) {
             setEmailError(data.errors[0].detail[0])
           } else {
-            setUser(data.data.id)
-            setToken(data.data.attributes.token)
-            sessionStorage.setItem('user', JSON.stringify(data.data.id))
-            sessionStorage.setItem('token', JSON.stringify(data.data.attributes.token))
+            setSignUpLoading(true)
+            // setUser(data.data.id)
+            // setToken(data.data.attributes.token)
+            localStorage.setItem('user', JSON.stringify(data.data.id))
+            localStorage.setItem('token', JSON.stringify(data.data.attributes.token))
             navigate('/home')
           }
         })
-        .catch(error => console.log(error))
-        }
         
+        .catch(error => console.log(error))
+      } else {
+        setConfirmation(false)
+            setEmailError('')
+      }
+        }
+
+    function togglePasswordVisibility(event: KeyboardEvent) {
+      if(event.key === 'Enter' || event.key === ' ') {
+        setShow(!show)
+      }
+    }
+
+    function toggleVisibility(event: KeyboardEvent) {
+      if(event.key === 'Enter' || event.key === ' ') {
+        setShowLogin(!showLogin)
+      }
+    }
+
+    function togglePasswordConfirmationVisibility(event: KeyboardEvent) {
+      if(event.key === 'Enter' || event.key === ' ') {
+        setConfirmShow(!confirmShow)
+      }
+    }
+
     return (
         <main className='form-container'>
-            <motion.section initial={{ y: -1000 }} animate={{ y: 0 }} transition={{ duration: 2, type: "spring", stiffness: 100, damping: 12 }} className='login-container'>
+            <motion.section initial={{ y: 50 }} animate={{ y: 0 }} transition={{ duration: 1 }} className='login-container'>
             <div className='logo-header'>
               <h1 className='name'>Brain Food</h1>  
             </div>
@@ -151,11 +179,12 @@ export default function Login(){
                 <input id='email' className='login' value={email} type='text' placeholder='Enter your email address here' onChange={(event) => setEmail(event.target.value)}></input>
                 <label htmlFor='password'>Password:</label>
                 <div className='password-icon'>
-                  <input placeholder='Enter your password here'  id='password' value={password} onChange={(event) => setPassword(event.target.value)} className='login' type={(show) ? 'text' : 'password'}></input> 
-                {(show) ? <img tabIndex={0} className='hide' aria-label='Hide password' alt='Icon of an eye with a slash through it' src={Hide} onClick={() => setShow(!show)} onKeyDown={() => setShow(!show)} /> : <img tabIndex={0} className='show' alt='Icon of an eye' aria-label='Show password' src={Show} onKeyDown={() => setShow(!show)} onClick={() => setShow(!show)}/>}  
+                  <input placeholder='Enter your password here'  id='password' value={password} onChange={(event) => setPassword(event.target.value)} className='login' type={(showLogin) ? 'text' : 'password'}></input> 
+                {(showLogin) ? <img tabIndex={0} className='hide' aria-label='Hide password' alt='Icon of an eye with a slash through it' src={Hide} onClick={() => setShowLogin(!showLogin)} onKeyDown={(event) => toggleVisibility(event)} /> : <img tabIndex={0} className='show' alt='Icon of an eye' aria-label='Show password' src={Show} onKeyDown={(event) => toggleVisibility(event)} onClick={() => setShowLogin(!showLogin)}/>}  
                 </div>
             </form>
             {invalidError && <p className='invalid-error'>{invalidError}</p>}
+            {(loading) && <img className='loading' src={Loading} />}
             <button className='sign-in' onClick={() => postLogin()}>Sign in</button> 
             <button className='reset' onClick={() => clearForm()}>Reset form</button>
             <div className='account-styling'> 
@@ -171,17 +200,24 @@ export default function Login(){
             <h2 className='create-account'>Create a Brain Food Account</h2>
             <h3 className='cook-header'>Let's get cookin'!</h3>
           <form>
-                <label htmlFor='name'>Name:</label>
-                <input placeholder='Enter your name here' type='text' id='name' value={name} className='login' onChange={(event) => setName(event.target.value)}/>
+                <label htmlFor='name'>First Name:</label>
+                <input placeholder='Enter your first name here' type='text' id='name' value={name} className='login' onChange={(event) => setName(event.target.value)}/>
                 <label htmlFor='email-signup'>Email:</label>
                 <input placeholder='Enter your email address here' id='email-signup' value={signUpEmail} className='login' type='text' onChange={(event) => setSignUpEmail(event.target.value)}></input>
                 <label htmlFor='password-signup'>Password:</label>
                 <div className='password-icon'>
                   <input placeholder='Enter your password here'  id='password-signup' value={signUpPassword} onChange={(event) => setSignUpPassword(event.target.value)} className='login' type={(show) ? 'text' : 'password'}></input> 
-                {(show) ? <img className='hide' aria-label='Hide password' tabIndex={0} alt='Icon of an eye with a slash through it' src={Hide} onClick={() => setShow(!show)} onKeyDown={() => setShow(!show)} /> : <img tabIndex={0} className='show' alt='Icon of an eye' aria-label='Show password' src={Show} onClick={() => setShow(!show)} onKeyDown={() => setShow(!show)} />}  
+                {(show) ? <img className='hide' aria-label='Hide password' tabIndex={0} alt='Icon of an eye with a slash through it' src={Hide} onClick={() => setShow(!show)} onKeyDown={(event) => togglePasswordVisibility(event)} /> : <img tabIndex={0} className='show' alt='Icon of an eye' aria-label='Show password' src={Show} onClick={() => setShow(!show)} onKeyDown={(event) => togglePasswordVisibility(event)} />}  
+                </div> 
+                <label htmlFor='password-signup'>Confirm Password:</label>
+                <div className='password-icon'>
+                  <input placeholder='Enter your password again here'  id='password-signup' value={signUpConfirm} onChange={(event) => setSignUpConfirm(event.target.value)} className='login' type={(confirmShow) ? 'text' : 'password'}></input> 
+                {(confirmShow) ? <img className='hide' aria-label='Hide password' tabIndex={0} alt='Icon of an eye with a slash through it' src={Hide} onClick={() => setConfirmShow(!confirmShow)} onKeyDown={(event) => togglePasswordConfirmationVisibility(event)} /> : <img tabIndex={0} className='show' alt='Icon of an eye' aria-label='Show password' src={Show} onClick={() => setConfirmShow(!confirmShow)} onKeyDown={(event) => togglePasswordConfirmationVisibility(event)} />}  
                 </div>     
             </form>
             {emailError && <p className='email-error'>{emailError}</p>}
+            {!confirmation && <p className='email-error'>Passwords do not match</p>}
+            {(signUpLoading) && <img className='loading-sign-up' src={Loading} />}
             <button className='sign-in-button' onClick={() => postSignUp()}>Sign up</button> 
           </Typography>
           <img src={Exit} alt='A black X icon' onKeyDown={(event) => test(event)} onClick={handleClose} tabIndex={0} className='exit' />

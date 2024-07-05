@@ -26,27 +26,43 @@ export default function Home() {
   const [user, setUser] = useState(getUser())
   const [token, setToken] = useState(getToken())
   const navigate = useNavigate()
+  const [loadingMessage, setLoadingMessage] = useState<string>('Loading Recipes ...')
 
-  useEffect(() => {
-    console.log(setUser)
-  console.log(setToken)
-  }, [])
+const array = ['Loading Recipes...', 'We\'re cooking up something good...']
+let index = 1
+
+function displayMessages() {
+
+    if(index === array.length){
+      index = 0;
+    }
+  setLoadingMessage(array[index])
+  index++
+}
 
   useEffect(() => {
     sessionStorage.setItem('value', JSON.stringify(value))
   }, [value])
       
 function getToken(){
-    const token = sessionStorage.getItem('token') || '';
+    const token = localStorage.getItem('token') || '';
     const initialValue = token ? JSON.parse(token) : null;
     return initialValue || "";
     }
 
   function getUser(){
-    const user = sessionStorage.getItem('user') || '';
+    const user = localStorage.getItem('user') || '';
     const initialValue = user ? JSON.parse(user) : null;
     return initialValue || "";
   }
+
+  useEffect(() => {
+    setToken(token)
+    setUser(user)
+  }, [])
+
+  console.log('TOKEN:', token)
+  console.log('USER:', user)
 
 const time = new Date().getHours()
 useEffect(() => {
@@ -59,9 +75,10 @@ useEffect(() => {
 }
 }, [])
 
-console.log('USER:', user)
+
   function postUserData() {
     setLoading(true)
+    setInterval(displayMessages, 1500)
     fetch('https://brain-food-501b641e50fb.herokuapp.com/api/v1/recipes',
       {
         method: 'POST',
@@ -202,7 +219,7 @@ if(error) {
       <button className="cook" onClick={() => {postUserData()}}>
         Let's cook!
       </button>
-      {loading && <p className='loading'>Loading Recipes ...</p>} 
+      {loading && <p className='loading'>{loadingMessage}</p>} 
       {error && <p className='post-error'>Oh no! Looks like something went wrong. Please refresh the page or try again later.</p> }
         </section>
 

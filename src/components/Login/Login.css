@@ -11,6 +11,11 @@
 .password-icon {
     position: relative;
     height: 30px;
+    margin-bottom: 22px;
+}
+
+.loading {
+    height: 35px; 
 }
 
 input {
@@ -133,14 +138,24 @@ label {
     }
 }
 
+#modal-modal-description {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+}
+
+.loading-sign-up {
+    width: 35px; 
+}
+
 .sign-in-button {
     position: absolute; 
     bottom: 0; 
-    margin-bottom: 65px;
+    margin-bottom: 28px;
 }
 
 .sign-in {
-   margin-top: 70px;
+   margin-top: 50px;
 
 }
 

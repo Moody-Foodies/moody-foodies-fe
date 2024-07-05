@@ -38,11 +38,9 @@ export default function Login(){
     const [signUpEmail, setSignUpEmail] = useState<string>('')
     const [signUpPassword, setSignUpPassword] = useState<string>('')
     const [signUpConfirm, setSignUpConfirm] = useState('')
-    // const [user, setUser] = useState<string>('')
     const [emailError, setEmailError] = useState<string>('')
     const [error, setError] = useState<string>('')
     const [invalidError, setInvalidError] = useState<string>('')
-    // const [token, setToken] = useState<string>('')
     const [confirmation, setConfirmation] = useState<boolean>(true)
     const [showLogin, setShowLogin] = useState<boolean>(false)
     const [loading, setLoading] = useState<boolean>(false)
@@ -82,8 +80,6 @@ export default function Login(){
             setInvalidError(data.errors[0].detail)
           } else {
             setLoading(true)
-            // setUser(data.data.id)
-            // setToken(data.data.attributes.token)
             localStorage.setItem('user', JSON.stringify(data.data.id))
             localStorage.setItem('token', JSON.stringify(data.data.attributes.token))
             navigate('/home')
@@ -135,8 +131,6 @@ console.log('LOADING:', loading)
             setEmailError(data.errors[0].detail[0])
           } else {
             setSignUpLoading(true)
-            // setUser(data.data.id)
-            // setToken(data.data.attributes.token)
             localStorage.setItem('user', JSON.stringify(data.data.id))
             localStorage.setItem('token', JSON.stringify(data.data.attributes.token))
             navigate('/home')
@@ -209,9 +203,9 @@ console.log('LOADING:', loading)
                   <input placeholder='Enter your password here'  id='password-signup' value={signUpPassword} onChange={(event) => setSignUpPassword(event.target.value)} className='login' type={(show) ? 'text' : 'password'}></input> 
                 {(show) ? <img className='hide' aria-label='Hide password' tabIndex={0} alt='Icon of an eye with a slash through it' src={Hide} onClick={() => setShow(!show)} onKeyDown={(event) => togglePasswordVisibility(event)} /> : <img tabIndex={0} className='show' alt='Icon of an eye' aria-label='Show password' src={Show} onClick={() => setShow(!show)} onKeyDown={(event) => togglePasswordVisibility(event)} />}  
                 </div> 
-                <label htmlFor='password-signup'>Confirm Password:</label>
+                <label htmlFor='password-signup-confirm'>Confirm Password:</label>
                 <div className='password-icon'>
-                  <input placeholder='Enter your password again here'  id='password-signup' value={signUpConfirm} onChange={(event) => setSignUpConfirm(event.target.value)} className='login' type={(confirmShow) ? 'text' : 'password'}></input> 
+                  <input placeholder='Enter your password again here'  id='password-signup-confirm' value={signUpConfirm} onChange={(event) => setSignUpConfirm(event.target.value)} className='login' type={(confirmShow) ? 'text' : 'password'}></input> 
                 {(confirmShow) ? <img className='hide' aria-label='Hide password' tabIndex={0} alt='Icon of an eye with a slash through it' src={Hide} onClick={() => setConfirmShow(!confirmShow)} onKeyDown={(event) => togglePasswordConfirmationVisibility(event)} /> : <img tabIndex={0} className='show' alt='Icon of an eye' aria-label='Show password' src={Show} onClick={() => setConfirmShow(!confirmShow)} onKeyDown={(event) => togglePasswordConfirmationVisibility(event)} />}  
                 </div>     
             </form>

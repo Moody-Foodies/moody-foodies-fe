@@ -2,7 +2,7 @@
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import './RecipeCard.css';
-import { useState, KeyboardEvent } from 'react';
+import { useState, KeyboardEvent, useEffect } from 'react';
 import Favorite from '../../assets/favorite.png';
 import Unfavorite from '../../assets/unfavorite.png';
 import Box from '@mui/material/Box';
@@ -12,6 +12,7 @@ import Modal from '@mui/material/Modal';
 import Exit from '../../assets/exit.png';
 import Filler from '../../assets/filler.jpg';
 import Clock from '../../assets/clock.png';
+import Loading from '../../assets/loading.gif';
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -44,7 +45,8 @@ interface RecipeProps {
 
 export default function RecipeCard({name, image, ingredients, id, instructions, nutrient, cookTime, favorites, removeFavorite, toggleFavorite}: RecipeProps){
     const [open, setOpen] = useState<boolean>(false);
-    const [favorite, setFavorite] = useState(false);
+    const [favorite, setFavorite] = useState<boolean>(false);
+    const [imageType, setImageType] = useState(image)
 
     function handleOpen() {
       setOpen(true)
@@ -67,12 +69,20 @@ export default function RecipeCard({name, image, ingredients, id, instructions, 
       event.preventDefault()
       handleClose()
     }
+useEffect(() => {
+  if(image === '') {
+    setImageType('null')
+  }
+}, [])
+
 
       return (
       <div className='recipe-carousel'>
-       {(image === '') ? <div className='image-container' style={{ 'backgroundImage': `url(${Filler})`, 'backgroundSize': 'cover',
-    'backgroundPosition': 'center'}}></div> : <div className='image-container' style={{ 'backgroundImage': `url(${image})`, 'backgroundSize': 'cover',
+       {(imageType === 'null') ? <div className='image-container' style={{ 'backgroundImage': `url(${Filler})`, 'backgroundSize': 'cover',
+    'backgroundPosition': 'center'}}></div> : <div className='image-container' style={{ 'backgroundImage': `url(${imageType})`, 'backgroundSize': 'cover',
     'backgroundPosition': 'center'}}></div>}
+    {(imageType === '') && <img className='image-loader' src={Loading} />}
+    
     <div className='nutrient'><h2 className='nutrient-header' >Rich in {nutrient}</h2></div>
     <div className='name-container'><h2 className='recipe-carousel-name'>{name}</h2></div>
         {(Number(cookTime) > 0) && <div className='clock-container'><img alt='A clock icon' className='clock' src={Clock} /><h3 className='cook-time-board'>{cookTime} minutes</h3></div>}
@@ -83,7 +93,7 @@ export default function RecipeCard({name, image, ingredients, id, instructions, 
       >
         <Box sx={style}>
 
-          <Typography id="modal-modal-description" sx={{ mt: 2}}>
+          <Typography id="modal-modal-description-2" sx={{ mt: 2}}>
             <div>
                 <h2 className='modal-text'>Ingredients</h2>
                 {ingredients.map(ingredient => {

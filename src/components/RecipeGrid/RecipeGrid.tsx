@@ -20,10 +20,11 @@ interface AllRecipe {
 }
 
 interface ItemProps {
-  items: AllRecipe[]
+  items: AllRecipe[],
+  deleteRecipe: any
 }
 
-export default function RecipeGrid({ items }: ItemProps) {
+export default function RecipeGrid({ items, deleteRecipe }: ItemProps) {
   const [allRatings, setAllRatings] = useState(getStarRatings())
 
 
@@ -54,6 +55,7 @@ export default function RecipeGrid({ items }: ItemProps) {
          ingredients={item.attributes.ingredients}
          instructions={item.attributes.instructions}
          attributes={item.attributes}
+         deleteRecipe={deleteRecipe}
         />
 
       ))}

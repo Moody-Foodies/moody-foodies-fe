@@ -61,8 +61,6 @@ function getToken(){
     setUser(user)
   }, [])
 
-  console.log('TOKEN:', token)
-  console.log('USER:', user)
 
 const time = new Date().getHours()
 useEffect(() => {
@@ -116,9 +114,20 @@ useEffect(() => {
       
   }
 
- function getFavoriteRecipes(){
-  console.log('get favorite recipes')
- }
+  // function getFavoriteRecipes() {
+    
+  //   fetch(`https://brain-food-501b641e50fb.herokuapp.com/api/v1/recipes/favorites?user_id=${user}`, {
+  //     method: 'GET', 
+  //     headers: {
+  //       "Authorization": `Bearer ${token}`
+  //     }
+  //   }) 
+  //     .then(res => res.json())
+  //     .then(data => {
+  //       console.log('RECIPES:', data.data.recipes)
+  //       navigate('/dashboard')
+  //     })
+  // }
 
  useEffect(() => {
 if(error) {
@@ -126,7 +135,7 @@ if(error) {
 }
  }, [])
 
-  if(sessionStorage.length < 2) {
+  if(localStorage.length < 2) {
     return (
       <Error />
     )
@@ -172,7 +181,7 @@ if(error) {
       </RadioGroup>
     </FormControl>
     <div className='link-cont'>
-      <Link to='/dashboard' className='menu' onClick={()=> getFavoriteRecipes()}>Mood Board</Link>
+      <Link to='/dashboard' className='menu'>Mood Board</Link>
       <Link to='/' className='menu'>Logout</Link>
     </div>
         </header>

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
+import { useNavigate, Link, useLocation } from 'react-router-dom'
 import affirmations from '../../Quotes/quotes'
 import RecipeGrid from '../RecipeGrid/RecipeGrid'
 import './Dashboard.css'
@@ -42,12 +42,18 @@ export default function Dashboard() {
   getRatings: (id: string, rating: number) => void
   }
 
+  const location = useLocation();
+  const { allFavs } = location.state ;
   
   useEffect(() => {
     setValue(value)
     setToken(token)
     setUser(user)
   }, [])
+console.log('THISISJLFKD:JK:', allFavs)
+useEffect(() => {
+  setAllFavorites(allFavs)
+}, [])
 
 function getUser(){
     const user = localStorage.getItem('user') || '';
@@ -77,21 +83,23 @@ function getUser(){
     getRandomAffirmation(affirmations)
   }, [])
 
-  useEffect(() => {
+  // useEffect(() => {
     
-    fetch(`https://brain-food-501b641e50fb.herokuapp.com/api/v1/recipes/favorites?user_id=${user}`, {
-      method: 'GET', 
-      headers: {
-        "Authorization": `Bearer ${token}`
-      }
-    }) 
-    .then(res => res.json())
-    .then(data => console.log('DATAAAA:', data.data.recipes))
+  //   fetch(`https://brain-food-501b641e50fb.herokuapp.com/api/v1/recipes/favorites?user_id=${user}`, {
+  //     method: 'GET', 
+  //     headers: {
+  //       "Authorization": `Bearer ${token}`
+  //     }
+  //   }) 
+  //   .then(res => res.json())
+  //   .then(data => {
+  //     console.log('DATA:', data)
+  //     setAllFavorites(data.data.recipes)
+  //   })
 
-    
-  }, [])
+  // }, [])
 
- 
+ console.log('ALLFAVS:', allFavorites)
 let filteredRecipes = allFavorites.filter(favorite => favorite.attributes.name.toLowerCase().includes(search.toLowerCase()))
 
 if(localStorage.length < 2){

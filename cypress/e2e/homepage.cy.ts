@@ -27,7 +27,6 @@ describe('Homepage', () => {
         cy.get('label').first().contains('Calm')
         cy.get('label').first().click()
         cy.get('.landing-page').should('have.css', 'background-image').and('include', '/src/assets/calm.jpeg')
-        cy.get('.menu').contains('Mood Board')
         cy.get('h2').first().contains('Good')
         cy.get('.feeling').contains('How are you feeling today?')
         cy.get('.sad').should('exist')

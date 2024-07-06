@@ -31,25 +31,24 @@ export default function Recipes() {
 
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [value, setValue] = useState<string>(getValue())
-  const [tokens, setToken] = useState(getToken())
+  const [token, setToken] = useState(getToken())
   const [error, setError] = useState('')
-  const [users, setUser] = useState(getUser())
+  const [user, setUser] = useState(getUser())
   const [description, setDescription] = useState('')
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
-    console.log(setValue)
-    console.log(setToken)
-    console.log(setUser)
+   setValue(value)
+    setToken(token)
+    setUser(user)
   }, [])
   
-  let recipeByMood: any, token: string, user: number
+  let recipeByMood: any
 
   if(location.state){
      recipeByMood = location.state.data 
-    token = location.state.token 
-    user = location.state.user 
+
   } else {
     return (
       <Error />
@@ -63,16 +62,16 @@ function getValue(){
 }
 
 function getToken(){
-  const tokens = sessionStorage.getItem('token') || '';
+  const tokens = localStorage.getItem('token') || '';
   const initialValue = tokens ? JSON.parse(tokens) : null;
   return initialValue || "";
 }
 function getUser(){
-  const users = sessionStorage.getItem('user') || '';
+  const users = localStorage.getItem('user') || '';
   const initialValue = users ? JSON.parse(users) : null;
   return initialValue || "";
 }
-console.log(users)
+
   const [favorites, setFavorites] = useState(getFavorites());
 
   function toggleFavorite (id: string) {
@@ -87,7 +86,7 @@ console.log(users)
       method: 'POST', 
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${tokens}`
+        'Authorization': `Bearer ${token}`
       },
       body: JSON.stringify({
         id: favoriteRecipe?.id, 
@@ -124,7 +123,7 @@ console.log(users)
           user_id: user
         }),
         headers: {
-          "Authorization": `Bearer ${tokens}`,
+          "Authorization": `Bearer ${token}`,
           "Content-Type": 'application/json'
         }
       })
@@ -149,16 +148,16 @@ console.log(users)
 
   function getFavoriteRecipes(event: any) {
     event.preventDefault()
-    fetch(`https://brain-food-501b641e50fb.herokuapp.com/api/v1/recipes/favorites?user_id=${users}`, {
+    fetch(`https://brain-food-501b641e50fb.herokuapp.com/api/v1/recipes/favorites?user_id=${user}`, {
       method: 'GET', 
       headers: {
-        "Authorization": `Bearer ${tokens}`
+        "Authorization": `Bearer ${token}`
       }
     }) 
       .then(res => res.json())
       .then(data => {
-        console.log(data.data.recipes)
-        navigate('/dashboard')
+        console.log('DTAT:', data.data.recipes)
+        navigate('/dashboard', { state: { allFavs: data.data.recipes } })
       })
   }
 

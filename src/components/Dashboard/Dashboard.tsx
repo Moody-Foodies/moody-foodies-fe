@@ -42,16 +42,13 @@ export default function Dashboard() {
   getRatings: (id: string, rating: number) => void
   }
 
-
-
- let filteredRecipes = allFavorites.filter(favorite => favorite.attributes.name.toLowerCase().includes(search.toLowerCase()))
-
+  
   useEffect(() => {
     setValue(value)
     setToken(token)
     setUser(user)
   }, [])
-  
+
 function getUser(){
     const user = localStorage.getItem('user') || '';
     const initialValue = user ? JSON.parse(user) : null;
@@ -89,14 +86,15 @@ function getUser(){
       }
     }) 
     .then(res => res.json())
-    .then(data => setAllFavorites(data.data.recipes))
+    .then(data => console.log('DATAAAA:', data.data.recipes))
 
     
   }, [])
 
+ 
+let filteredRecipes = allFavorites.filter(favorite => favorite.attributes.name.toLowerCase().includes(search.toLowerCase()))
 
-
-if(sessionStorage.length < 2){
+if(localStorage.length < 2){
   return (
     <Error />
   )

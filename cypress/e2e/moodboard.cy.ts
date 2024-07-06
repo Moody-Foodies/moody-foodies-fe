@@ -328,6 +328,7 @@ describe('Mood board page', () => {
         cy.get('button').first().contains('Sign in')
         cy.get('.sign-in').click()
         cy.get('.menu').contains('Mood Board').click()
+        cy.url().should('eq', 'http://127.0.0.1:5173/dashboard')
     })
 
     it('Should show the user the mood board dashboard', () => {
@@ -336,7 +337,7 @@ describe('Mood board page', () => {
         cy.get('.menu').first().contains('Logout')
         cy.get('.menu').last().contains('Home')
         cy.get('input[type=text]').should('have.attr', 'placeholder', 'Search recipe by name')
-        cy.get('h2').contains('Average mood score: 3.5')
+        cy.get('h2').contains('Average Mood Score: 3.5')
         cy.get('h3').should('exist')
         cy.get('.menu').first().click()
         cy.url().should('eq', 'http://127.0.0.1:5173/')

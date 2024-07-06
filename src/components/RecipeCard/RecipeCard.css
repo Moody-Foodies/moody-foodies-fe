@@ -1,8 +1,9 @@
 .slick-slide > div {
     background-color: #cf7979;
-    height: 55vh; 
+    height: 62vh; 
     margin-right: 15px;
     margin-left: 15px;
+    margin-bottom: 20px;
     margin-top: 40px; 
     position: relative; 
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;

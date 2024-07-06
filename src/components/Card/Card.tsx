@@ -1,5 +1,5 @@
 import './Card.css';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, KeyboardEvent, MouseEvent } from 'react';
 import Delete from '../../assets/delete.png';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -10,6 +10,7 @@ import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 import Filler from '../../assets/filler.jpg';
+import Loading from '../../assets/loading.gif';
 
 interface ItemProps {
   name: string, 
@@ -19,7 +20,8 @@ interface ItemProps {
   allRatings: any,
   ingredients: string[],
   instructions: string[],
-  attributes: {}
+  attributes: {},
+  deleteRecipe: (event: MouseEvent | KeyboardEvent, id: string) => void
 }
 
 const style = {
@@ -38,22 +40,25 @@ const style = {
     p: 4,
   };
 
-export default function Card({name, image, id, ingredients, instructions, getRatings, allRatings}: ItemProps) {
+export default function Card({name, image, id, ingredients, instructions, getRatings, deleteRecipe, allRatings}: ItemProps) {
     const [open, setOpen] = useState<boolean>(false);
     const [rating, setRating] = useState<number>(0)
     const [isFlipped, setIsFlipped] = useState<boolean>(true)
     const [token, setToken] = useState<string>(getToken())
     const [user, setUser] = useState<number>(getUser())
     const [favorites, setFavorites] = useState(getFavorites())
+    const [imageType, setImageType] = useState(image)
+
 
     useEffect(() => {
-         console.log(rating)
-        console.log(setToken)
-        console.log(setUser)
+        setRating(rating)
+        setToken(token)
+        setUser(user)
+        console.log(setFavorites)
     }, [])
  
     function getToken(){
-      const token = sessionStorage.getItem('token') || '';
+      const token = localStorage.getItem('token') || '';
       const initialValue = token ? JSON.parse(token) : null;
       return initialValue || "";
     }
@@ -80,48 +85,38 @@ export default function Card({name, image, id, ingredients, instructions, getRat
       const initialValue = JSON.parse(favorites);
       return initialValue || "";
     }
-  
+
 
     function getUser(){
-      const user = sessionStorage.getItem('user') || '';
+      const user = localStorage.getItem('user') || '';
       const initialValue = user ? JSON.parse(user) : null;
       return initialValue || "";
     }
 
-    function deleteRecipe(event: any, id: string) {
-      event.preventDefault()
-          
-      fetch(`https://brain-food-501b641e50fb.herokuapp.com/api/v1/recipes/favorites`, {
-        method: 'DELETE',
-        body: JSON.stringify({
-          recipe_id: id,
-          user_id: user
-        }),
-        headers: {
-          "Authorization": `Bearer ${token}`,
-          "Content-Type": 'application/json'
-        }
-      })
+    function test(event: MouseEvent, id:string) {
+      deleteRecipe(event, id)
       handleClose()
-      let newFavorites = favorites.filter((fav: string) => fav !== id)
-      setFavorites(newFavorites)  
-     }
+    }
 
-     useEffect(() => {
+    function accessibilityDelete(event: KeyboardEvent, id: string) {
+      if(event.key === 'Enter' || event.key === ' ') {
+        deleteRecipe(event, id)
+        handleClose()
+      }
+    }
+
+    useEffect(() => {
       localStorage.setItem('favorites', JSON.stringify(favorites))
-        fetch(`https://brain-food-501b641e50fb.herokuapp.com/api/v1/recipes/favorites?user_id=${user}`, {
-        method: 'GET', 
-        headers: {
-          "Authorization": `Bearer ${token}`
-        }
-      }) 
-        .then(res => res.json())
-        .then(data => {
-          console.log('ALL TIME FAVS:', data.data.recipes)
-        })
     }, [favorites])
 
-    return (
+    useEffect(() => {
+      if(imageType === '') {
+        setImageType('null')
+      }
+    }, [])
+
+
+  return (
       <ReactCardFlip isFlipped={!isFlipped} flipDirection="horizontal">
         <div className='favorite-recipe'>
           <div className='star-rating-container'>
@@ -130,11 +125,12 @@ export default function Card({name, image, id, ingredients, instructions, getRat
           </div>
           
             <div className='favorite-name-container'><h4 className='grid-recipe-name'>{name}</h4></div>
-            {image ? <div className='image' style={{ 'backgroundImage': `url(${image})`, 'backgroundSize': 'cover',
-    'backgroundPosition': 'center'}}></div> : <div className='image' style={{ 'backgroundImage': `url(${Filler})`, 'backgroundSize': 'cover',
+            {imageType === 'null' ? <div className='image' style={{ 'backgroundImage': `url(${Filler})`, 'backgroundSize': 'cover',
+    'backgroundPosition': 'center'}}></div> : <div className='image' style={{ 'backgroundImage': `url(${imageType})`, 'backgroundSize': 'cover',
     'backgroundPosition': 'center'}}></div> }
+     <div className='loading-image-container'>{(imageType === '') && <img className='image-loader' src={Loading} />}</div> 
     <button className='recipe-btn' onClick={handleClick}>Details</button>
-            <img className='delete' onClick={handleOpen} src={Delete} aria-label='delete' tabIndex={0} onKeyDown={(event) => deleteRecipe(event, id)} alt='Icon of a trash bin'/>
+            <img className='delete' onClick={handleOpen} src={Delete} aria-label='delete' tabIndex={0} alt='Icon of a trash bin'/>
         <Modal
         open={open}
         onClose={handleClose}
@@ -143,7 +139,7 @@ export default function Card({name, image, id, ingredients, instructions, getRat
           <Typography id="modal-modal-description" sx={{ mt: 2, 'textAlign': 'center'}}>
     Are you sure you want to delete this recipe from your favorites? 
           </Typography>
-          <button className='delete-button' onClick={(event) => deleteRecipe(event, id)}>Yes, please!</button>
+          <button className='delete-button' onClick={(event) => test(event, id)} onKeyDown={(event) => accessibilityDelete(event, id)}>Yes, please!</button>
         </Box>
       </Modal>
         </div>       
@@ -161,8 +157,13 @@ export default function Card({name, image, id, ingredients, instructions, getRat
                 {(instructions.length === 1) ? <a className='link-instructions' href={instructions[0]}>Click here for instructions.</a> : instructions.map((instruction, index) => <p className='modal-text'>{(index + 1)}: {instruction}</p>)}
                 
             </div>
+      
           <button className='recipe-btn' onClick={handleClick}>Go Back</button>
         </div>
         </ReactCardFlip>
     )
+
+      
+
+    
 }

@@ -34,6 +34,7 @@ export default function Recipes() {
   const [tokens, setToken] = useState(getToken())
   const [error, setError] = useState('')
   const [users, setUser] = useState(getUser())
+  const [description, setDescription] = useState('')
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -188,6 +189,17 @@ console.log(users)
       }
     ]
   };
+
+  function modifyDescription() {
+    let splitString = recipeByMood[0].attributes.health_benefits.split(' ')
+    splitString.shift()
+    setDescription(splitString.join(' '))
+  }
+
+  useEffect(() => {
+    modifyDescription()
+  }, [])
+
   return (
     <main 
     style={{ 
@@ -215,7 +227,7 @@ console.log(users)
           <Link to='/' className='menu'>Logout</Link>
         </div>
       </header>
-     {(recipeByMood.length > 0) && <section className='benefit-container'><p className='health-benefit'><span>💡 Did you know?</span> {recipeByMood[0].attributes.health_benefits}</p></section>}
+     {(recipeByMood.length > 0) && <section className='benefit-container'><p className='health-benefit'><span>💡 Did you know?</span> {description}</p></section>}
       <Slider {...settings}>
         {recipes.map(recipe => {
           return (

@@ -33,6 +33,15 @@
     font-size: 1.2em;
 }
 
+#modal-modal-description-2 {
+    text-align: left;
+}
+
+.image-loader {
+    height: 40px;
+    margin-left: 10px;
+}
+
 .name-container {
     height: 80px;
 }

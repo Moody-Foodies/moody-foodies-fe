@@ -7,6 +7,12 @@
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
+.loading-image-container {
+    display: flex;
+    justify-content: center; 
+    margin-top: 50px;
+}
+
 .recipe-details {
     overflow-y: auto; 
     font-family: "DM Sans", sans-serif;

@@ -114,20 +114,7 @@ useEffect(() => {
       
   }
 
-  // function getFavoriteRecipes() {
-    
-  //   fetch(`https://brain-food-501b641e50fb.herokuapp.com/api/v1/recipes/favorites?user_id=${user}`, {
-  //     method: 'GET', 
-  //     headers: {
-  //       "Authorization": `Bearer ${token}`
-  //     }
-  //   }) 
-  //     .then(res => res.json())
-  //     .then(data => {
-  //       console.log('RECIPES:', data.data.recipes)
-  //       navigate('/dashboard')
-  //     })
-  // }
+
 
  useEffect(() => {
 if(error) {
@@ -181,7 +168,7 @@ if(error) {
       </RadioGroup>
     </FormControl>
     <div className='link-cont'>
-      <Link to='/dashboard' className='menu'>Mood Board</Link>
+
       <Link to='/' className='menu'>Logout</Link>
     </div>
         </header>

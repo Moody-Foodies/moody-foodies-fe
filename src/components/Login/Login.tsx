@@ -89,7 +89,7 @@ export default function Login(){
           setError(error.message)
         })
     }
-console.log('LOADING:', loading)
+
     if(error) {
       return (
         <Error />

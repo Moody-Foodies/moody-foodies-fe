@@ -56,6 +56,10 @@ export default function Card({name, image, id, ingredients, instructions, getRat
         setUser(user)
         setFavorites(favorites)
     }, [])
+
+   let ratingUser = Object.keys(allRatings)
+   let ratingLength = ratingUser.filter(userRating => userRating === user.toString())
+
  
     function getToken(){
       const token = localStorage.getItem('token') || '';
@@ -126,9 +130,11 @@ export default function Card({name, image, id, ingredients, instructions, getRat
         <div className='favorite-recipe'>
           <div className='star-rating-container'>
                <p className='rating'>My Rating:</p>
-               <Rating value={allRatings[user][id]} onChange={(event) => handleRating(Number(event.target.value))} cancel={false} /> 
+               {(ratingLength.length > 0) ? 
+               <Rating value={allRatings[user][id]} onChange={(event) => handleRating(Number(event.target.value))} cancel={false} /> :
+               <Rating value={0} onChange={(event) => handleRating(Number(event.target.value))} cancel={false} /> }
           </div>
-          
+           
             <div className='favorite-name-container'><h4 className='grid-recipe-name'>{name}</h4></div>
             {imageType === 'null' ? <div className='image' style={{ 'backgroundImage': `url(${Filler})`, 'backgroundSize': 'cover',
     'backgroundPosition': 'center'}}></div> : <div className='image' style={{ 'backgroundImage': `url(${imageType})`, 'backgroundSize': 'cover',

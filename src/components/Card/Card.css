@@ -29,7 +29,7 @@
 }
 
 .favorite-name-container {
-    height: 70px;
+    height: 78px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -64,7 +64,7 @@
 .grid-recipe-name {
     text-align: center;
     text-decoration: none;
-    font-size: 1.5em;
+    font-size: 1.25em;
     margin-top: 15px;
     margin-bottom: 0px;
     font-family: "DM Sans", sans-serif;

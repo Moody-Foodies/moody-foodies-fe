@@ -43,10 +43,22 @@ interface RecipeProps {
   removeFavorite: (id: string) => void
 }
 
-export default function RecipeCard({name, image, ingredients, id, instructions, nutrient, cookTime, favorites, removeFavorite, toggleFavorite}: RecipeProps){
+export default function RecipeCard({name, image, ingredients, id, instructions, nutrient, cookTime, removeFavorite, toggleFavorite}: RecipeProps){
     const [open, setOpen] = useState<boolean>(false);
-    const [favorite, setFavorite] = useState<boolean>(false);
+    const [favorite, setFavorite] = useState(false);
     const [imageType, setImageType] = useState(image)
+    const [user, setUser] = useState(getUser())
+    const [token, setToken] = useState(getToken())
+    const [favorites, setFavorites] = useState(getFavorites())
+    
+useEffect(() => {
+  setUser(user)
+  setToken(token)
+  setFavorites(favorites)
+  if(favorites.includes(id)) {
+    setFavorite(true)
+  }
+}, [])
 
     function handleOpen() {
       setOpen(true)
@@ -58,23 +70,59 @@ export default function RecipeCard({name, image, ingredients, id, instructions, 
 
     function test(id: string){
       setFavorite(!favorite)
-      if(!favorite){
-        toggleFavorite(id)
-      } else {
-        removeFavorite(id)
-      }
+      toggleFavorite(id)
+    }
+
+
+    function anotherTest(id: string) {
+      setFavorite(!favorite)
+      removeFavorite(id)
+      
+    }
+    function testAccessibility(id: string, event: KeyboardEvent){
+      if(event.key === 'Enter' || event.key === ' ') {
+        setFavorite(!favorite)
+      toggleFavorite(id)
+      } 
+    }
+
+
+    function anotherTestAccessibility(id: string, event: KeyboardEvent) {
+      if(event.key === 'Enter' || event.key === ' ') {
+        setFavorite(!favorite)
+      removeFavorite(id)
+      }           
+    }
+
+    function getToken(){
+      const token = localStorage.getItem('token') || '';
+      const initialValue = token ? JSON.parse(token) : null;
+      return initialValue || "";
+    }
+    function getUser(){
+      const user = localStorage.getItem('user') || '';
+      const initialValue = user ? JSON.parse(user) : null;
+      return initialValue || "";
+    }
+
+    function getFavorites(){
+      const favorites = localStorage.getItem('favorites') || '';
+      const initialValue = favorites ? JSON.parse(favorites) : null;
+      return initialValue || "";
     }
 
     function accessibleExit(event: KeyboardEvent<HTMLImageElement>) {
-      event.preventDefault()
-      handleClose()
+      if(event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault()
+        handleClose()
+      }    
     }
+
 useEffect(() => {
   if(image === '') {
     setImageType('null')
   }
 }, [])
-
 
       return (
       <div className='recipe-carousel'>
@@ -86,7 +134,7 @@ useEffect(() => {
     <div className='nutrient'><h2 className='nutrient-header' >Rich in {nutrient}</h2></div>
     <div className='name-container'><h2 className='recipe-carousel-name'>{name}</h2></div>
         {(Number(cookTime) > 0) && <div className='clock-container'><img alt='A clock icon' className='clock' src={Clock} /><h3 className='cook-time-board'>{cookTime} minutes</h3></div>}
-          <Button sx={{'position': 'absolute', 'bottom': 0, 'left': 10, 'color': '#390400' }}onClick={handleOpen}>Ingredients & Instructions</Button>
+          <Button sx={{'position': 'absolute', 'bottom': 0, 'left': 10, 'color': '#390400' }} onClick={handleOpen}>Ingredients & Instructions</Button>
         <Modal
         open={open}
         onClose={handleClose}
@@ -110,8 +158,9 @@ useEffect(() => {
           </Typography>
         </Box>
       </Modal>
-        {(!favorites.includes(id)) ? <div className='heart-container'><img tabIndex={0} aria-label='unfavorite' className='heart' alt='White heart icon with a black outline' src={Unfavorite} onKeyDown={() => test(id)} onClick={() => test(id)} /></div> : <div className='heart-container'><img className='heart' aria-label='favorite' tabIndex={0} alt='Red heart icon' src={Favorite} onKeyDown={() => test(id)} onClick={() => test(id)} /></div> }
-     
+        
+      {(!favorite) ? <div className='heart-container'><img tabIndex={0} aria-label='unfavorite' className='heart' alt='White heart icon with a black outline' src={Unfavorite} onKeyDown={(event) => testAccessibility(id, event)} onClick={() => test(id)}/></div> : <div className='heart-container'><img className='heart' aria-label='favorite' tabIndex={0} alt='Red heart icon' src={Favorite} onKeyDown={(event) => anotherTestAccessibility(id, event)} onClick={() => anotherTest(id)} /></div> }
+      
      </div> 
 
         )

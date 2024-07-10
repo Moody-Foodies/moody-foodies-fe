@@ -11,7 +11,7 @@
     height: 350px;
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1200px) {
     .recipe-grid {
         grid-template-columns: repeat(2, 1fr);
     }

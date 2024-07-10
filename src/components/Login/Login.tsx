@@ -62,6 +62,7 @@ export default function Login(){
     }
 
     function postLogin() {
+      setInvalidError('')
         fetch('https://brain-food-501b641e50fb.herokuapp.com/api/v1/login', {
             method: 'POST', 
             body: JSON.stringify({

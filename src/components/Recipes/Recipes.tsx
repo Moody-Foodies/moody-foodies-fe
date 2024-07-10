@@ -35,6 +35,7 @@ export default function Recipes() {
   const [error, setError] = useState('')
   const [user, setUser] = useState(getUser())
   const [description, setDescription] = useState('')
+  const [favorites, setFavorites] = useState(getFavorites())
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -42,6 +43,9 @@ export default function Recipes() {
    setValue(value)
     setToken(token)
     setUser(user)
+    setFavorites(favorites)
+    setRecipes(recipeByMood);
+    getFavoriteRecipes()
   }, [])
   
   let recipeByMood: any
@@ -66,18 +70,20 @@ function getToken(){
   const initialValue = tokens ? JSON.parse(tokens) : null;
   return initialValue || "";
 }
+
+function getFavorites() {
+  const favorites = localStorage.getItem('favorites') || '';
+  const initialValue = favorites ? JSON.parse(favorites) : null;
+  return initialValue || "";
+}
 function getUser(){
   const users = localStorage.getItem('user') || '';
   const initialValue = users ? JSON.parse(users) : null;
   return initialValue || "";
 }
 
-  const [favorites, setFavorites] = useState(getFavorites());
-
   function toggleFavorite (id: string) {
-    if(!favorites.includes(id)){
-      setFavorites([...favorites, id])
-    }
+    
     let favoriteRecipe = recipes.find(recipe => {
       return recipe.id === id
     })
@@ -106,17 +112,18 @@ function getUser(){
     })
     .then(res => res.json())
     .then(data => {
-      console.log(data)
+      getFavoriteRecipes()
     if(data.errors) {
       setError(data.errors[0].detail)
   }
      })
     }
 
-     function removeFavorite(id: string){
-      let newFavorites = favorites.filter((fav: string) => fav !== id)
-      setFavorites(newFavorites)
-      fetch(`https://brain-food-501b641e50fb.herokuapp.com/api/v1/recipes/favorites`, {
+     async function removeFavorite(id: string){
+ 
+      try {
+
+      await fetch(`https://brain-food-501b641e50fb.herokuapp.com/api/v1/recipes/favorites`, {
         method: 'DELETE',
         body: JSON.stringify({
           recipe_id: id,
@@ -129,25 +136,25 @@ function getUser(){
       })
       .then(res => res.json())
       .then(data => console.log(data))
+      const response = await fetch(`https://brain-food-501b641e50fb.herokuapp.com/api/v1/recipes/favorites?user_id=${user}`, {
+        method: 'GET', 
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
+      })
+      const data = await response.json();
+      let favoriteId = data.data.recipes.map((fav: Recipe) => {
+        return fav.id 
+      })
+      localStorage.setItem('favorites', JSON.stringify(favoriteId))
+      getFavoriteRecipes()
      }
+     catch (error) {
+      console.error('Error:', error);
+    }
+    }
 
-  useEffect(() => {
-    setRecipes(recipeByMood);
-
-  }, []);
-
-    useEffect(() => {
-    localStorage.setItem('favorites', JSON.stringify(favorites))
-  }, [favorites])
-
-   function getFavorites(){
-    const favorites = localStorage.getItem('favorites') || '[]';
-    const initialValue = JSON.parse(favorites);
-    return initialValue || "";
-  }
-
-  function getFavoriteRecipes(event: any) {
-    event.preventDefault()
+  function getFavoriteRecipes() {
     fetch(`https://brain-food-501b641e50fb.herokuapp.com/api/v1/recipes/favorites?user_id=${user}`, {
       method: 'GET', 
       headers: {
@@ -156,8 +163,11 @@ function getUser(){
     }) 
       .then(res => res.json())
       .then(data => {
-        console.log('DTAT:', data.data.recipes)
-        navigate('/dashboard', { state: { allFavs: data.data.recipes } })
+        console.log(data)
+        let favoriteId = data.data.recipes.map((fav: Recipe) => {
+          return fav.id 
+        })
+        localStorage.setItem('favorites', JSON.stringify(favoriteId))
       })
   }
 
@@ -221,7 +231,7 @@ function getUser(){
       <header className='recipeGrid'>
         <h1 className='title'>Food for Your Mood</h1>
         <div className='link-container'>
-          <Link to='/dashboard' className='menu' onClick={(event) => getFavoriteRecipes(event)}>Mood Board</Link>
+          <Link to='/dashboard' className='menu'>Mood Board</Link>
           <Link to='/home' className='menu' onClick={() => navigate('/', {state: {value: value, user: user, token: token}})}>Home</Link>
           <Link to='/' className='menu'>Logout</Link>
         </div>

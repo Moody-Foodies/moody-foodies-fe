@@ -101,7 +101,6 @@ useEffect(() => {
       })
       .then((data) => {
       navigate('/recipes', {state: { data: data.data, token: token, value: value, mood: moodValue, time: timeValue}})
-       console.log(data.data)
        if(!data) {
         console.log('error')
        }

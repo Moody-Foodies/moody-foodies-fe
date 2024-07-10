@@ -16,7 +16,7 @@ interface AllRecipe {
   ingredients: string[];
   instructions: string[];
   attributes: any,
-  getRatings: (id: string, rating: number) => void
+  getRatings: (id: string, rating: number) => void,
 }
 
 interface ItemProps {
@@ -24,17 +24,40 @@ interface ItemProps {
   deleteRecipe: any
 }
 
+interface PreviousRatings {
+  [user: number]: {
+    [id: string]: number
+  }
+}
+
+
 export default function RecipeGrid({ items, deleteRecipe }: ItemProps) {
   const [allRatings, setAllRatings] = useState(getStarRatings())
+  const [user, setUser] = useState(getUser())
 
+  useEffect(() => {
+    setUser(user)
+  }, [])
 
-  function getRatings(id: string, rating: number){
-    setAllRatings({...allRatings, [id]: rating})
+  function getRatings(id: string, rating: number, user: number){
+    setAllRatings((prevRatings: PreviousRatings) => ({
+      ...prevRatings,
+      [user]: {
+        ...prevRatings[user], 
+        [id]: rating
+      }
+    }));
   }
 
   useEffect(() => {
     localStorage.setItem('allRatings', JSON.stringify(allRatings))
   }, [allRatings])
+
+  function getUser(){
+    const user = localStorage.getItem('user') || '';
+    const initialValue = user ? JSON.parse(user) : null;
+    return initialValue || "";
+  }
 
   function getStarRatings(){
     const starRatings = localStorage.getItem('allRatings') || '{}';

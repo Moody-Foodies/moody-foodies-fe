@@ -16,7 +16,7 @@ interface ItemProps {
   name: string, 
   id: string, 
   image: string,
-  getRatings: (id: string, newRating: number) => void,
+  getRatings: (id: string, newRating: number, user: number) => void,
   allRatings: any,
   ingredients: string[],
   instructions: string[],
@@ -54,7 +54,7 @@ export default function Card({name, image, id, ingredients, instructions, getRat
         setRating(rating)
         setToken(token)
         setUser(user)
-        console.log(setFavorites)
+        setFavorites(favorites)
     }, [])
  
     function getToken(){
@@ -67,6 +67,12 @@ export default function Card({name, image, id, ingredients, instructions, getRat
       setOpen(true)
     }
 
+    function handleOpenAccessibility(event: KeyboardEvent) {
+      if(event.key === 'Enter' || event.key === ' '){
+        setOpen(true)
+      }
+    }
+
     function handleClose() {
       setOpen(false)
     }
@@ -77,7 +83,7 @@ export default function Card({name, image, id, ingredients, instructions, getRat
 
     function handleRating(newRating: number){
       setRating(newRating)
-      getRatings(id, newRating)
+      getRatings(id, newRating, user)
     }
 
     function getFavorites(){
@@ -115,22 +121,21 @@ export default function Card({name, image, id, ingredients, instructions, getRat
       }
     }, [])
 
-
   return (
       <ReactCardFlip isFlipped={!isFlipped} flipDirection="horizontal">
         <div className='favorite-recipe'>
           <div className='star-rating-container'>
                <p className='rating'>My Rating:</p>
-               <Rating value={allRatings[id]} onChange={(event) => handleRating(Number(event.target.value))} cancel={false} /> 
+               <Rating value={allRatings[user][id]} onChange={(event) => handleRating(Number(event.target.value))} cancel={false} /> 
           </div>
           
             <div className='favorite-name-container'><h4 className='grid-recipe-name'>{name}</h4></div>
             {imageType === 'null' ? <div className='image' style={{ 'backgroundImage': `url(${Filler})`, 'backgroundSize': 'cover',
     'backgroundPosition': 'center'}}></div> : <div className='image' style={{ 'backgroundImage': `url(${imageType})`, 'backgroundSize': 'cover',
     'backgroundPosition': 'center'}}></div> }
-     <div className='loading-image-container'>{(imageType === '') && <img className='image-loader' src={Loading} />}</div> 
+     <div className='loading-image-container'>{(imageType === '') && <img className='image-loader' alt='Boiling pot on a stove' src={Loading} />}</div> 
     <button className='recipe-btn' onClick={handleClick}>Details</button>
-            <img className='delete' onClick={handleOpen} src={Delete} aria-label='delete' tabIndex={0} alt='Icon of a trash bin'/>
+            <img className='delete' onClick={handleOpen} src={Delete} aria-label='delete' tabIndex={0} onKeyDown={(event) => handleOpenAccessibility(event)} alt='Icon of a trash bin'/>
         <Modal
         open={open}
         onClose={handleClose}
@@ -148,13 +153,15 @@ export default function Card({name, image, id, ingredients, instructions, getRat
                 <h2 className='modal-text'>Ingredients</h2>
                 {ingredients.map(ingredient => {
                   return (
-                    <li>{ingredient}</li>
+                    <menu>
+                      <li>{ingredient}</li>
+                    </menu>            
                   )
                 })}
             </div>
             <div>
                 <h2 className='modal-text' id='instructions'>Instructions</h2>
-                {(instructions.length === 1) ? <a className='link-instructions' href={instructions[0]}>Click here for instructions.</a> : instructions.map((instruction, index) => <p className='modal-text'>{(index + 1)}: {instruction}</p>)}
+                {(instructions.length === 1) ? <a className='link-instructions' href={instructions[0]}>Recipe instructions.</a> : instructions.map((instruction, index) => <p className='modal-text'>{(index + 1)}: {instruction}</p>)}
                 
             </div>
       

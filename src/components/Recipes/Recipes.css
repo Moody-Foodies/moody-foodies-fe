@@ -47,11 +47,6 @@
     text-align: center; 
 }
 
-.link-container {
-    position: absolute; 
-    right: 50px; 
-}
-
 .benefit-container {
     background-color: #eed9c4;
     margin-top: 20px;
@@ -73,7 +68,7 @@ h4 {
     font-size: 3.5em;
     margin-bottom: 0;
     margin-top: 0;
-    margin-left: 30px;
+    margin-left: 250px;
 }
 
 .favorite {
@@ -112,6 +107,10 @@ h4 {
     text-decoration: underline;
     font-size: 1em;
     cursor: pointer; 
+}
+
+.link-container {
+    margin-left: 100px;
 }
 
 .dashboard-icon {
@@ -171,30 +170,23 @@ p {
 @media screen and (max-width: 1200px) {
     .title {
         font-size: 3em;
-        position: absolute; 
-        left: 0; 
-        margin-left: 25px;
+        margin-left: 50px; 
     }
-}
 
-@media screen and (max-width: 800px) {
-    .title {
-       display: none; 
-    }
-    
     .link-container {
-        display: flex;
-        flex-direction: row;
-        margin-top: 45px;
-    }
-
-    .benefit-container {
-        margin-top: 60px;
+        margin-right: 10px;
+        margin-left: 0;
     }
 
     .recipeGrid {
         justify-content: space-between;
-        background-color: transparent;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .title {
+        color: transparent;
+        width: 10px;
     }
 }
 

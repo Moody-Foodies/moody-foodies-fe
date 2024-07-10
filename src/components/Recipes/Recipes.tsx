@@ -38,12 +38,14 @@ export default function Recipes() {
   const [favorites, setFavorites] = useState(getFavorites())
   const navigate = useNavigate();
   const location = useLocation();
+  const [allFavoriteRecipes, setAllFavoriteRecipes] = useState([])
 
   useEffect(() => {
    setValue(value)
     setToken(token)
     setUser(user)
     setFavorites(favorites)
+    setAllFavoriteRecipes(favorites)
     setRecipes(recipeByMood);
     getFavoriteRecipes()
   }, [])
@@ -168,8 +170,10 @@ function getUser(){
           return fav.id 
         })
         localStorage.setItem('favorites', JSON.stringify(favoriteId))
+        setAllFavoriteRecipes(favoriteId)
       })
   }
+
 
   var settings = {
     dots: false,
@@ -252,6 +256,7 @@ function getUser(){
               removeFavorite={() => removeFavorite(recipe.id)}
               toggleFavorite={() => toggleFavorite(recipe.id)}
               favorites={favorites}
+              allFavoriteRecipes={allFavoriteRecipes}
               error={error}
               healthBenefits={recipe.attributes.health_benefits}
               nutrient={recipe.attributes.nutrient}

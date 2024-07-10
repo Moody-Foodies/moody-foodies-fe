@@ -39,11 +39,12 @@ interface RecipeProps {
   error: string,
   favorites: string[],
   healthBenefits: string,
+  allFavoriteRecipes: string[],
   toggleFavorite: (id: string) => void,
   removeFavorite: (id: string) => void
 }
 
-export default function RecipeCard({name, image, ingredients, id, instructions, nutrient, cookTime, removeFavorite, toggleFavorite}: RecipeProps){
+export default function RecipeCard({name, image, ingredients, id, allFavoriteRecipes, instructions, nutrient, cookTime, removeFavorite, toggleFavorite}: RecipeProps){
     const [open, setOpen] = useState<boolean>(false);
     const [favorite, setFavorite] = useState(false);
     const [imageType, setImageType] = useState(image)
@@ -56,10 +57,12 @@ useEffect(() => {
   setToken(token)
   setFavorites(favorites)
   if(favorites.includes(id)) {
-    setFavorite(true)
+    setFavorite(true) 
+  } else {
+    setFavorite(false)
   }
 }, [])
-
+console.log('ALLTHEFAVORITESPLEASE WORK:', allFavoriteRecipes)
     function handleOpen() {
       setOpen(true)
     }
@@ -158,8 +161,8 @@ useEffect(() => {
           </Typography>
         </Box>
       </Modal>
-        
-      {(!favorite) ? <div className='heart-container'><img tabIndex={0} aria-label='unfavorite' className='heart' alt='White heart icon with a black outline' src={Unfavorite} onKeyDown={(event) => testAccessibility(id, event)} onClick={() => test(id)}/></div> : <div className='heart-container'><img className='heart' aria-label='favorite' tabIndex={0} alt='Red heart icon' src={Favorite} onKeyDown={(event) => anotherTestAccessibility(id, event)} onClick={() => anotherTest(id)} /></div> }
+      
+      {(!allFavoriteRecipes.includes(id)) ? <div className='heart-container'><img tabIndex={0} aria-label='unfavorite' className='heart' alt='White heart icon with a black outline' src={Unfavorite} onKeyDown={(event) => testAccessibility(id, event)} onClick={() => test(id)}/></div> : <div className='heart-container'><img className='heart' aria-label='favorite' tabIndex={0} alt='Red heart icon' src={Favorite} onKeyDown={(event) => anotherTestAccessibility(id, event)} onClick={() => anotherTest(id)} /></div> }
       
      </div> 
 

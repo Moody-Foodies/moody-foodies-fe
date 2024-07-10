@@ -20,7 +20,7 @@ const style = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: 600,
-  height: 700,
+  height: 600,
   bgcolor: '#8F9779',
   overflowY: "auto",
   boxShadow: 24,
@@ -62,7 +62,7 @@ useEffect(() => {
     setFavorite(false)
   }
 }, [])
-console.log('ALLTHEFAVORITESPLEASE WORK:', allFavoriteRecipes)
+
     function handleOpen() {
       setOpen(true)
     }
@@ -155,7 +155,7 @@ useEffect(() => {
             </div>
             <div>
                 <h2 className='modal-text' id='instructions'>Instructions</h2>
-                {(instructions.length === 1) ? <a className='link-instructions' href={instructions[0]}>Click here for instructions.</a> : instructions.map((instruction, index) => <p className='modal-text'>{(index + 1)}: {instruction}</p>)}
+                {(instructions.length === 1) ? <a className='link-instructions' href={instructions[0]}>Recipe instructions.</a> : instructions.map((instruction, index) => <p className='modal-text'>{(index + 1)}: {instruction}</p>)}
                 <img onClick={handleClose} onKeyDown={(event) => accessibleExit(event)} tabIndex={0} aria-label='exit modal' src={Exit} alt='A black X icon' className='exit' />
             </div>
           </Typography>

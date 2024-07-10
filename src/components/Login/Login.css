@@ -105,6 +105,7 @@ form {
     width: 350px;
     margin-left: 0; 
     margin-bottom: 22px; 
+    background-color: rgb(250, 211, 207, .6);
 }
 
 label {
